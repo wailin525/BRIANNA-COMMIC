@@ -93,7 +93,7 @@
     display:none;
     flex-direction:column;
     overflow:hidden;
-    min-height: 720px;
+    aspect-ratio: 5 / 7;
     animation: pageIn .45s ease-out;
   }
   .page.active{display:flex;}
@@ -423,7 +423,7 @@
         <span class="sparkle s3">✧</span>
         <span class="sparkle s4">✦</span>
 
-        <div class="cover-presents">A BriAnna Comic Presents...</div>
+        <div class="cover-presents">BriAnna Comics Presents...</div>
         <h1 class="cover-title">EMILY</h1>
 
         <div class="cover-art">
@@ -492,7 +492,7 @@
           </svg>
         </div>
 
-        <div class="cover-by">By: <strong>Zhaoyang (Brian)</strong> &amp; <strong>Zhaoyi (Anna)</strong></div>
+        <div class="cover-by">By: <strong>Brian Dai</strong> &amp; <strong>Anna Dai</strong></div>
         <span class="pagenum">cover</span>
       </section>
 
@@ -502,7 +502,7 @@
         <ol>
           <li data-jump="3"><span>The Day Earth Might End</span><span class="dots"></span><span class="pn">3</span></li>
           <li data-jump="5"><span>First Day of High School</span><span class="dots"></span><span class="pn">5</span></li>
-          <li data-jump="7"><span>When the Earth Really Might End... AGAIN!</span><span class="dots"></span><span class="pn">7</span></li>
+          <li data-jump="7"><span>When the Earth Really Might End...</span><span class="dots"></span><span class="pn">7</span></li>
           <li data-jump="9"><span>When It Is Time to Destroy Earth</span><span class="dots"></span><span class="pn">9</span></li>
           <li data-jump="11"><span>The True Power of Noon</span><span class="dots"></span><span class="pn">11</span></li>
           <li data-jump="13"><span>When the N.E.W.C. Began</span><span class="dots"></span><span class="pn">13</span></li>
@@ -598,7 +598,7 @@
             <div class="panel-art">
               <svg viewBox="0 0 500 110" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
                 <!-- timeline -->
-                <line x1="40" y1="80" x2="460" y2="80" stroke="#1a1410" stroke-width="2" stroke-dasharray="4 6"/>
+                <line x1="30" y1="80" x2="450" y2="80" stroke="#1a1410" stroke-width="2" stroke-dasharray="4 6"/>
                 <!-- baby -->
                 <g transform="translate(60,80)">
                   <ellipse cx="0" cy="-15" rx="20" ry="18" fill="#f78bb0" stroke="#1a1410" stroke-width="2"/>
@@ -623,7 +623,7 @@
                   <circle cx="-4" cy="-50" r="1.5" fill="#1a1410"/>
                   <circle cx="4" cy="-50" r="1.5" fill="#1a1410"/>
                   <path d="M-3 -45 Q0 -42 3 -45" fill="none" stroke="#1a1410" stroke-width="1.2"/>
-                  <text x="0" y="5" text-anchor="middle" font-family="Caveat" font-size="14" fill="#1a1410" font-weight="700">age 6</text>
+                  <text x="0" y="20" text-anchor="middle" font-family="Caveat" font-size="14" fill="#1a1410" font-weight="700">age 6</text>
                 </g>
                 <path d="M225 70 L265 70" stroke="#1a1410" stroke-width="2" marker-end="url(#arr)"/>
                 <!-- pre-teen -->
@@ -635,7 +635,7 @@
                   <circle cx="-5" cy="-55" r="1.5" fill="#1a1410"/>
                   <circle cx="5" cy="-55" r="1.5" fill="#1a1410"/>
                   <path d="M-3 -49 Q0 -47 3 -49" fill="none" stroke="#1a1410" stroke-width="1.2"/>
-                  <text x="0" y="5" text-anchor="middle" font-family="Caveat" font-size="14" fill="#1a1410" font-weight="700">age 10</text>
+                  <text x="0" y="20" text-anchor="middle" font-family="Caveat" font-size="14" fill="#1a1410" font-weight="700">age 10</text>
                 </g>
                 <path d="M345 70 L385 70" stroke="#1a1410" stroke-width="2" marker-end="url(#arr)"/>
                 <!-- teen 14 -->
@@ -705,11 +705,6 @@
               <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
                 <!-- shocked face emoji style -->
                 <ellipse cx="100" cy="100" rx="58" ry="60" fill="#fcd9b6" stroke="#1a1410" stroke-width="2.5"/>
-                <!-- back hair -->
-                <path d="M50 80 Q45 35 80 25 Q100 18 120 25 Q155 35 150 90 Q150 115 145 145 Q138 138 130 135 L130 95 Q100 90 70 95 L70 135 Q62 138 55 145 Q50 115 50 80 Z" fill="#3b2a1f" stroke="#1a1410" stroke-width="2"/>
-                <!-- top hair w/ parted bangs -->
-                <path d="M52 85 Q48 40 80 28 Q100 22 120 28 Q152 40 148 85 Q140 80 130 82 Q118 78 110 82 Q100 78 92 82 Q82 78 74 82 Q62 78 52 85 Z" fill="#3b2a1f" stroke="#1a1410" stroke-width="2"/>
-                <path d="M97 25 Q100 14 103 25" stroke="#1a1410" stroke-width="2" fill="none" stroke-linecap="round"/>
                 <!-- big eyes shock -->
                 <circle cx="78" cy="98" r="6" fill="#fff" stroke="#1a1410" stroke-width="2"/>
                 <circle cx="78" cy="98" r="3" fill="#1a1410"/>
@@ -719,14 +714,15 @@
                 <ellipse cx="100" cy="130" rx="6" ry="8" fill="#d24a3a" stroke="#1a1410" stroke-width="1.8"/>
                 <!-- exclaim -->
                 <text x="170" y="50" font-family="Bagel Fat One" font-size="44" fill="#d24a3a">!</text>
-                <text x="20" y="170" font-family="Caveat" font-weight="700" font-size="14" fill="#1a1410">??? you</text>
+                <text x="90" y="200" font-family="Caveat" font-weight="700" font-size="18" fill="#d24a3a">you</text>
+                <text x="90" y="30" font-family="Caveat" font-weight="700" font-size="18" fill="#d24a3a">why???</text>
               </svg>
             </div>
           </div>
 
           <!-- panel wide: found the sword -->
           <div class="panel full">
-            <div class="panel-text">Then she found her <strong>sword and suit!</strong> ✨ "Wow!"</div>
+            <div class="panel-text">This is how she found her <strong>sword and suit!</strong> ✨ </div>
             <div class="panel-art">
               <svg viewBox="0 0 480 130" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
                 <!-- glowing chest -->
@@ -741,8 +737,9 @@
                   <line x1="20" y1="40" x2="10" y2="40"/>
                   <line x1="100" y1="40" x2="110" y2="40"/>
                 </g>
+                <text x="80" y="146" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="18" fill="#d24a3a">Why is this here?</text>
                 <!-- emily holding sword -->
-                <g transform="translate(220,15)">
+                <g transform="translate(250,15)">
                   <!-- legs -->
                   <rect x="-12" y="60" width="10" height="40" fill="#fcd9b6" stroke="#1a1410" stroke-width="2"/>
                   <rect x="2"   y="60" width="10" height="40" fill="#fcd9b6" stroke="#1a1410" stroke-width="2"/>
@@ -963,36 +960,56 @@
               </svg>
             </div>
           </div>
-
           <div class="panel">
-            <div class="panel-text"><strong>Eksay...</strong> wears an underwear mask! 👽 (Yes really!)</div>
+            <div class="panel-text"><strong>Cksay...</strong> wears an underwear mask! 🩲 (Yes really!)</div>
             <div class="panel-art">
-              <svg viewBox="0 0 160 180" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="80" cy="170" rx="40" ry="6" fill="rgba(0,0,0,.15)"/>
-                <!-- alien body -->
-                <ellipse cx="80" cy="100" rx="32" ry="40" fill="#9bd2a8" stroke="#1a1410" stroke-width="2"/>
-                <!-- legs little -->
-                <ellipse cx="68" cy="148" rx="8" ry="10" fill="#9bd2a8" stroke="#1a1410" stroke-width="2"/>
-                <ellipse cx="92" cy="148" rx="8" ry="10" fill="#9bd2a8" stroke="#1a1410" stroke-width="2"/>
-                <!-- arms -->
-                <ellipse cx="48" cy="100" rx="8" ry="14" fill="#9bd2a8" stroke="#1a1410" stroke-width="2"/>
-                <ellipse cx="112" cy="100" rx="8" ry="14" fill="#9bd2a8" stroke="#1a1410" stroke-width="2"/>
-                <!-- head with antennae -->
-                <ellipse cx="80" cy="60" rx="30" ry="32" fill="#9bd2a8" stroke="#1a1410" stroke-width="2"/>
-                <line x1="65" y1="32" x2="58" y2="18" stroke="#1a1410" stroke-width="2"/>
-                <circle cx="56" cy="16" r="4" fill="#e85a8a" stroke="#1a1410" stroke-width="1.5"/>
-                <line x1="95" y1="32" x2="102" y2="18" stroke="#1a1410" stroke-width="2"/>
-                <circle cx="104" cy="16" r="4" fill="#e85a8a" stroke="#1a1410" stroke-width="1.5"/>
-                <!-- "underwear mask" lol -->
-                <path d="M52 50 Q80 45 108 50 L108 70 Q90 78 80 78 Q70 78 52 70 Z" fill="#fff" stroke="#1a1410" stroke-width="2"/>
-                <line x1="80" y1="46" x2="80" y2="78" stroke="#1a1410" stroke-width="1.5"/>
-                <!-- alien big eyes (visible above mask) -->
-                <circle cx="68" cy="55" r="6" fill="#1a1410"/>
-                <circle cx="92" cy="55" r="6" fill="#1a1410"/>
-                <circle cx="70" cy="53" r="2" fill="#fff"/>
-                <circle cx="94" cy="53" r="2" fill="#fff"/>
-                <!-- shirt design -->
-                <text x="80" y="115" text-anchor="middle" font-family="Bagel Fat One" font-size="16" fill="#1a1410">!</text>
+               <svg viewBox="0 0 160 180" xmlns="http://www.w3.org/2000/svg">
+                 <!-- 地面阴影 -->
+                 <ellipse cx="80" cy="170" rx="40" ry="6" fill="rgba(0,0,0,.15)"/>
+                 <ellipse cx="73" cy="162" rx="8" ry="3" fill="#1a1410"/>
+                 <ellipse cx="87" cy="162" rx="8" ry="3" fill="#1a1410"/>
+ 
+                 <!-- 腿部 (肤色) -->
+                 <rect x="68" y="120" width="10" height="40" fill="#fcd9b6" stroke="#1a1410" stroke-width="2"/>
+                 <rect x="82" y="120" width="10" height="40" fill="#fcd9b6" stroke="#1a1410" stroke-width="2"/>
+      
+                 <!-- 男孩身体 (穿着蓝色T恤) -->
+                 <ellipse cx="80" cy="100" rx="28" ry="30" fill="#5aaadd" stroke="#1a1410" stroke-width="2"/>
+      
+       
+                 <!-- 手臂 (肤色) -->
+                 <rect x="48" y="80" width="9" height="40" fill="#fcd9b6" stroke="#1a1410" stroke-width="2"/>
+                 <rect x="103" y="80" width="9" height="40" fill="#fcd9b6" stroke="#1a1410" stroke-width="2"/>
+     
+                 <!-- 头部 (肤色) -->
+                 <ellipse cx="80" cy="50" rx="30" ry="26" fill="#fcd9b6" stroke="#1a1410" stroke-width="2"/>
+
+                 <!-- 四角内裤面罩 (倒扣) -->
+                 <!-- M-L 构成了四角裤宽大的主体，顶部通过 Q 指令挖出两个腿洞的弧度 -->
+                 <path d="M39 60 
+                          L34 15 
+                          L64 15
+                          L65 30
+                          
+                          Q80 14 93 30
+                          L94 15
+                          L124 15
+                          
+                          L119 60
+                          Q80 70 39 60 Z" 
+                      fill="#fff" stroke="#1a1410" stroke-width="2"/>
+      
+                 <!-- 内裤腰带装饰线（现在在下方，因为是倒扣的） -->
+                 <path d="M46 55 Q80 60 114 55" fill="none" stroke="#e85a8a" stroke-width="1.5" opacity="0.6"/>
+                 <!-- 两个洞口 (露出眼睛) -->
+                 <circle cx="65" cy="52" r="10" fill="#fcd9b6" stroke="#1a1410" stroke-width="1.5"/>
+                 <circle cx="95" cy="52" r="10" fill="#fcd9b6" stroke="#1a1410" stroke-width="1.5"/>
+                 <!-- 眼睛 (从四角裤宽大的下边缘露出来) -->
+                 <circle cx="68" cy="55" r="2.5" fill="#1a1410"/>
+                 <circle cx="92" cy="55" r="2.5" fill="#1a1410"/>
+                
+                 <!-- T恤上的图案 -->
+                 <text x="80" y="95" text-anchor="middle" font-family="Bagel Fat One" font-size="16" fill="#fdf8ee">!</text>
               </svg>
             </div>
           </div>
@@ -1052,7 +1069,7 @@
                   <line x1="0" y1="55" x2="0" y2="69" stroke="#1a1410" stroke-width="1"/>
                   <!-- head -->
                   <ellipse cx="0" cy="10" rx="26" ry="28" fill="#fcd9b6" stroke="#1a1410" stroke-width="2"/>
-                  <path d="M-22 0 Q-26 -25 0 -32 Q26 -25 22 0 Q24 18 18 30 Q14 22 10 18 Q5 8 3 0 Q0 8 -3 0 Q-5 8 -10 18 Q-14 22 -18 30 Q-24 18 -22 0 Z" fill="#3b2a1f" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M-25 0 Q-26 -26 0 -32 Q26 -26 25 0 Q24 18 18 30 Q14 22 10 18 Q5 8 3 0 Q0 8 -3 0 Q-5 8 -10 18 Q-14 22 -18 30 Q-24 18 -25 0 Z" fill="#3b2a1f" stroke="#1a1410" stroke-width="1.5"/>
                   <path d="M-1 -32 Q0 -38 1 -32" stroke="#1a1410" stroke-width="1.5" fill="none"/>
                   <!-- worried curved eyes -->
                   <path d="M-9 8 Q-5 4 -1 8" fill="none" stroke="#1a1410" stroke-width="2" stroke-linecap="round"/>
@@ -1075,7 +1092,7 @@
 
           <!-- panel: clap clap clap -->
           <div class="panel">
-            <div class="panel-text">"Now the Earth REALLY might end!" <em>clap clap clap...</em> 👏</div>
+            <div class="panel-text">Now the Earth REALLY might end!</div>
             <div class="panel-art">
               <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
                 <!-- earth -->
@@ -1103,7 +1120,7 @@
 
           <!-- panel wide: meanwhile UFO -->
           <div class="panel full">
-            <div class="panel-text"><strong>Meanwhile...</strong> on top of a 🛸 <strong>UFO</strong>...</div>
+            <div class="panel-text"> Meanwhile...🛸 </div>
             <div class="panel-art">
               <svg viewBox="0 0 480 130" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
                 <!-- night sky gradient -->
@@ -1166,9 +1183,9 @@
         </div>
 
         <div class="panels">
-          <!-- panel: alien running with paperwork -->
+          <!-- panel: alien is running with paperwork -->
           <div class="panel">
-            <div class="panel-text"><strong>Oh No!</strong> An alien running with paperwork...</div>
+            <div class="panel-text"> An alien running with paperwork...</div>
             <div class="panel-art">
               <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
                 <ellipse cx="100" cy="170" rx="50" ry="6" fill="rgba(0,0,0,.15)"/>
@@ -1207,7 +1224,7 @@
 
           <!-- panel: meet poop god -->
           <div class="panel">
-            <div class="panel-text">"Report to <strong>Poop God!</strong>" 👑</div>
+            <div class="panel-text"> Then reportting to <strong>Poop God!</strong> 👑</div>
             <div class="panel-art">
               <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
                 <ellipse cx="100" cy="170" rx="60" ry="6" fill="rgba(0,0,0,.15)"/>
@@ -1296,7 +1313,7 @@
 
         <div class="panels">
           <div class="panel">
-            <div class="panel-text">"I thought we destroyed most of the parts! So now we will do it <strong>again!</strong>" — Poop God</div>
+            <div class="panel-text">"I thought we destroyed most of the planets! So now we will do it <strong>again!</strong>" — Poop God</div>
             <div class="panel-art">
               <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
                 <rect x="0" y="0" width="200" height="180" fill="#3a2a4a" opacity=".15"/>
@@ -1329,7 +1346,7 @@
           </div>
 
           <div class="panel">
-            <div class="panel-text"><strong>Meanwhile...</strong> "Hi, I am your teacher <strong>Ms. Kat!</strong>"</div>
+            <div class="panel-text">Meanwhile... </div>
             <div class="panel-art">
               <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
                 <ellipse cx="100" cy="170" rx="50" ry="6" fill="rgba(0,0,0,.15)"/>
@@ -1346,7 +1363,7 @@
                   <!-- face -->
                   <ellipse cx="0" cy="-25" rx="20" ry="22" fill="#fcd9b6" stroke="#1a1410" stroke-width="2"/>
                   <!-- straight bangs (clean line above eyes at -22, kept at y=-32 to -28 so eyes show) -->
-                  <path d="M-20 -34 Q0 -42 20 -34 L18 -28 L-18 -28 Z" fill="#3b2a1f" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M-20 -34 Q0 -60 20 -34 L18 -28 L-18 -28 Z" fill="#3b2a1f" stroke="#1a1410" stroke-width="1.5"/>
                   <!-- glasses on top of face -->
                   <circle cx="-6" cy="-22" r="5" fill="none" stroke="#1a1410" stroke-width="1.5"/>
                   <circle cx="6" cy="-22" r="5" fill="none" stroke="#1a1410" stroke-width="1.5"/>
@@ -1357,8 +1374,8 @@
                   <!-- smile -->
                   <path d="M-4 -12 Q0 -8 4 -12" stroke="#1a1410" stroke-width="1.5" fill="none"/>
                 </g>
-                <text x="20" y="50" font-family="Caveat" font-weight="700" font-size="14" fill="#1a1410">↑ Ms. Kat</text>
-                <ellipse cx="155" cy="50" rx="38" ry="28" fill="#fff" stroke="#1a1410" stroke-width="2"/>
+                <text x="30" y="30" font-family="Caveat" font-weight="700" font-size="14" fill="#1a1410">↓ Ms. Kat</text>
+                <ellipse cx="150" cy="50" rx="45" ry="28" fill="#fff" stroke="#1a1410" stroke-width="2"/>
                 <path d="M132 70 L118 88 L135 75 Z" fill="#fff" stroke="#1a1410" stroke-width="2"/>
                 <text x="155" y="46" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="13" fill="#1a1410">Hi, I am your</text>
                 <text x="155" y="62" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="13" fill="#d24a3a">teacher Ms. Kat!</text>
@@ -1367,7 +1384,7 @@
           </div>
 
           <div class="panel full">
-            <div class="panel-text">"And blah blah blah blah blah..." — Ms. Kat | <em>Emily sitting and getting bored 😴</em></div>
+            <div class="panel-text">Emily is sitting and getting bored 😴</em></div>
             <div class="panel-art">
               <svg viewBox="0 0 480 130" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
                 <rect x="0" y="100" width="480" height="30" fill="#d6bf95"/>
@@ -1381,7 +1398,7 @@
                   <path d="M-15 -10 Q-16 -27 0 -30 Q16 -27 15 -10 Q16 5 13 12 L-13 12 Q-16 5 -15 -10 Z" fill="#3b2a1f" stroke="#1a1410" stroke-width="1"/>
                   <ellipse cx="0" cy="-15" rx="13" ry="14" fill="#fcd9b6" stroke="#1a1410" stroke-width="1.5"/>
                   <!-- straight bangs -->
-                  <path d="M-13 -22 Q0 -28 13 -22 L11 -17 L-11 -17 Z" fill="#3b2a1f" stroke="#1a1410" stroke-width="1"/>
+                  <path d="M-13 -22 Q0 -35 13 -22 L11 -17 L-11 -17 Z" fill="#3b2a1f" stroke="#1a1410" stroke-width="1"/>
                   <circle cx="-4" cy="-14" r="2" fill="none" stroke="#1a1410" stroke-width="1"/>
                   <circle cx="4" cy="-14" r="2" fill="none" stroke="#1a1410" stroke-width="1"/>
                   <circle cx="-4" cy="-14" r="0.8" fill="#1a1410"/>
@@ -1430,7 +1447,7 @@
 
         <div class="panels">
           <div class="panel">
-            <div class="panel-text">"<strong>LAND THE UFO!</strong>" — Poop God 🛸</div>
+            <div class="panel-text">Back to the UFO 🛸</div>
             <div class="panel-art">
               <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
                 <rect x="0" y="0" width="200" height="120" fill="#3a2a4a"/>
@@ -1457,14 +1474,14 @@
                   <line x1="80" y1="30" x2="80" y2="50"/>
                   <line x1="120" y1="30" x2="120" y2="50"/>
                 </g>
-                <ellipse cx="50" cy="150" rx="44" ry="14" fill="#fff" stroke="#1a1410" stroke-width="2"/>
+                <ellipse cx="50" cy="150" rx="55" ry="14" fill="#fff" stroke="#1a1410" stroke-width="2"/>
                 <text x="50" y="156" text-anchor="middle" font-family="Bagel Fat One" font-size="13" fill="#d24a3a">LAND THE UFO!</text>
               </svg>
             </div>
           </div>
 
           <div class="panel">
-            <div class="panel-text">The UFO crashing on the high school! <strong>CRASH!</strong> 💥</div>
+            <div class="panel-text">The UFO crashing on the high school! 💥</div>
             <div class="panel-art">
               <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
                 <g transform="translate(100,90)">
@@ -1484,7 +1501,7 @@
           </div>
 
           <div class="panel full">
-            <div class="panel-text"><strong>"ATTACK!!!"</strong> Inside the school: "What happened?!" — Ms. Kat | "An alien with a space gun?!"</div>
+            <div class="panel-text">Inside the school... </div>
             <div class="panel-art">
               <svg viewBox="0 0 480 130" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
                 <rect x="0" y="0" width="480" height="130" fill="#f5d6a8" opacity=".5"/>
@@ -1504,7 +1521,7 @@
                   <rect x="40" y="2" width="6" height="12" fill="#5b6f8a" stroke="#1a1410" stroke-width="1.5"/>
                   <circle cx="48" cy="8" r="3" fill="#d8a23c" stroke="#1a1410" stroke-width="1"/>
                 </g>
-                <text x="20" y="125" font-family="Caveat" font-weight="700" font-size="13" fill="#1a1410">↑ alien w/ space gun</text>
+                <text x="20" y="155" font-family="Caveat" font-weight="700" font-size="13" fill="#1a1410">↑ alien w/ space gun</text>
                 <g transform="translate(115,30)">
                   <ellipse cx="0" cy="0" rx="42" ry="18" fill="#fff" stroke="#1a1410" stroke-width="2"/>
                   <path d="M-15 14 L-25 30 L-12 18 Z" fill="#fff" stroke="#1a1410" stroke-width="2"/>
@@ -1520,7 +1537,7 @@
                   <path d="M-15 -10 Q-17 -28 0 -32 Q17 -28 15 -10 Q16 5 13 12 L-13 12 Q-17 5 -15 -10 Z" fill="#3b2a1f" stroke="#1a1410" stroke-width="1"/>
                   <ellipse cx="0" cy="-15" rx="13" ry="14" fill="#fcd9b6" stroke="#1a1410" stroke-width="1.5"/>
                   <!-- straight bangs -->
-                  <path d="M-13 -22 Q0 -28 13 -22 L11 -17 L-11 -17 Z" fill="#3b2a1f" stroke="#1a1410" stroke-width="1"/>
+                  <path d="M-13 -22 Q0 -35 13 -22 L11 -17 L-11 -17 Z" fill="#3b2a1f" stroke="#1a1410" stroke-width="1"/>
                   <circle cx="-4" cy="-14" r="3" fill="none" stroke="#1a1410" stroke-width="1"/>
                   <circle cx="4" cy="-14" r="3" fill="none" stroke="#1a1410" stroke-width="1"/>
                   <ellipse cx="-4" cy="-14" rx="2" ry="2.5" fill="#fff"/>
@@ -1529,13 +1546,15 @@
                   <circle cx="4" cy="-14" r="1" fill="#1a1410"/>
                   <ellipse cx="0" cy="-7" rx="3" ry="3" fill="#d24a3a"/>
                 </g>
-                <text x="220" y="125" font-family="Caveat" font-weight="700" font-size="12" fill="#1a1410">Ms. Kat</text>
+                <text x="220" y="155" font-family="Caveat" font-weight="700" font-size="12" fill="#1a1410">Ms. Kat</text>
                 <g transform="translate(295,40)">
-                  <ellipse cx="0" cy="0" rx="40" ry="16" fill="#fff" stroke="#1a1410" stroke-width="2"/>
+                  <ellipse cx="0" cy="0" rx="60" ry="16" fill="#fff" stroke="#1a1410" stroke-width="2"/>
                   <path d="M-15 12 L-25 25 L-12 15 Z" fill="#fff" stroke="#1a1410" stroke-width="2"/>
                   <text x="0" y="5" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="14" fill="#1a1410">What happened?!</text>
                 </g>
                 <g transform="translate(420,75)">
+                  <ellipse cx="-10" cy="-50" rx="70" ry="16" fill="#fff" stroke="#1a1410" stroke-width="2"/>
+                  <text x="-10" y="-48" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="14" fill="#1a1410">An alien with a space gun?!</text>
                   <rect x="-12" y="20" width="24" height="6" fill="#a06846" stroke="#1a1410" stroke-width="1"/>
                   <path d="M-12 5 L-10 22 L10 22 L12 5 Z" fill="#f78bb0" stroke="#1a1410" stroke-width="1.5"/>
                   <path d="M-12 5 L12 5 L10 10 L-10 10 Z" fill="#e85a8a"/>
@@ -1551,7 +1570,7 @@
                   <circle cx="4" cy="-7" r="1" fill="#1a1410"/>
                   <ellipse cx="0" cy="2" rx="2" ry="3" fill="#1a1410"/>
                 </g>
-                <text x="408" y="125" font-family="Caveat" font-weight="700" font-size="12" fill="#1a1410">Emily</text>
+                <text x="408" y="155" font-family="Caveat" font-weight="700" font-size="12" fill="#1a1410">Emily</text>
               </svg>
             </div>
           </div>
@@ -1694,7 +1713,7 @@
 
         <div class="panels">
           <div class="panel">
-            <div class="panel-text">Emily makes a decision — <strong>"I got it!"</strong> 💡</div>
+            <div class="panel-text">Emily makes a decision 💡</div>
             <div class="panel-art">
               <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
                 <g transform="translate(70,60)">
@@ -1742,7 +1761,7 @@
           </div>
 
           <div class="panel">
-            <div class="panel-text">She grabs Noon and runs! <strong>"I got you!"</strong></div>
+            <div class="panel-text">She grabs Noon and runs!</div>
             <div class="panel-art">
               <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
                 <g stroke="#1a1410" stroke-width="2" stroke-linecap="round" opacity=".4">
@@ -1785,54 +1804,89 @@
           </div>
 
           <div class="panel full">
-            <div class="panel-text">"I can see the exit!"... <strong>BLOCKED!</strong> "Never mind!" — They run into the bathroom and find <strong>Wagt and Eksay!</strong> "Hi!"</div>
+            <div class="panel-text">"I can see the exit!"... <strong>BLOCKED!</strong> "Never mind!" — They run into the bathroom and find <strong>Wagt and Cksay!</div>
             <div class="panel-art">
-              <svg viewBox="0 0 480 130" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-                <rect x="0" y="0" width="480" height="130" fill="#f7e9d0"/>
+              <svg viewBox="0 0 480 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                <rect x="0" y="25" width="480" height="260" fill="#f7e9d0"/>
                 <g transform="translate(60,65)">
-                  <text x="0" y="-40" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="13" fill="#1a1410">Exit ↓</text>
-                  <path d="M-20 -28 L-25 -10 L-15 5 L-30 20 L-10 25 L-25 35 L25 35 L20 20 L30 5 L15 -10 L25 -25 L0 -20 Z" fill="#d24a3a" stroke="#1a1410" stroke-width="2"/>
-                  <text x="0" y="50" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="11" fill="#1a1410">BLOCKED!</text>
+                  <text x="0" y="10" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="13" fill="#1a1410">Exit ↓</text>
+                  <path d="M-20 22 L-25 40 L-15 65 L-30 70 L-10 75 L-25 85 L25 85 L20 70 L30 65 L15 40 L25 25 L0 30 Z" fill="#d24a3a" stroke="#1a1410" stroke-width="2"/>
+                  <text x="0" y="100" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="11" fill="#1a1410">BLOCKED!</text>
                 </g>
-                <text x="120" y="55" font-family="Caveat" font-weight="700" font-size="14" fill="#1a1410">→ run! →</text>
+                <text x="100" y="125" font-family="Caveat" font-weight="700" font-size="14" fill="#1a1410">→ run! →</text>
                 <g transform="translate(200,65)">
-                  <rect x="-22" y="-40" width="44" height="80" fill="#a06846" stroke="#1a1410" stroke-width="2"/>
-                  <circle cx="14" cy="0" r="3" fill="#d8a23c" stroke="#1a1410" stroke-width="1"/>
-                  <rect x="-15" y="-32" width="30" height="14" fill="#fdf8ee" stroke="#1a1410" stroke-width="1.5"/>
-                  <text x="0" y="-22" text-anchor="middle" font-family="Patrick Hand" font-weight="700" font-size="10" fill="#1a1410">BOYS</text>
+                  <rect x="-22" y="10" width="44" height="80" fill="#a06846" stroke="#1a1410" stroke-width="2"/>
+                  <circle cx="14" cy="50" r="3" fill="#d8a23c" stroke="#1a1410" stroke-width="1"/>
+                  <rect x="-15" y="18" width="30" height="14" fill="#fdf8ee" stroke="#1a1410" stroke-width="1.5"/>
+                  <text x="0" y="28" text-anchor="middle" font-family="Patrick Hand" font-weight="700" font-size="10" fill="#1a1410">BOYS</text>
                 </g>
                 <g transform="translate(360,80)">
-                  <g transform="translate(-30,0)">
-                    <rect x="-7" y="20" width="5" height="22" fill="#86c46a"/>
-                    <rect x="2" y="20" width="5" height="22" fill="#86c46a"/>
-                    <path d="M-10 0 L-8 22 L8 22 L10 0 Z" fill="#86c46a" stroke="#1a1410" stroke-width="1.5"/>
-                    <ellipse cx="0" cy="-12" rx="13" ry="14" fill="#fcd9b6" stroke="#1a1410" stroke-width="1.5"/>
-                    <path d="M-11 -16 Q-8 -25 0 -25 Q8 -25 11 -16 Q5 -22 0 -22 Q-5 -22 -11 -16 Z" fill="#3b2a1f"/>
-                    <line x1="-3" y1="-13" x2="-1" y2="-12" stroke="#e85a8a" stroke-width="1.5"/>
-                    <line x1="6" y1="-12" x2="9" y2="-9" stroke="#1a1410" stroke-width="1.5"/>
-                    <path d="M-4 -14 Q-2 -12 0 -14" stroke="#1a1410" stroke-width="1" fill="none"/>
-                    <path d="M2 -14 Q4 -12 6 -14" stroke="#1a1410" stroke-width="1" fill="none"/>
-                    <path d="M-3 -7 Q0 -4 3 -7" stroke="#1a1410" stroke-width="1.2" fill="none"/>
-                    <text x="0" y="40" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="11" fill="#1a1410">Wagt</text>
+                  <g transform="translate(-100,0)">
+                    <ellipse cx="80" cy="170" rx="40" ry="6" fill="rgba(0,0,0,.15)"/>
+                    <rect x="68" y="120" width="10" height="40" fill="#86c46a" stroke="#1a1410" stroke-width="2"/>
+                    <rect x="82" y="120" width="10" height="40" fill="#86c46a" stroke="#1a1410" stroke-width="2"/>
+                    <ellipse cx="73" cy="162" rx="8" ry="3" fill="#1a1410"/>
+                    <ellipse cx="87" cy="162" rx="8" ry="3" fill="#1a1410"/>
+                    <path d="M55 70 L60 130 L100 130 L105 70 Z" fill="#86c46a" stroke="#1a1410" stroke-width="2"/>
+                    <rect x="48" y="75" width="9" height="40" fill="#fcd9b6" stroke="#1a1410" stroke-width="2"/>
+                    <rect x="103" y="75" width="9" height="40" fill="#fcd9b6" stroke="#1a1410" stroke-width="2"/>
+                    <!-- head -->
+                    <ellipse cx="80" cy="55" rx="28" ry="30" fill="#fcd9b6" stroke="#1a1410" stroke-width="2"/>
+                    <!-- short hair -->
+                    <path d="M55 45 Q60 25 80 25 Q100 25 105 45 Q90 35 80 35 Q70 35 55 45 Z" fill="#3b2a1f"/>
+                    <!-- band-aid scars -->
+                    <g stroke="#1a1410" stroke-width="1.5" fill="#e85a8a">
+                    <rect x="62" y="42" width="14" height="4" transform="rotate(-15 69 44)"/>
+                    <line x1="64" y1="44" x2="76" y2="44" stroke="#1a1410" stroke-width="1"/>
+                    </g>
+                    <line x1="92" y1="50" x2="98" y2="58" stroke="#1a1410" stroke-width="2.5"/>
+                    <line x1="93" y1="52" x2="91" y2="56" stroke="#1a1410" stroke-width="1.5"/>
+                    <line x1="95" y1="54" x2="97" y2="50" stroke="#1a1410" stroke-width="1.5"/>
+                    <line x1="60" y1="68" x2="68" y2="74" stroke="#1a1410" stroke-width="2"/>
+                    <!-- sleepy eyes -->
+                    <path d="M62 60 Q68 65 74 60" stroke="#1a1410" stroke-width="2" fill="none"/>
+                    <path d="M86 60 Q92 65 98 60" stroke="#1a1410" stroke-width="2" fill="none"/>
+                    <!-- smile -->
+                    <path d="M70 76 Q80 82 90 76" stroke="#1a1410" stroke-width="2" fill="none" stroke-linecap="round"/>
                   </g>
-                  <g transform="translate(30,0)">
-                    <ellipse cx="0" cy="5" rx="14" ry="18" fill="#9bd2a8" stroke="#1a1410" stroke-width="1.5"/>
-                    <ellipse cx="-6" cy="28" rx="4" ry="5" fill="#9bd2a8" stroke="#1a1410" stroke-width="1.5"/>
-                    <ellipse cx="6" cy="28" rx="4" ry="5" fill="#9bd2a8" stroke="#1a1410" stroke-width="1.5"/>
-                    <ellipse cx="0" cy="-12" rx="14" ry="14" fill="#9bd2a8" stroke="#1a1410" stroke-width="1.5"/>
-                    <line x1="-7" y1="-22" x2="-9" y2="-32" stroke="#1a1410" stroke-width="1.5"/>
-                    <circle cx="-10" cy="-33" r="2.5" fill="#e85a8a" stroke="#1a1410" stroke-width="1"/>
-                    <line x1="7" y1="-22" x2="9" y2="-32" stroke="#1a1410" stroke-width="1.5"/>
-                    <circle cx="10" cy="-33" r="2.5" fill="#e85a8a" stroke="#1a1410" stroke-width="1"/>
-                    <path d="M-11 -10 Q0 -14 11 -10 L11 -2 Q0 4 -11 -2 Z" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
-                    <line x1="0" y1="-12" x2="0" y2="-2" stroke="#1a1410" stroke-width="1"/>
-                    <circle cx="-5" cy="-15" r="2.5" fill="#1a1410"/>
-                    <circle cx="5" cy="-15" r="2.5" fill="#1a1410"/>
-                    <text x="0" y="40" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="11" fill="#1a1410">Eksay</text>
+                  <g transform="translate(-10,0)">
+                     <ellipse cx="73" cy="162" rx="8" ry="3" fill="#1a1410"/>
+                     <ellipse cx="87" cy="162" rx="8" ry="3" fill="#1a1410"/>
+ 
+                     <!-- 腿部 (肤色) -->
+                     <rect x="68" y="120" width="10" height="40" fill="#fcd9b6" stroke="#1a1410" stroke-width="2"/>
+                     <rect x="82" y="120" width="10" height="40" fill="#fcd9b6" stroke="#1a1410" stroke-width="2"/>
+      
+                     <!-- 男孩身体 (穿着蓝色T恤) -->
+                     <ellipse cx="80" cy="100" rx="28" ry="30" fill="#5aaadd" stroke="#1a1410" stroke-width="2"/>
+      
+       
+                     <!-- 手臂 (肤色) -->
+                     <rect x="48" y="80" width="9" height="40" fill="#fcd9b6" stroke="#1a1410" stroke-width="2"/>
+                     <rect x="103" y="80" width="9" height="40" fill="#fcd9b6" stroke="#1a1410" stroke-width="2"/>
+     
+                     <!-- 头部 (肤色) -->
+                     <ellipse cx="80" cy="50" rx="30" ry="26" fill="#fcd9b6" stroke="#1a1410" stroke-width="2"/>
+
+                     <!-- 四角内裤面罩 (倒扣) -->
+                     <!-- M-L 构成了四角裤宽大的主体，顶部通过 Q 指令挖出两个腿洞的弧度 -->
+                     <path d="M39 60 L34 15 L64 15 L65 30 Q80 14 93 30 L94 15 L124 15 L119 60 Q80 70 39 60 Z" fill="#fff" stroke="#1a1410" stroke-width="2"/>
+      
+                     <!-- 内裤腰带装饰线（现在在下方，因为是倒扣的） -->
+                     <path d="M46 55 Q80 60 114 55" fill="none" stroke="#e85a8a" stroke-width="1.5" opacity="0.6"/>
+                     <!-- 两个洞口 (露出眼睛) -->
+                     <circle cx="65" cy="52" r="10" fill="#fcd9b6" stroke="#1a1410" stroke-width="1.5"/>
+                     <circle cx="95" cy="52" r="10" fill="#fcd9b6" stroke="#1a1410" stroke-width="1.5"/>
+                     <!-- 眼睛 (从四角裤宽大的下边缘露出来) -->
+                     <circle cx="68" cy="55" r="2.5" fill="#1a1410"/>
+                     <circle cx="92" cy="55" r="2.5" fill="#1a1410"/>
+                
+                     <!-- T恤上的图案 -->
+                     <text x="80" y="95" text-anchor="middle" font-family="Bagel Fat One" font-size="16" fill="#fdf8ee">!</text>
                   </g>
                   <g transform="translate(0,-50)">
-                    <ellipse cx="0" cy="0" rx="22" ry="12" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
-                    <text x="0" y="5" text-anchor="middle" font-family="Bagel Fat One" font-size="13" fill="#d24a3a">HI!</text>
+                     <ellipse cx="0" cy="50" rx="22" ry="12" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                     <text x="0" y="55" text-anchor="middle" font-family="Bagel Fat One" font-size="13" fill="#d24a3a">HI!</text>
                   </g>
                 </g>
               </svg>
@@ -1851,7 +1905,7 @@
 
         <div class="panels">
           <div class="panel full">
-            <div class="panel-text">Emily, Noon, Wagt, and Eksay sit down together... <em>"So now what?"</em></div>
+            <div class="panel-text">Emily, Noon, Wagt, and Cksay sit down together... </div>
             <div class="panel-art">
               <svg viewBox="0 0 480 130" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
                 <rect x="0" y="100" width="480" height="30" fill="#d6d6d6"/>
@@ -1899,18 +1953,22 @@
                   <text x="0" y="42" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="11" fill="#1a1410">Wagt</text>
                 </g>
                 <g transform="translate(380,75)">
-                  <ellipse cx="0" cy="10" rx="14" ry="16" fill="#9bd2a8" stroke="#1a1410" stroke-width="1.5"/>
-                  <ellipse cx="0" cy="-12" rx="13" ry="13" fill="#9bd2a8" stroke="#1a1410" stroke-width="1.5"/>
-                  <line x1="-6" y1="-22" x2="-8" y2="-30" stroke="#1a1410" stroke-width="1.5"/>
-                  <circle cx="-9" cy="-31" r="2.5" fill="#e85a8a" stroke="#1a1410" stroke-width="1"/>
-                  <line x1="6" y1="-22" x2="8" y2="-30" stroke="#1a1410" stroke-width="1.5"/>
-                  <circle cx="9" cy="-31" r="2.5" fill="#e85a8a" stroke="#1a1410" stroke-width="1"/>
-                  <path d="M-10 -10 Q0 -14 10 -10 L10 -3 Q0 3 -10 -3 Z" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
-                  <line x1="0" y1="-12" x2="0" y2="-3" stroke="#1a1410" stroke-width="1"/>
-                  <circle cx="-5" cy="-15" r="2.5" fill="#1a1410"/>
-                  <circle cx="5" cy="-15" r="2.5" fill="#1a1410"/>
-                  <text x="0" y="42" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="11" fill="#1a1410">Eksay</text>
-                </g>
+                  <path d="M-14 0 L-11 25 L11 25 L14 0 Z" fill="#5aaadd" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="0" cy="-12" rx="13" ry="14" fill="#fcd9b6" stroke="#1a1410" stroke-width="1.5"/>
+                  <text x="0" y="42" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="11" fill="#1a1410">Cksay</text>
+                   <!-- 四角内裤面罩 (等比例缩小并平移至头部) -->
+                    <g transform="translate(0, -30)"> 
+                    <!-- 内裤主体：缩小了约 60%，Y坐标上移 -->
+                    <path d="M-15 18 L-17 0 L-6 0 L-5 6 Q0 -1 5 6 L6 0 L17 0 L15 18 Q0 22 -15 18 Z" fill="#fff" stroke="#1a1410" stroke-width="1.2"/>
+
+                    <!-- 腰带装饰线 -->
+                    <path d="M-13 16 Q0 18 13 16" fill="none" stroke="#e85a8a" stroke-width="0.8" opacity="0.6"/>
+                    <!-- 两个洞口 (露出眼睛) -->
+                    <circle cx="-6" cy="13" r="4" fill="#fcd9b6" stroke="#1a1410" stroke-width="0.8"/>
+                    <circle cx="6" cy="13" r="4" fill="#fcd9b6" stroke="#1a1410" stroke-width="0.8"/>
+                    <!-- 眼睛 (从洞口露出) -->
+                    <circle cx="-6" cy="13.5" r="1" fill="#1a1410"/>
+                    <circle cx="6" cy="13.5" r="1" fill="#1a1410"/>
                 <g transform="translate(240,30)">
                   <ellipse cx="0" cy="0" rx="68" ry="18" fill="#fff" stroke="#1a1410" stroke-width="2"/>
                   <path d="M-10 14 L-15 28 L-3 18 Z" fill="#fff" stroke="#1a1410" stroke-width="2"/>
@@ -1965,7 +2023,7 @@
           </div>
 
           <div class="panel">
-            <div class="panel-text">Noon, Wagt, Eksay: <strong>"SURE!"</strong> ✊</div>
+            <div class="panel-text">Noon, Wagt, Cksay: <strong>"SURE!"</strong> ✊</div>
             <div class="panel-art">
               <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
                 <g transform="translate(100,90)" opacity=".3">
@@ -1986,7 +2044,7 @@
                   <ellipse cx="-6" cy="0" rx="3" ry="2.5" fill="#5e6cf2" stroke="#1a1410" stroke-width="0.8"/>
                   <circle cx="6" cy="0" r="1.2" fill="#1a1410"/>
                   <path d="M-3 8 Q0 12 3 8" stroke="#1a1410" stroke-width="1.5" fill="none"/>
-                  <path d="M-15 18 L-15 50" stroke="#5b6f8a" stroke-width="14" stroke-linecap="round"/>
+                  <path d="M0 25 L0 50" stroke="#5b6f8a" stroke-width="14" stroke-linecap="round"/>
                   <path d="M15 18 L15 -10" stroke="#fcd9b6" stroke-width="6" stroke-linecap="round"/>
                   <circle cx="15" cy="-15" r="6" fill="#fcd9b6" stroke="#1a1410" stroke-width="1.5"/>
                   <text x="0" y="68" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="10" fill="#1a1410">Noon</text>
@@ -1999,25 +2057,42 @@
                   <path d="M-5 -2 Q-2 0 1 -2" stroke="#1a1410" stroke-width="1" fill="none"/>
                   <path d="M2 -2 Q5 0 8 -2" stroke="#1a1410" stroke-width="1" fill="none"/>
                   <path d="M-3 7 Q0 11 3 7" stroke="#1a1410" stroke-width="1.5" fill="none"/>
-                  <path d="M-15 18 L-15 50" stroke="#86c46a" stroke-width="14" stroke-linecap="round"/>
+                  <path d="M0 25 L0 50" stroke="#86c46a" stroke-width="14" stroke-linecap="round"/>
                   <path d="M15 18 L15 -10" stroke="#fcd9b6" stroke-width="6" stroke-linecap="round"/>
                   <circle cx="15" cy="-15" r="6" fill="#fcd9b6" stroke="#1a1410" stroke-width="1.5"/>
                   <text x="0" y="68" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="10" fill="#1a1410">Wagt</text>
                 </g>
                 <g transform="translate(155,110)">
-                  <ellipse cx="0" cy="0" rx="18" ry="18" fill="#9bd2a8" stroke="#1a1410" stroke-width="1.5"/>
-                  <line x1="-8" y1="-13" x2="-10" y2="-23" stroke="#1a1410" stroke-width="1.5"/>
-                  <circle cx="-11" cy="-25" r="3" fill="#e85a8a" stroke="#1a1410" stroke-width="1"/>
-                  <line x1="8" y1="-13" x2="10" y2="-23" stroke="#1a1410" stroke-width="1.5"/>
-                  <circle cx="11" cy="-25" r="3" fill="#e85a8a" stroke="#1a1410" stroke-width="1"/>
-                  <path d="M-14 0 Q0 -4 14 0 L14 8 Q0 12 -14 8 Z" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
-                  <line x1="0" y1="-2" x2="0" y2="8" stroke="#1a1410" stroke-width="1"/>
-                  <circle cx="-7" cy="-4" r="3" fill="#1a1410"/>
-                  <circle cx="7" cy="-4" r="3" fill="#1a1410"/>
-                  <ellipse cx="0" cy="35" rx="16" ry="22" fill="#9bd2a8" stroke="#1a1410" stroke-width="1.5"/>
-                  <path d="M14 18 L18 -8" stroke="#9bd2a8" stroke-width="6" stroke-linecap="round"/>
-                  <circle cx="18" cy="-12" r="6" fill="#9bd2a8" stroke="#1a1410" stroke-width="1.5"/>
-                  <text x="0" y="68" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="10" fill="#1a1410">Eksay</text>
+                  <ellipse cx="0" cy="0" rx="18" ry="20" fill="#fcd9b6" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M 0 25 L0 50" stroke="#5aaadd" stroke-width="14" stroke-linecap="round"/>
+                  <text x="0" y="68" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="10" fill="#1a1410">Cksay</text>
+                  <g transform="translate(0, -24)"> 
+                     <!-- 内裤主体：宽度略大于头部的 36 (18*2)，设为 44 左右 -->
+                     <path d="M-22 28 
+                             L-24 0 
+                             L-9 0 
+                             L-8 8 
+                             Q0 -2 8 8 
+                             L9 0 
+                             L24 0 
+                             L22 28 
+                             Q0 34 -22 28 Z" 
+                             fill="#fff" stroke="#1a1410" stroke-width="1.8"/>
+
+                     <!-- 装饰腰带线 -->
+                     <path d="M-20 23 Q0 26 20 23" fill="none" stroke="#e85a8a" stroke-width="1.2" opacity="0.6"/>
+
+                     <!-- 裤腿洞口 (露出眼睛的区域) -->
+                     <circle cx="-9" cy="18" r="6.5" fill="#fcd9b6" stroke="#1a1410" stroke-width="1.2"/>
+                     <circle cx="9" cy="18" r="6.5" fill="#fcd9b6" stroke="#1a1410" stroke-width="1.2"/>
+
+                     <!-- 眼睛 (在洞口内居中) -->
+                     <circle cx="-9" cy="18" r="1.8" fill="#1a1410"/>
+                    <circle cx="9" cy="18" r="1.8" fill="#1a1410"/>
+                   </g>
+                
+                 <path d="M15 18 L15 -10" stroke="#fcd9b6" stroke-width="6" stroke-linecap="round"/>
+                 <circle cx="15" cy="-15" r="6" fill="#fcd9b6" stroke="#1a1410" stroke-width="1.5"/>
                 </g>
                 <g transform="translate(100,40)">
                   <ellipse cx="0" cy="0" rx="58" ry="22" fill="#fff" stroke="#1a1410" stroke-width="2.5"/>
@@ -2039,8 +2114,8 @@
         <span class="sparkle s4">✧</span>
         <h2>THE END</h2>
         <div class="heart-row">♥ ✦ ♥</div>
-        <p>"Let's start telling our story first..." — Emily<br/><em>"Okay!"</em> — Noon, Wagt, Eksay</p>
-        <p style="font-style:italic;">And so the N.E.W.C. — Noon, Emily, Wagt, and Eksay — became a team to stop Poop God and save the Earth!</p>
+        <p>"Let's start telling our story first..." — Emily<br/><em>"Okay!"</em> — Noon, Wagt, Cksay</p>
+        <p style="font-style:italic;">And so the N.E.W.C. — Noon, Emily, Wagt, and Cksay — became a team to stop Poop God and save the Earth!</p>
         <p class="credit">— Story &amp; Art by <strong>Brian</strong> &amp; <strong>Anna</strong> —<br/><span style="font-size:.85em;">A BriAnna Comic Production</span></p>
         <span class="pagenum">the end ♥</span>
       </section>
