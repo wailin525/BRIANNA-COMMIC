@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kirby in the Dark World — A BriAnna Comic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Caveat:wght@400;700&family=Patrick+Hand&family=Gloock&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fdf8ee;
+    --ink:#2a2118;
+    --kirby-pink:#ff9ec2;
+    --kirby-pink-dark:#c4609c;
+    --kirby-red:#e84a4a;
+    --dark:#3a2030;
+    --water:#5aaadd;
+    --water-dark:#2a6a9c;
+    --poop:#7a5530;
+    --poop-light:#a17a4a;
+    --yellow:#f5d04a;
+    --yellow-dark:#c79c1a;
+    --frame:#1a1410;
+    --pink:#e85a8a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;}
+  body{
+    font-family:'Patrick Hand', cursive;
+    background:
+      radial-gradient(circle at 15% 15%, #4a3a5a 0%, transparent 50%),
+      radial-gradient(circle at 85% 85%, #5a3a4a 0%, transparent 50%),
+      linear-gradient(135deg, #2a1a30 0%, #1a1020 50%, #2a1a30 100%);
+    min-height:100vh;
+    color:var(--ink);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:30px 16px 80px;
+    overflow-x:hidden;
+  }
+  .topbar{
+    width:100%; max-width:900px;
+    display:flex; justify-content:space-between; align-items:center;
+    margin-bottom:18px; color:#fdf8ee;
+    font-family:'Caveat', cursive;
+  }
+  .topbar a{
+    color:#fdf8ee; text-decoration:none;
+    background:rgba(0,0,0,.25);
+    padding:8px 16px; border-radius:30px;
+    border:1.5px solid rgba(255,255,255,.3);
+    font-size:18px; transition:all .2s;
+  }
+  .topbar a:hover{background:rgba(255,255,255,.15);transform:translateY(-2px);}
+  .brand{font-size:22px; letter-spacing:1px; opacity:.85;}
+  .book-shell{ position:relative; width:min(860px, 96vw); perspective:1800px;}
+  .book{ position:relative; width:100%;}
+  .page{
+    position:relative; width:100%;
+    background:var(--paper);
+    background-image:
+      radial-gradient(ellipse at top left, rgba(180,120,60,.08), transparent 60%),
+      radial-gradient(ellipse at bottom right, rgba(180,120,60,.10), transparent 60%);
+    border-radius:6px 18px 18px 6px;
+    box-shadow:
+      0 30px 60px -10px rgba(0,0,0,.5),
+      0 18px 36px -18px rgba(0,0,0,.6),
+      inset 0 0 0 1px rgba(0,0,0,.05),
+      inset 18px 0 30px -10px rgba(0,0,0,.12);
+    padding: clamp(20px, 4vw, 40px) clamp(24px, 5vw, 50px) clamp(40px, 5vw, 50px) clamp(40px, 6vw, 64px);
+    display:none; flex-direction:column; overflow:hidden;
+    aspect-ratio: 5 / 7;
+    animation: pageIn .45s ease-out;
+  }
+  .page.active{display:flex;}
+  .page::before{
+    content:""; position:absolute; inset:0;
+    background-image: repeating-linear-gradient(0deg, transparent 0 22px, rgba(0,0,0,.02) 22px 23px);
+    pointer-events:none; opacity:.85; border-radius:inherit;
+  }
+  .page::after{
+    content:""; position:absolute;
+    left:0; top:0; bottom:0; width:30px;
+    background:linear-gradient(90deg, rgba(0,0,0,.18), transparent);
+    pointer-events:none; border-radius:inherit;
+  }
+  @keyframes pageIn{
+    from{opacity:0; transform: translateX(40px) rotateY(-8deg);}
+    to  {opacity:1; transform: translateX(0)   rotateY(0);}
+  }
+  .pagenum{
+    position:absolute; bottom:14px; right:24px;
+    font-family:'Caveat', cursive; font-size:18px;
+    color:rgba(0,0,0,.4); z-index:5;
+  }
+  .nav{ margin-top:24px; display:flex; align-items:center; gap:18px; z-index:10; position:relative;}
+  .nav button{
+    background:#fdf8ee; border:2px solid var(--frame); color:var(--frame);
+    font-family:'Caveat', cursive; font-size:22px; font-weight:700;
+    padding:10px 22px; border-radius:40px; cursor:pointer;
+    box-shadow: 4px 4px 0 var(--frame); transition: all .15s;
+  }
+  .nav button:hover:not(:disabled){ transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--frame);}
+  .nav button:active:not(:disabled){ transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--frame);}
+  .nav button:disabled{opacity:.35; cursor:not-allowed;}
+  .nav .counter{ color:#fdf8ee; font-family:'Caveat', cursive; font-size:20px; min-width:64px; text-align:center;}
+
+  /* COVER */
+  .cover{
+    text-align:center; align-items:center; justify-content:space-between;
+    background: radial-gradient(circle at 50% 30%, #5a3a5a 0%, #2a1a30 70%, #1a1020 100%);
+    color: #fdf8ee;
+  }
+  .cover-title{
+    font-family:'Bagel Fat One', cursive;
+    font-size: clamp(32px, 6vw, 56px);
+    color: #fdf8ee; letter-spacing: 2px; line-height:1; margin-top: 6px;
+    text-shadow: 4px 4px 0 var(--kirby-pink), 8px 8px 0 var(--kirby-red);
+    transform: rotate(-2deg);
+  }
+  .cover-subtitle{
+    font-family:'Bagel Fat One', cursive;
+    font-size: clamp(20px, 4vw, 36px);
+    color: #d8a8c8; letter-spacing: 4px; line-height:1; margin-top: 12px;
+    text-shadow: 3px 3px 0 var(--frame);
+    transform: rotate(2deg);
+  }
+  .cover-art{ width: 80%; max-width:420px; flex:1; display:flex; align-items:center; justify-content:center;}
+  .cover-art svg{ width:100%; height:auto; max-height: 50vh;}
+  .cover-by{ font-family:'Caveat', cursive; font-size: clamp(20px, 3.4vw, 28px); color:#fdf8ee; margin-top: 6px;}
+  .cover-by strong{ color: var(--kirby-pink); font-weight:700;}
+  .cover-presents{
+    font-family:'Caveat', cursive;
+    font-size: clamp(14px, 2.2vw, 18px);
+    color: rgba(255,255,255,.6); margin-top: 4px;
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .sparkle{ position:absolute; color:var(--yellow); font-size:30px; animation: twinkle 2.4s ease-in-out infinite;}
+  .sparkle.s1{top:14%; left:12%; animation-delay:0s;}
+  .sparkle.s2{top:22%; right:14%; animation-delay:.5s;}
+  .sparkle.s3{bottom:32%; left:10%; animation-delay:1s; font-size:22px;}
+  .sparkle.s4{bottom:24%; right:16%; animation-delay:1.5s; font-size:26px;}
+  @keyframes twinkle{
+    0%,100%{opacity:.3; transform:scale(.8) rotate(0);}
+    50%{opacity:1; transform:scale(1.1) rotate(15deg);}
+  }
+
+  /* MULTI-PANEL pages */
+  .chapter-banner{ text-align:center; margin-bottom:12px;}
+  .chapter-tag{ display:inline-block; font-family:'Bagel Fat One', cursive;
+    font-size: clamp(16px, 2.6vw, 22px); color:#fff; background:var(--frame);
+    padding: 5px 18px; border-radius: 4px; transform: rotate(-1.5deg); letter-spacing:2px;}
+  .chapter-title{ font-family:'Gloock', serif; font-size: clamp(22px, 4vw, 34px);
+    color:var(--frame); margin-top:8px; line-height:1.1;}
+  .chapter-title em{ color:var(--kirby-pink-dark); font-style:normal;
+    text-decoration: underline wavy var(--kirby-red); text-underline-offset:6px;}
+
+  .panels{ display:grid; gap: clamp(8px, 1.4vw, 14px); flex:1;
+    grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr 1fr;}
+  .panel{ border:2.5px solid var(--frame); border-radius:8px; background:#fff8e8;
+    padding: clamp(6px, 1vw, 10px); display:flex; flex-direction:column;
+    position:relative; overflow:hidden; box-shadow: 3px 3px 0 var(--frame); min-height: 0;}
+  .panel.full{ grid-column: 1 / -1;}
+  .panel-text{ font-family:'Patrick Hand', cursive; font-size: clamp(11px, 1.55vw, 14px);
+    line-height:1.2; color:var(--ink); margin-bottom: 4px; flex-shrink: 0;}
+  .panel-text strong{ color: var(--kirby-pink-dark);}
+  .panel-text .red{ color: var(--kirby-red); font-weight:700;}
+  .panel-text .blue{ color: var(--water-dark); font-weight:700;}
+  .panel-text .poop-text{ color: var(--poop); font-weight:700;}
+  .panel-art{ flex:1; display:flex; align-items:center; justify-content:center; min-height: 0; overflow: hidden;}
+  .panel-art svg{ width:100%; height:100%; max-height: 100%; max-width:100%;}
+
+  /* FLIP-O-RAMA pages (single big image, signature) */
+  .flipo{ align-items:center; justify-content:center; gap: 14px;}
+  .flipo-banner{ text-align:center;}
+  .flipo-banner .tag{
+    display:inline-block; font-family:'Bagel Fat One', cursive;
+    font-size: clamp(20px, 3.6vw, 28px); color:#fff; background:var(--kirby-red);
+    padding: 6px 24px; border-radius: 6px; transform: rotate(-2deg);
+    letter-spacing: 3px; box-shadow: 4px 4px 0 var(--frame);
+  }
+  .flipo-instruction{
+    font-family:'Caveat', cursive; font-size: clamp(14px, 2vw, 18px);
+    color: rgba(0,0,0,.55); margin-top: 4px;
+  }
+  .flipo-art{
+    flex:1; width: 100%;
+    display:flex; align-items:center; justify-content:center;
+    min-height: 0;
+  }
+  .flipo-art svg{ width: 100%; height: 100%; max-height: 100%; max-width: 100%;}
+  .flipo-sig{
+    font-family:'Caveat', cursive;
+    font-size: clamp(20px, 3.4vw, 28px);
+    color: var(--kirby-pink-dark); font-weight: 700;
+    margin-top: 6px;
+  }
+
+  /* END PAGE Switch console */
+  .endpage{
+    align-items:center; justify-content:flex-start;
+    text-align:center; gap:16px;
+  }
+  .end-panels{
+    display:grid; gap: clamp(8px, 1.4vw, 14px);
+    width: 100%; flex: 1; min-height: 0;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto 1fr;
+  }
+  .end-panels .full{ grid-column: 1 / -1;}
+  .end-panels .console{ grid-column: 1 / -1; min-height: 0;}
+
+  .hint{ color:rgba(255,255,255,.6); font-family:'Caveat', cursive; font-size:16px; margin-top:10px;}
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <span class="brand">📚 BriAnna Library</span>
+    <a href="index.html">← Back to Library</a>
+  </header>
+  <div class="book-shell">
+    <div class="book" id="book">
+
+      <!-- ============ PAGE 1 — COVER ============ -->
+      <section class="page cover active" data-page="1">
+        <span class="sparkle s1">✦</span>
+        <span class="sparkle s2">✦</span>
+        <span class="sparkle s3">✧</span>
+        <span class="sparkle s4">✦</span>
+        <div class="cover-presents">BriAnna Comics Presents...</div>
+        <h1 class="cover-title">KIRBY IN<br/>THE DARK</h1>
+        <h2 class="cover-subtitle">★ WORLD ★</h2>
+        <div class="cover-art">
+          <svg viewBox="0 0 360 280" xmlns="http://www.w3.org/2000/svg">
+            <!-- dark world background -->
+            <defs>
+              <radialGradient id="darkGlow" cx="50%" cy="50%">
+                <stop offset="0%" stop-color="#5a3a5a" stop-opacity="0.8"/>
+                <stop offset="100%" stop-color="#1a0a20" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <circle cx="180" cy="140" r="160" fill="url(#darkGlow)"/>
+
+            <!-- floating stars/sparkles in dark void -->
+            <g fill="#fdf8ee">
+              <circle cx="40" cy="40" r="1.5"/>
+              <circle cx="320" cy="60" r="1.5"/>
+              <circle cx="60" cy="220" r="1"/>
+              <circle cx="330" cy="200" r="1.5"/>
+              <circle cx="280" cy="40" r="1"/>
+              <circle cx="80" cy="100" r="1"/>
+            </g>
+
+            <!-- Kirby! pink fluffy ball, two hands, two red feet -->
+            <g transform="translate(180,150)">
+              <!-- ground shadow -->
+              <ellipse cx="0" cy="80" rx="55" ry="6" fill="rgba(0,0,0,.4)"/>
+              <!-- red feet (oval shoes) -->
+              <ellipse cx="-22" cy="70" rx="22" ry="11" fill="#e84a4a" stroke="#1a1410" stroke-width="3"/>
+              <ellipse cx="22" cy="70" rx="22" ry="11" fill="#e84a4a" stroke="#1a1410" stroke-width="3"/>
+              <!-- foot highlights -->
+              <ellipse cx="-22" cy="65" rx="14" ry="3" fill="#f57676" opacity=".6"/>
+              <ellipse cx="22" cy="65" rx="14" ry="3" fill="#f57676" opacity=".6"/>
+              <!-- main body (pink fluffy ball) -->
+              <circle cx="0" cy="0" r="60" fill="#ff9ec2" stroke="#1a1410" stroke-width="3.5"/>
+              <!-- body highlight -->
+              <ellipse cx="-22" cy="-25" rx="20" ry="14" fill="#ffc4dc" opacity=".7"/>
+              <!-- left hand (pink mitten) -->
+              <ellipse cx="-50" cy="20" rx="18" ry="14" fill="#ff9ec2" stroke="#1a1410" stroke-width="3" transform="rotate(-20 -50 20)"/>
+              <!-- right hand -->
+              <ellipse cx="50" cy="20" rx="18" ry="14" fill="#ff9ec2" stroke="#1a1410" stroke-width="3" transform="rotate(20 50 20)"/>
+              <!-- face cheeks (pink blush) -->
+              <ellipse cx="-30" cy="6" rx="9" ry="5" fill="#ff6b9a" opacity=".7"/>
+              <ellipse cx="30" cy="6" rx="9" ry="5" fill="#ff6b9a" opacity=".7"/>
+              <!-- eyes (oval black + white shine) -->
+              <ellipse cx="-12" cy="-8" rx="5" ry="10" fill="#1a1410"/>
+              <ellipse cx="12" cy="-8" rx="5" ry="10" fill="#1a1410"/>
+              <!-- eye whites (top shine) -->
+              <ellipse cx="-12" cy="-14" rx="3" ry="4" fill="#fff"/>
+              <ellipse cx="12" cy="-14" rx="3" ry="4" fill="#fff"/>
+              <!-- happy small mouth -->
+              <path d="M-6 8 Q0 14 6 8" stroke="#1a1410" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            </g>
+
+            <!-- name label -->
+            <text x="180" y="270" text-anchor="middle" font-family="Bagel Fat One" font-size="20" fill="#ff9ec2" stroke="#1a1410" stroke-width="0.8">★ KIRBY ★</text>
+          </svg>
+        </div>
+        <div class="cover-by">By: <strong>Brian Dai</strong> &amp; <strong>Anna Dai</strong></div>
+        <span class="pagenum">cover</span>
+      </section>
+
+      <!-- ============ PAGE 2 — THE BIG FALL ============ -->
+      <section class="page" data-page="2">
+        <div class="chapter-banner">
+          <span class="chapter-tag">CHAPTER ONE</span>
+          <div class="chapter-title">The Big <em>Fall...</em> ⬇️</div>
+        </div>
+        <div class="panels">
+          <!-- Panel 1 — Kirby falls into hole -->
+          <div class="panel">
+            <div class="panel-text"><span class="red">"Once upon time, Kirby fell into a hole."</span></div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <!-- ground top -->
+                <rect x="0" y="0" width="200" height="40" fill="#86c46a"/>
+                <line x1="0" y1="40" x2="200" y2="40" stroke="#1a1410" stroke-width="2"/>
+                <!-- grass tufts -->
+                <g stroke="#4a8030" stroke-width="1.5" fill="none">
+                  <path d="M30 38 L28 32 M30 38 L32 32"/>
+                  <path d="M170 38 L168 32 M170 38 L172 32"/>
+                </g>
+                <!-- the hole (dark gradient) -->
+                <ellipse cx="100" cy="40" rx="42" ry="10" fill="#1a1410" stroke="#1a1410" stroke-width="2"/>
+                <!-- hole walls extending down -->
+                <path d="M58 40 L62 140 L138 140 L142 40 Z" fill="#2a1810"/>
+                <line x1="58" y1="40" x2="62" y2="140" stroke="#0a0508" stroke-width="1"/>
+                <line x1="142" y1="40" x2="138" y2="140" stroke="#0a0508" stroke-width="1"/>
+                <!-- Kirby falling in -->
+                <g transform="translate(100,55)">
+                  <ellipse cx="-7" cy="6" rx="6" ry="3" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="7" cy="6" rx="6" ry="3" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="14" fill="#ff9ec2" stroke="#1a1410" stroke-width="2"/>
+                  <ellipse cx="-6" cy="-5" rx="4" ry="3" fill="#ffc4dc" opacity=".7"/>
+                  <ellipse cx="-15" cy="2" rx="5" ry="4" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="15" cy="2" rx="5" ry="4" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="-8" cy="2" rx="2" ry="1" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="8" cy="2" rx="2" ry="1" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="-3" cy="-2" rx="1.5" ry="3" fill="#1a1410"/>
+                  <ellipse cx="3" cy="-2" rx="1.5" ry="3" fill="#1a1410"/>
+                  <ellipse cx="-3" cy="-4" rx="0.8" ry="1" fill="#fff"/>
+                  <ellipse cx="3" cy="-4" rx="0.8" ry="1" fill="#fff"/>
+                  <ellipse cx="0" cy="6" rx="3" ry="2" fill="#1a1410"/>
+                </g>
+                <!-- motion lines around Kirby -->
+                <g stroke="#fdf8ee" stroke-width="1.5" opacity=".6" stroke-linecap="round">
+                  <line x1="78" y1="70" x2="74" y2="78"/>
+                  <line x1="122" y1="70" x2="126" y2="78"/>
+                  <line x1="100" y1="85" x2="100" y2="92"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Panel 2 — falling, chapter 1 -->
+          <div class="panel">
+            <div class="panel-text"><span class="red">"So let's start chapter 1..."</span> <span class="poop-text">"AHH!"</span></div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="200" height="140" fill="#2a1810"/>
+                <path d="M0 0 L4 140 M196 0 L200 140" stroke="#1a0a08" stroke-width="2" fill="none"/>
+                <!-- Kirby falling -->
+                <g transform="translate(100,70)">
+                  <ellipse cx="-7" cy="8" rx="7" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="7" cy="8" rx="7" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="20" fill="#ff9ec2" stroke="#1a1410" stroke-width="2"/>
+                  <ellipse cx="-8" cy="-7" rx="6" ry="4" fill="#ffc4dc" opacity=".7"/>
+                  <!-- hands waving -->
+                  <ellipse cx="-22" cy="-2" rx="6" ry="5" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5" transform="rotate(-30 -22 -2)"/>
+                  <ellipse cx="22" cy="-2" rx="6" ry="5" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5" transform="rotate(30 22 -2)"/>
+                  <ellipse cx="-11" cy="3" rx="3" ry="1.5" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="11" cy="3" rx="3" ry="1.5" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="-5" cy="-3" rx="1.8" ry="4" fill="#1a1410"/>
+                  <ellipse cx="5" cy="-3" rx="1.8" ry="4" fill="#1a1410"/>
+                  <ellipse cx="-5" cy="-5" rx="1" ry="1.5" fill="#fff"/>
+                  <ellipse cx="5" cy="-5" rx="1" ry="1.5" fill="#fff"/>
+                  <!-- OPEN mouth screaming -->
+                  <ellipse cx="0" cy="7" rx="4" ry="5" fill="#1a1410"/>
+                  <ellipse cx="0" cy="8" rx="2" ry="3" fill="#b53030"/>
+                </g>
+                <!-- "AHH!" bubble -->
+                <g transform="translate(150,30)">
+                  <ellipse cx="0" cy="0" rx="22" ry="12" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M-10 10 L-18 20 L-6 12 Z" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <text x="0" y="5" text-anchor="middle" font-family="Bagel Fat One" font-size="14" fill="#b53030">AHH!</text>
+                </g>
+                <!-- speed lines -->
+                <g stroke="#fdf8ee" stroke-width="1.5" opacity=".5" stroke-linecap="round">
+                  <line x1="50" y1="20" x2="55" y2="40"/>
+                  <line x1="80" y1="10" x2="85" y2="30"/>
+                  <line x1="140" y1="100" x2="145" y2="120"/>
+                  <line x1="170" y1="90" x2="175" y2="110"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Panel 3 — 1 minute later -->
+          <div class="panel">
+            <div class="panel-text"><strong>1 minute later...</strong> <span class="poop-text">"AHH!"</span></div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="200" height="140" fill="#2a1810"/>
+                <path d="M0 0 L4 140 M196 0 L200 140" stroke="#1a0a08" stroke-width="2" fill="none"/>
+                <g transform="translate(100,70)">
+                  <ellipse cx="-7" cy="8" rx="7" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="7" cy="8" rx="7" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="20" fill="#ff9ec2" stroke="#1a1410" stroke-width="2"/>
+                  <ellipse cx="-8" cy="-7" rx="6" ry="4" fill="#ffc4dc" opacity=".7"/>
+                  <ellipse cx="-22" cy="0" rx="6" ry="5" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5" transform="rotate(-20 -22 0)"/>
+                  <ellipse cx="22" cy="0" rx="6" ry="5" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5" transform="rotate(20 22 0)"/>
+                  <ellipse cx="-11" cy="3" rx="3" ry="1.5" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="11" cy="3" rx="3" ry="1.5" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="-5" cy="-3" rx="1.8" ry="4" fill="#1a1410"/>
+                  <ellipse cx="5" cy="-3" rx="1.8" ry="4" fill="#1a1410"/>
+                  <ellipse cx="-5" cy="-5" rx="1" ry="1.5" fill="#fff"/>
+                  <ellipse cx="5" cy="-5" rx="1" ry="1.5" fill="#fff"/>
+                  <ellipse cx="0" cy="7" rx="3.5" ry="4.5" fill="#1a1410"/>
+                  <ellipse cx="0" cy="8" rx="2" ry="2.5" fill="#b53030"/>
+                </g>
+                <g transform="translate(150,30)">
+                  <ellipse cx="0" cy="0" rx="22" ry="12" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M-10 10 L-18 20 L-6 12 Z" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <text x="0" y="5" text-anchor="middle" font-family="Bagel Fat One" font-size="14" fill="#b53030">AHH!</text>
+                </g>
+                <!-- clock icon -->
+                <g transform="translate(35,30)">
+                  <circle cx="0" cy="0" r="14" fill="#fdf8ee" stroke="#1a1410" stroke-width="1.5"/>
+                  <line x1="0" y1="0" x2="0" y2="-8" stroke="#1a1410" stroke-width="1.5"/>
+                  <line x1="0" y1="0" x2="6" y2="0" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="1" fill="#1a1410"/>
+                  <text x="0" y="24" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="10" fill="#fdf8ee">1 min</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Panel 4 — 1 hour later -->
+          <div class="panel">
+            <div class="panel-text"><strong>One hour later...</strong> <span class="poop-text">"ahh..."</span></div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="200" height="140" fill="#1a0a18"/>
+                <path d="M0 0 L4 140 M196 0 L200 140" stroke="#0a0008" stroke-width="2" fill="none"/>
+                <g transform="translate(100,70)">
+                  <ellipse cx="-7" cy="8" rx="7" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="7" cy="8" rx="7" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="20" fill="#ff9ec2" stroke="#1a1410" stroke-width="2"/>
+                  <ellipse cx="-8" cy="-7" rx="6" ry="4" fill="#ffc4dc" opacity=".7"/>
+                  <ellipse cx="-22" cy="2" rx="6" ry="5" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="22" cy="2" rx="6" ry="5" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="-11" cy="3" rx="3" ry="1.5" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="11" cy="3" rx="3" ry="1.5" fill="#ff6b9a" opacity=".7"/>
+                  <!-- TIRED eyes (lines) -->
+                  <path d="M-8 -3 L-2 -3" stroke="#1a1410" stroke-width="2"/>
+                  <path d="M2 -3 L8 -3" stroke="#1a1410" stroke-width="2"/>
+                  <!-- weary mouth (small O) -->
+                  <ellipse cx="0" cy="6" rx="2" ry="3" fill="#1a1410"/>
+                </g>
+                <g transform="translate(150,30)">
+                  <ellipse cx="0" cy="0" rx="22" ry="12" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M-10 10 L-18 20 L-6 12 Z" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <text x="0" y="5" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="14" fill="#b53030">ahh...</text>
+                </g>
+                <g transform="translate(35,30)">
+                  <circle cx="0" cy="0" r="14" fill="#fdf8ee" stroke="#1a1410" stroke-width="1.5"/>
+                  <line x1="0" y1="0" x2="6" y2="-4" stroke="#1a1410" stroke-width="1.5"/>
+                  <line x1="0" y1="0" x2="0" y2="6" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="1" fill="#1a1410"/>
+                  <text x="0" y="24" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="10" fill="#fdf8ee">1 hr</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Panel 5 — 1 day later (with ant!) -->
+          <div class="panel">
+            <div class="panel-text"><strong>One day later...</strong> <span class="poop-text">"ahh..."</span> 🐜 <span class="red">"ahh!"</span></div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="200" height="140" fill="#0a0510"/>
+                <path d="M0 0 L4 140 M196 0 L200 140" stroke="#000" stroke-width="2" fill="none"/>
+                <!-- Kirby falling -->
+                <g transform="translate(80,75)">
+                  <ellipse cx="-7" cy="8" rx="7" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="7" cy="8" rx="7" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="18" fill="#ff9ec2" stroke="#1a1410" stroke-width="2"/>
+                  <ellipse cx="-7" cy="-6" rx="5" ry="3" fill="#ffc4dc" opacity=".7"/>
+                  <ellipse cx="-20" cy="2" rx="5" ry="4" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="20" cy="2" rx="5" ry="4" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="-10" cy="3" rx="2.5" ry="1.5" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="10" cy="3" rx="2.5" ry="1.5" fill="#ff6b9a" opacity=".7"/>
+                  <!-- EXHAUSTED eyes (X) -->
+                  <path d="M-7 -4 L-3 0 M-3 -4 L-7 0" stroke="#1a1410" stroke-width="1.8"/>
+                  <path d="M3 -4 L7 0 M7 -4 L3 0" stroke="#1a1410" stroke-width="1.8"/>
+                  <ellipse cx="0" cy="6" rx="2" ry="3" fill="#1a1410"/>
+                </g>
+                <!-- ANT also falling next to Kirby! -->
+                <g transform="translate(140,70)">
+                  <!-- ant body 3 segments -->
+                  <ellipse cx="0" cy="0" rx="6" ry="4" fill="#5a3a1f" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="-6" cy="0" rx="4" ry="3" fill="#5a3a1f" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="6" cy="-1" rx="4.5" ry="3.5" fill="#5a3a1f" stroke="#1a1410" stroke-width="1.5"/>
+                  <!-- antennae -->
+                  <line x1="7" y1="-4" x2="10" y2="-10" stroke="#1a1410" stroke-width="1"/>
+                  <line x1="5" y1="-4" x2="2" y2="-10" stroke="#1a1410" stroke-width="1"/>
+                  <!-- legs (flailing) -->
+                  <line x1="-3" y1="3" x2="-6" y2="9" stroke="#1a1410" stroke-width="1.5"/>
+                  <line x1="0" y1="3" x2="0" y2="10" stroke="#1a1410" stroke-width="1.5"/>
+                  <line x1="3" y1="3" x2="6" y2="9" stroke="#1a1410" stroke-width="1.5"/>
+                  <!-- tiny eyes on head -->
+                  <circle cx="5" cy="-2" r="0.6" fill="#fff"/>
+                  <circle cx="7" cy="-2" r="0.6" fill="#fff"/>
+                </g>
+                <!-- AHH bubble from kirby -->
+                <g transform="translate(35,30)">
+                  <ellipse cx="0" cy="0" rx="20" ry="11" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M10 10 L18 20 L14 12 Z" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <text x="0" y="4" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="12" fill="#b53030">ahh...</text>
+                </g>
+                <!-- ahh bubble from ant -->
+                <g transform="translate(170,40)">
+                  <ellipse cx="0" cy="0" rx="14" ry="9" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M-6 8 L-12 16 L-3 10 Z" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <text x="0" y="3" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="10" fill="#b53030">ahh!</text>
+                </g>
+                <text x="100" y="130" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="11" fill="#fdf8ee">↑ even an ant joined!</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Panel 6 — Finally Plop -->
+          <div class="panel">
+            <div class="panel-text"><strong>Finally...</strong> 💧 <span class="blue">"PLOP!"</span></div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <!-- dark hole walls top -->
+                <rect x="0" y="0" width="200" height="50" fill="#1a0a18"/>
+                <path d="M0 0 L4 50 M196 0 L200 50" stroke="#0a0008" stroke-width="2" fill="none"/>
+                <!-- water -->
+                <rect x="0" y="50" width="200" height="90" fill="#5aaadd"/>
+                <!-- water surface splash -->
+                <path d="M0 50 Q40 45 80 50 Q100 56 120 50 Q160 45 200 50" stroke="#1a1410" stroke-width="2" fill="none"/>
+                <!-- big splash burst -->
+                <g transform="translate(100,55)">
+                  <path d="M0 0 L-25 -25 L-15 -8 L-30 -5 L-12 0 L-28 8 L-12 6 L-20 22 L-5 10 L0 25 L5 10 L20 22 L12 6 L28 8 L12 0 L30 -5 L15 -8 L25 -25 Z" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                </g>
+                <!-- water drops flying -->
+                <g fill="#fff" stroke="#1a1410" stroke-width="1">
+                  <ellipse cx="60" cy="30" rx="3" ry="5"/>
+                  <ellipse cx="140" cy="30" rx="3" ry="5"/>
+                  <ellipse cx="40" cy="45" rx="2" ry="3"/>
+                  <ellipse cx="160" cy="45" rx="2" ry="3"/>
+                </g>
+                <!-- Kirby underwater (sinking with bubbles) -->
+                <g transform="translate(100,100)">
+                  <ellipse cx="-7" cy="8" rx="7" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5" opacity=".9"/>
+                  <ellipse cx="7" cy="8" rx="7" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5" opacity=".9"/>
+                  <circle cx="0" cy="0" r="18" fill="#ff9ec2" stroke="#1a1410" stroke-width="2" opacity=".9"/>
+                  <ellipse cx="-7" cy="-6" rx="5" ry="3" fill="#ffc4dc" opacity=".7"/>
+                  <ellipse cx="-20" cy="0" rx="5" ry="4" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5" opacity=".9"/>
+                  <ellipse cx="20" cy="0" rx="5" ry="4" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5" opacity=".9"/>
+                  <ellipse cx="-10" cy="3" rx="2.5" ry="1.5" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="10" cy="3" rx="2.5" ry="1.5" fill="#ff6b9a" opacity=".7"/>
+                  <path d="M-7 -3 L-3 0 M-3 -3 L-7 0" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M3 -3 L7 0 M7 -3 L3 0" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="0" cy="6" rx="2.5" ry="2" fill="#1a1410"/>
+                </g>
+                <!-- bubbles -->
+                <g fill="#fff" stroke="#1a1410" stroke-width="0.8" opacity=".7">
+                  <circle cx="50" cy="80" r="3"/>
+                  <circle cx="60" cy="65" r="2"/>
+                  <circle cx="150" cy="75" r="3"/>
+                  <circle cx="160" cy="60" r="2"/>
+                  <circle cx="130" cy="90" r="2.5"/>
+                </g>
+                <!-- PLOP! text -->
+                <g transform="translate(45,75)">
+                  <ellipse cx="0" cy="0" rx="22" ry="12" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <text x="0" y="5" text-anchor="middle" font-family="Bagel Fat One" font-size="14" fill="#2a6a9c">PLOP!</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <span class="pagenum">2</span>
+      </section>
+
+      <!-- ============ PAGE 3 — UNDERWATER ADVENTURE ============ -->
+      <section class="page" data-page="3">
+        <div class="chapter-banner">
+          <span class="chapter-tag">CHAPTER ONE • cont.</span>
+          <div class="chapter-title">Under the <em>Water!</em> 💧🐟</div>
+        </div>
+        <div class="panels">
+          <!-- Panel 1 — Kirby accidentally ate a fish -->
+          <div class="panel">
+            <div class="panel-text"><span class="blue">"And then he accidentally ate a fish!"</span> <span class="red">"Oh pss!"</span> 🐟</div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="200" height="140" fill="#5aaadd"/>
+                <!-- bubbles around -->
+                <g fill="#fff" stroke="#1a1410" stroke-width="0.6" opacity=".7">
+                  <circle cx="30" cy="30" r="3"/>
+                  <circle cx="40" cy="20" r="2"/>
+                  <circle cx="170" cy="40" r="3"/>
+                  <circle cx="180" cy="25" r="2"/>
+                  <circle cx="20" cy="100" r="2"/>
+                  <circle cx="180" cy="110" r="2.5"/>
+                </g>
+                <!-- Kirby with mouth open + fish half in -->
+                <g transform="translate(100,75)">
+                  <ellipse cx="-12" cy="22" rx="9" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="12" cy="22" rx="9" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="28" fill="#ff9ec2" stroke="#1a1410" stroke-width="2.5"/>
+                  <ellipse cx="-10" cy="-10" rx="8" ry="6" fill="#ffc4dc" opacity=".7"/>
+                  <ellipse cx="-28" cy="2" rx="7" ry="6" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="28" cy="2" rx="7" ry="6" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="-15" cy="4" rx="3" ry="2" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="15" cy="4" rx="3" ry="2" fill="#ff6b9a" opacity=".7"/>
+                  <!-- shocked eyes -->
+                  <ellipse cx="-7" cy="-3" rx="2.5" ry="5" fill="#1a1410"/>
+                  <ellipse cx="7" cy="-3" rx="2.5" ry="5" fill="#1a1410"/>
+                  <ellipse cx="-7" cy="-7" rx="1.5" ry="2" fill="#fff"/>
+                  <ellipse cx="7" cy="-7" rx="1.5" ry="2" fill="#fff"/>
+                  <!-- BIG OPEN MOUTH with half fish sticking out -->
+                  <ellipse cx="0" cy="10" rx="9" ry="7" fill="#1a1410" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="0" cy="11" rx="6" ry="5" fill="#b53030"/>
+                  <!-- fish tail sticking out -->
+                  <g transform="translate(6,8)">
+                    <path d="M0 0 L8 -4 L8 4 Z" fill="#f5d04a" stroke="#1a1410" stroke-width="1.5"/>
+                    <path d="M3 -2 L7 -3 L7 3 L3 2 Z" fill="#e87a30" stroke="#1a1410" stroke-width="1"/>
+                  </g>
+                </g>
+                <!-- "Oh pss!" bubble -->
+                <g transform="translate(40,30)">
+                  <ellipse cx="0" cy="0" rx="22" ry="11" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M10 9 L18 18 L14 11 Z" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <text x="0" y="4" text-anchor="middle" font-family="Bagel Fat One" font-size="11" fill="#b53030">Oh pss!</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Panel 2 — got new power -->
+          <div class="panel">
+            <div class="panel-text"><span class="blue">"Then he got a new power!"</span> <span class="red">"Hey, this feels good!"</span> ✨</div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="200" height="140" fill="#5aaadd"/>
+                <!-- power aura behind kirby -->
+                <g transform="translate(100,75)">
+                  <path d="M0 -50 L8 -18 L36 -32 L14 -7 L48 0 L14 7 L36 32 L8 18 L0 50 L-8 18 L-36 32 L-14 7 L-48 0 L-14 -7 L-36 -32 L-8 -18 Z" fill="#f5d04a" opacity=".6"/>
+                </g>
+                <g fill="#fff" stroke="#1a1410" stroke-width="0.6" opacity=".7">
+                  <circle cx="30" cy="30" r="3"/>
+                  <circle cx="170" cy="40" r="3"/>
+                  <circle cx="20" cy="100" r="2"/>
+                  <circle cx="180" cy="100" r="2"/>
+                </g>
+                <!-- Kirby with fish hat (got fish power!) dancing -->
+                <g transform="translate(100,80)">
+                  <ellipse cx="-12" cy="22" rx="9" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="12" cy="22" rx="9" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="25" fill="#ff9ec2" stroke="#1a1410" stroke-width="2.5"/>
+                  <ellipse cx="-9" cy="-9" rx="7" ry="5" fill="#ffc4dc" opacity=".7"/>
+                  <!-- hands raised in joy -->
+                  <ellipse cx="-26" cy="-12" rx="6" ry="5" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5" transform="rotate(-45 -26 -12)"/>
+                  <ellipse cx="26" cy="-12" rx="6" ry="5" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5" transform="rotate(45 26 -12)"/>
+                  <ellipse cx="-13" cy="3" rx="3" ry="2" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="13" cy="3" rx="3" ry="2" fill="#ff6b9a" opacity=".7"/>
+                  <!-- happy closed eyes (curved) -->
+                  <path d="M-9 -4 Q-5 -8 -1 -4" stroke="#1a1410" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  <path d="M1 -4 Q5 -8 9 -4" stroke="#1a1410" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  <!-- big happy smile -->
+                  <path d="M-7 7 Q0 14 7 7" stroke="#1a1410" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  <!-- fish hat/crown on top (got the power!) -->
+                  <g transform="translate(0,-26)">
+                    <!-- fish on head -->
+                    <ellipse cx="0" cy="0" rx="10" ry="6" fill="#f5d04a" stroke="#1a1410" stroke-width="1.5"/>
+                    <path d="M-10 0 L-16 -4 L-16 4 Z" fill="#f5d04a" stroke="#1a1410" stroke-width="1.5"/>
+                    <circle cx="6" cy="-1" r="1.5" fill="#1a1410"/>
+                    <circle cx="6" cy="-1" r="0.6" fill="#fff"/>
+                  </g>
+                </g>
+                <!-- happy bubble -->
+                <g transform="translate(40,30)">
+                  <ellipse cx="0" cy="0" rx="32" ry="13" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M14 11 L20 22 L18 13 Z" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <text x="0" y="-1" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="11" fill="#b53030">Hey, this</text>
+                  <text x="0" y="9" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="11" fill="#b53030">feels good!</text>
+                </g>
+                <text x="170" y="135" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="10" fill="#1a1410">★ fish power! ★</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Panel 3 — can breath in water -->
+          <div class="panel">
+            <div class="panel-text"><span class="blue">"He can breathe in water!"</span> <span class="red">"WOW!"</span></div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="200" height="140" fill="#5aaadd"/>
+                <g fill="#fff" stroke="#1a1410" stroke-width="0.6" opacity=".7">
+                  <circle cx="50" cy="25" r="3"/>
+                  <circle cx="60" cy="15" r="2"/>
+                  <circle cx="150" cy="30" r="3"/>
+                </g>
+                <!-- Kirby happy with fish hat, big O mouth -->
+                <g transform="translate(100,75)">
+                  <ellipse cx="-12" cy="22" rx="9" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="12" cy="22" rx="9" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="25" fill="#ff9ec2" stroke="#1a1410" stroke-width="2.5"/>
+                  <ellipse cx="-9" cy="-9" rx="7" ry="5" fill="#ffc4dc" opacity=".7"/>
+                  <ellipse cx="-26" cy="2" rx="6" ry="5" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="26" cy="2" rx="6" ry="5" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="-13" cy="3" rx="3" ry="2" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="13" cy="3" rx="3" ry="2" fill="#ff6b9a" opacity=".7"/>
+                  <!-- big WOW eyes -->
+                  <ellipse cx="-7" cy="-3" rx="3" ry="6" fill="#1a1410"/>
+                  <ellipse cx="7" cy="-3" rx="3" ry="6" fill="#1a1410"/>
+                  <ellipse cx="-7" cy="-8" rx="1.5" ry="2.5" fill="#fff"/>
+                  <ellipse cx="7" cy="-8" rx="1.5" ry="2.5" fill="#fff"/>
+                  <!-- O of wonder mouth -->
+                  <ellipse cx="0" cy="9" rx="4" ry="5" fill="#1a1410"/>
+                  <ellipse cx="0" cy="10" rx="2" ry="3" fill="#b53030"/>
+                  <!-- fish hat -->
+                  <g transform="translate(0,-26)">
+                    <ellipse cx="0" cy="0" rx="10" ry="6" fill="#f5d04a" stroke="#1a1410" stroke-width="1.5"/>
+                    <path d="M-10 0 L-16 -4 L-16 4 Z" fill="#f5d04a" stroke="#1a1410" stroke-width="1.5"/>
+                    <circle cx="6" cy="-1" r="1.5" fill="#1a1410"/>
+                  </g>
+                  <!-- bubbles coming OUT of mouth (breathing) -->
+                  <g fill="#fff" stroke="#1a1410" stroke-width="0.8" opacity=".8">
+                    <circle cx="10" cy="20" r="2.5"/>
+                    <circle cx="15" cy="28" r="2"/>
+                    <circle cx="20" cy="35" r="1.5"/>
+                  </g>
+                </g>
+                <g transform="translate(45,30)">
+                  <ellipse cx="0" cy="0" rx="22" ry="12" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M10 10 L18 20 L14 12 Z" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <text x="0" y="5" text-anchor="middle" font-family="Bagel Fat One" font-size="14" fill="#b53030">WOW!</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Panel 4 — find a house in water -->
+          <div class="panel">
+            <div class="panel-text"><span class="blue">"And he found a home in the water!"</span> <span class="red">"WOW!"</span> 🏠</div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="200" height="140" fill="#5aaadd"/>
+                <!-- sea floor -->
+                <ellipse cx="100" cy="135" rx="120" ry="15" fill="#d6bf95"/>
+                <g fill="#fff" stroke="#1a1410" stroke-width="0.6" opacity=".7">
+                  <circle cx="40" cy="25" r="2"/>
+                  <circle cx="50" cy="40" r="2"/>
+                  <circle cx="20" cy="80" r="2.5"/>
+                </g>
+                <!-- underwater house -->
+                <g transform="translate(135,90)">
+                  <rect x="-25" y="-15" width="50" height="35" fill="#a06846" stroke="#1a1410" stroke-width="2.5"/>
+                  <path d="M-28 -15 L0 -38 L28 -15 Z" fill="#9a2020" stroke="#1a1410" stroke-width="2.5"/>
+                  <rect x="-7" y="0" width="14" height="20" fill="#5a3a20" stroke="#1a1410" stroke-width="2"/>
+                  <rect x="13" y="-8" width="10" height="10" fill="#cce4f3" stroke="#1a1410" stroke-width="1.5"/>
+                  <line x1="13" y1="-3" x2="23" y2="-3" stroke="#1a1410" stroke-width="0.8"/>
+                  <line x1="18" y1="-8" x2="18" y2="2" stroke="#1a1410" stroke-width="0.8"/>
+                  <circle cx="5" cy="11" r="1" fill="#d8a23c"/>
+                </g>
+                <!-- seaweed -->
+                <g stroke="#4a8030" stroke-width="2" fill="none">
+                  <path d="M30 130 Q28 110 32 100 Q28 90 30 80"/>
+                  <path d="M180 130 Q178 110 182 100"/>
+                </g>
+                <!-- Kirby looking at house -->
+                <g transform="translate(60,90)">
+                  <ellipse cx="-9" cy="18" rx="7" ry="3" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="9" cy="18" rx="7" ry="3" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="20" fill="#ff9ec2" stroke="#1a1410" stroke-width="2"/>
+                  <ellipse cx="-7" cy="-7" rx="5" ry="4" fill="#ffc4dc" opacity=".7"/>
+                  <ellipse cx="20" cy="2" rx="5" ry="4" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="-20" cy="2" rx="5" ry="4" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="-10" cy="3" rx="2.5" ry="1.5" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="10" cy="3" rx="2.5" ry="1.5" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="-5" cy="-2" rx="2.5" ry="5" fill="#1a1410"/>
+                  <ellipse cx="5" cy="-2" rx="2.5" ry="5" fill="#1a1410"/>
+                  <ellipse cx="-5" cy="-6" rx="1.2" ry="2" fill="#fff"/>
+                  <ellipse cx="5" cy="-6" rx="1.2" ry="2" fill="#fff"/>
+                  <ellipse cx="0" cy="7" rx="3" ry="4" fill="#1a1410"/>
+                  <!-- fish hat -->
+                  <g transform="translate(0,-22)">
+                    <ellipse cx="0" cy="0" rx="8" ry="5" fill="#f5d04a" stroke="#1a1410" stroke-width="1.2"/>
+                    <path d="M-8 0 L-13 -3 L-13 3 Z" fill="#f5d04a" stroke="#1a1410" stroke-width="1.2"/>
+                    <circle cx="5" cy="-1" r="1.2" fill="#1a1410"/>
+                  </g>
+                </g>
+                <g transform="translate(40,30)">
+                  <ellipse cx="0" cy="0" rx="22" ry="12" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M10 10 L18 20 L14 12 Z" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <text x="0" y="5" text-anchor="middle" font-family="Bagel Fat One" font-size="14" fill="#b53030">WOW!</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Panel 5 — found a gift box! -->
+          <div class="panel">
+            <div class="panel-text"><span class="blue">"He went in and found a..."</span> <span class="red">"OHH!"</span> 🎁</div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="200" height="140" fill="#fff8e8"/>
+                <!-- room floor -->
+                <rect x="0" y="100" width="200" height="40" fill="#a06846"/>
+                <line x1="0" y1="100" x2="200" y2="100" stroke="#1a1410" stroke-width="2"/>
+                <!-- gift box -->
+                <g transform="translate(135,90)">
+                  <ellipse cx="0" cy="12" rx="22" ry="3" fill="rgba(0,0,0,.3)"/>
+                  <!-- box body -->
+                  <rect x="-20" y="-15" width="40" height="25" fill="#e85a8a" stroke="#1a1410" stroke-width="2.5"/>
+                  <!-- lid -->
+                  <rect x="-22" y="-22" width="44" height="9" fill="#e85a8a" stroke="#1a1410" stroke-width="2.5"/>
+                  <!-- ribbon -->
+                  <rect x="-3" y="-22" width="6" height="32" fill="#f5d04a" stroke="#1a1410" stroke-width="2"/>
+                  <rect x="-22" y="-19" width="44" height="4" fill="#f5d04a" stroke="#1a1410" stroke-width="1"/>
+                  <!-- bow -->
+                  <ellipse cx="-7" cy="-26" rx="7" ry="5" fill="#f5d04a" stroke="#1a1410" stroke-width="2"/>
+                  <ellipse cx="7" cy="-26" rx="7" ry="5" fill="#f5d04a" stroke="#1a1410" stroke-width="2"/>
+                  <circle cx="0" cy="-26" r="3" fill="#f5d04a" stroke="#1a1410" stroke-width="2"/>
+                  <!-- sparkles around box -->
+                  <text x="-30" y="-15" font-family="Bagel Fat One" font-size="14" fill="#d8a23c">✦</text>
+                  <text x="25" y="-12" font-family="Bagel Fat One" font-size="12" fill="#d8a23c">✧</text>
+                  <text x="20" y="8" font-family="Bagel Fat One" font-size="10" fill="#d8a23c">✦</text>
+                </g>
+                <!-- Kirby excited looking -->
+                <g transform="translate(60,85)">
+                  <ellipse cx="-9" cy="20" rx="7" ry="3" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="9" cy="20" rx="7" ry="3" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="22" fill="#ff9ec2" stroke="#1a1410" stroke-width="2.5"/>
+                  <ellipse cx="-8" cy="-8" rx="6" ry="4" fill="#ffc4dc" opacity=".7"/>
+                  <!-- arms reaching out happily -->
+                  <ellipse cx="22" cy="0" rx="5" ry="4" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5" transform="rotate(20 22 0)"/>
+                  <ellipse cx="-22" cy="0" rx="5" ry="4" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5" transform="rotate(-20 -22 0)"/>
+                  <ellipse cx="-11" cy="4" rx="3" ry="2" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="11" cy="4" rx="3" ry="2" fill="#ff6b9a" opacity=".7"/>
+                  <!-- sparkling happy eyes -->
+                  <ellipse cx="-6" cy="-2" rx="3" ry="6" fill="#1a1410"/>
+                  <ellipse cx="6" cy="-2" rx="3" ry="6" fill="#1a1410"/>
+                  <ellipse cx="-6" cy="-7" rx="1.5" ry="2.5" fill="#fff"/>
+                  <ellipse cx="6" cy="-7" rx="1.5" ry="2.5" fill="#fff"/>
+                  <!-- OHH open mouth -->
+                  <ellipse cx="0" cy="9" rx="4" ry="5" fill="#1a1410"/>
+                  <ellipse cx="0" cy="10" rx="2" ry="3" fill="#b53030"/>
+                </g>
+                <g transform="translate(40,25)">
+                  <ellipse cx="0" cy="0" rx="20" ry="11" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M8 9 L16 18 L12 12 Z" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <text x="0" y="4" text-anchor="middle" font-family="Bagel Fat One" font-size="13" fill="#b53030">OHH!</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Panel 6 — ...POOP! -->
+          <div class="panel">
+            <div class="panel-text"><span class="poop-text">"...POOP!"</span> 💩 <span class="red">😡</span></div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="200" height="140" fill="#fff8e8"/>
+                <rect x="0" y="100" width="200" height="40" fill="#a06846"/>
+                <line x1="0" y1="100" x2="200" y2="100" stroke="#1a1410" stroke-width="2"/>
+                <!-- opened gift box with poop inside! -->
+                <g transform="translate(135,95)">
+                  <ellipse cx="0" cy="8" rx="22" ry="3" fill="rgba(0,0,0,.3)"/>
+                  <!-- box body (opened) -->
+                  <rect x="-20" y="-12" width="40" height="20" fill="#e85a8a" stroke="#1a1410" stroke-width="2.5"/>
+                  <!-- lid TILTED back (opened!) -->
+                  <g transform="translate(0,-12) rotate(-45)">
+                    <rect x="-22" y="-9" width="44" height="9" fill="#e85a8a" stroke="#1a1410" stroke-width="2.5"/>
+                    <rect x="-3" y="-22" width="6" height="14" fill="#f5d04a" stroke="#1a1410" stroke-width="2"/>
+                    <ellipse cx="-7" cy="-26" rx="7" ry="5" fill="#f5d04a" stroke="#1a1410" stroke-width="2"/>
+                    <ellipse cx="7" cy="-26" rx="7" ry="5" fill="#f5d04a" stroke="#1a1410" stroke-width="2"/>
+                    <circle cx="0" cy="-26" r="3" fill="#f5d04a" stroke="#1a1410" stroke-width="2"/>
+                  </g>
+                  <!-- POOP rising from box! -->
+                  <g transform="translate(0,-8)">
+                    <path d="M-12 12 Q-13 0 -8 -2 Q-10 -8 -5 -8 Q-6 -14 -2 -14 Q-1 -18 2 -16 Q4 -19 7 -16 Q10 -17 10 -13 Q14 -13 12 -8 Q16 -8 14 -3 Q18 -2 16 6 Q19 8 16 10 Q18 12 14 13 L-8 13 Q-13 12 -12 12 Z" fill="#7a5530" stroke="#1a1410" stroke-width="2"/>
+                    <path d="M-10 0 Q-3 -3 3 0 Q8 -3 12 1" stroke="#5a3a20" stroke-width="1.2" fill="none" opacity=".6"/>
+                    <!-- smelly stink lines -->
+                    <g stroke="#5a3a20" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".7">
+                      <path d="M-5 -20 Q-8 -22 -6 -26"/>
+                      <path d="M0 -22 Q3 -25 0 -28"/>
+                      <path d="M5 -20 Q8 -22 6 -26"/>
+                    </g>
+                  </g>
+                </g>
+                <!-- Kirby MAD (angry red face) -->
+                <g transform="translate(60,85)">
+                  <ellipse cx="-9" cy="20" rx="7" ry="3" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="9" cy="20" rx="7" ry="3" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="22" fill="#ff7090" stroke="#1a1410" stroke-width="2.5"/>
+                  <ellipse cx="-8" cy="-8" rx="6" ry="4" fill="#ff8aa5" opacity=".7"/>
+                  <ellipse cx="22" cy="2" rx="5" ry="4" fill="#ff7090" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="-22" cy="2" rx="5" ry="4" fill="#ff7090" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="-11" cy="4" rx="3" ry="2" fill="#b53030" opacity=".7"/>
+                  <ellipse cx="11" cy="4" rx="3" ry="2" fill="#b53030" opacity=".7"/>
+                  <!-- angry eyebrows down -->
+                  <path d="M-12 -8 L-3 -4" stroke="#1a1410" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M12 -8 L3 -4" stroke="#1a1410" stroke-width="2.5" stroke-linecap="round"/>
+                  <!-- angry eyes -->
+                  <ellipse cx="-6" cy="-2" rx="2.5" ry="5" fill="#1a1410"/>
+                  <ellipse cx="6" cy="-2" rx="2.5" ry="5" fill="#1a1410"/>
+                  <!-- frowning mouth -->
+                  <path d="M-7 11 Q0 5 7 11" stroke="#1a1410" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                  <!-- anger lines -->
+                  <g stroke="#b53030" stroke-width="2" stroke-linecap="round">
+                    <line x1="-26" y1="-22" x2="-30" y2="-28"/>
+                    <line x1="0" y1="-26" x2="0" y2="-32"/>
+                    <line x1="26" y1="-22" x2="30" y2="-28"/>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <span class="pagenum">3</span>
+      </section>
+
+      <!-- ============ PAGE 4 — THE POOP POWER ============ -->
+      <section class="page" data-page="4">
+        <div class="chapter-banner">
+          <span class="chapter-tag">CHAPTER TWO</span>
+          <div class="chapter-title">The <em>Poop Power!</em> 💩</div>
+        </div>
+        <div class="panels">
+          <!-- Panel 1 — Kirby opens mouth so big -->
+          <div class="panel">
+            <div class="panel-text"><strong>He opened his mouth SO BIG that he could eat it!</strong> 😱</div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="200" height="140" fill="#fff8e8"/>
+                <rect x="0" y="105" width="200" height="35" fill="#a06846"/>
+                <line x1="0" y1="105" x2="200" y2="105" stroke="#1a1410" stroke-width="2"/>
+                <!-- HUGE mouth Kirby with poop right next to it -->
+                <g transform="translate(70,70)">
+                  <ellipse cx="-15" cy="38" rx="11" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="15" cy="38" rx="11" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="38" fill="#ff9ec2" stroke="#1a1410" stroke-width="3"/>
+                  <ellipse cx="-14" cy="-14" rx="10" ry="7" fill="#ffc4dc" opacity=".7"/>
+                  <ellipse cx="-38" cy="4" rx="7" ry="6" fill="#ff9ec2" stroke="#1a1410" stroke-width="2"/>
+                  <ellipse cx="38" cy="4" rx="7" ry="6" fill="#ff9ec2" stroke="#1a1410" stroke-width="2"/>
+                  <ellipse cx="-18" cy="6" rx="4" ry="2" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="18" cy="6" rx="4" ry="2" fill="#ff6b9a" opacity=".7"/>
+                  <!-- determined eyes (closed lines) -->
+                  <path d="M-12 -8 L-4 -4" stroke="#1a1410" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M12 -8 L4 -4" stroke="#1a1410" stroke-width="2.5" stroke-linecap="round"/>
+                  <!-- HUGE OPEN MOUTH -->
+                  <ellipse cx="0" cy="15" rx="20" ry="16" fill="#1a1410" stroke="#1a1410" stroke-width="2.5"/>
+                  <ellipse cx="0" cy="18" rx="14" ry="11" fill="#b53030"/>
+                  <!-- tongue -->
+                  <ellipse cx="0" cy="22" rx="10" ry="5" fill="#e85a8a"/>
+                </g>
+                <!-- POOP being sucked in! -->
+                <g transform="translate(155,90)">
+                  <path d="M-10 12 Q-11 0 -7 -2 Q-9 -6 -5 -6 Q-6 -11 -2 -11 Q-1 -14 2 -13 Q4 -15 7 -13 Q9 -14 8 -10 Q12 -10 10 -6 Q14 -6 11 -2 Q15 0 13 6 Q16 8 13 10 Q15 12 11 13 L-7 13 Q-11 12 -10 12 Z" fill="#7a5530" stroke="#1a1410" stroke-width="2"/>
+                  <!-- suction motion lines pulling left -->
+                  <g stroke="#1a1410" stroke-width="2" stroke-linecap="round" opacity=".7">
+                    <line x1="20" y1="-5" x2="32" y2="-8"/>
+                    <line x1="20" y1="5" x2="32" y2="2"/>
+                    <line x1="22" y1="0" x2="36" y2="-2"/>
+                  </g>
+                </g>
+                <!-- big SLURP/MMM text -->
+                <g transform="translate(50,30)">
+                  <ellipse cx="0" cy="0" rx="28" ry="14" fill="#fff" stroke="#1a1410" stroke-width="2"/>
+                  <text x="0" y="5" text-anchor="middle" font-family="Bagel Fat One" font-size="14" fill="#7a5530">SLURP!</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Panel 2 — Chapter 2 The Poop Power (Kirby with poop hat) -->
+          <div class="panel">
+            <div class="panel-text"><span class="poop-text">★ "POOP POWER" GET! ★</span> 💩</div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="200" height="140" fill="#fff8e8"/>
+                <rect x="0" y="105" width="200" height="35" fill="#86c46a"/>
+                <line x1="0" y1="105" x2="200" y2="105" stroke="#1a1410" stroke-width="2"/>
+                <!-- power burst behind kirby -->
+                <g transform="translate(100,70)">
+                  <path d="M0 -60 L10 -22 L42 -38 L18 -8 L60 0 L18 8 L42 38 L10 22 L0 60 L-10 22 L-42 38 L-18 8 L-60 0 L-18 -8 L-42 -38 L-10 -22 Z" fill="#a17a4a" opacity=".4"/>
+                </g>
+                <!-- Kirby with POOP HAT! -->
+                <g transform="translate(100,80)">
+                  <ellipse cx="-12" cy="22" rx="9" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="12" cy="22" rx="9" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="25" fill="#ff9ec2" stroke="#1a1410" stroke-width="2.5"/>
+                  <ellipse cx="-9" cy="-9" rx="7" ry="5" fill="#ffc4dc" opacity=".7"/>
+                  <ellipse cx="-26" cy="2" rx="6" ry="5" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="26" cy="2" rx="6" ry="5" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="-13" cy="3" rx="3" ry="2" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="13" cy="3" rx="3" ry="2" fill="#ff6b9a" opacity=".7"/>
+                  <!-- determined eyes -->
+                  <ellipse cx="-7" cy="-3" rx="2.5" ry="5" fill="#1a1410"/>
+                  <ellipse cx="7" cy="-3" rx="2.5" ry="5" fill="#1a1410"/>
+                  <ellipse cx="-7" cy="-7" rx="1.2" ry="2" fill="#fff"/>
+                  <ellipse cx="7" cy="-7" rx="1.2" ry="2" fill="#fff"/>
+                  <path d="M-5 8 Q0 12 5 8" stroke="#1a1410" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  <!-- POOP HAT on top! -->
+                  <g transform="translate(0,-30)">
+                    <path d="M-15 16 Q-16 0 -10 -2 Q-12 -6 -7 -6 Q-8 -12 -2 -12 Q-1 -16 2 -14 Q5 -17 9 -14 Q12 -15 10 -10 Q15 -10 12 -6 Q18 -5 15 0 Q19 2 17 8 Q21 10 17 12 Q20 16 14 17 L-10 17 Q-16 16 -15 16 Z" fill="#7a5530" stroke="#1a1410" stroke-width="2"/>
+                    <path d="M-12 -2 Q-3 -5 4 -2 Q10 -5 14 -1" stroke="#5a3a20" stroke-width="1.2" fill="none" opacity=".5"/>
+                  </g>
+                </g>
+                <text x="100" y="135" text-anchor="middle" font-family="Bagel Fat One" font-size="11" fill="#7a5530">★ POOP KIRBY ★</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Panel 3 — everywhere he walks becomes poop -->
+          <div class="panel">
+            <div class="panel-text"><span class="blue">"Everywhere he walks becomes POOP!"</span> <span class="red">"WHAT?!"</span></div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="200" height="140" fill="#fff8e8"/>
+                <rect x="0" y="100" width="200" height="40" fill="#86c46a"/>
+                <line x1="0" y1="100" x2="200" y2="100" stroke="#1a1410" stroke-width="2"/>
+                <!-- POOP FOOTPRINTS behind Kirby -->
+                <g>
+                  <ellipse cx="30" cy="100" rx="8" ry="5" fill="#7a5530" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M22 100 Q22 95 26 94 Q24 91 28 91 Q27 88 30 88 Q33 88 32 91 Q36 91 34 94 Q38 95 38 100 Z" fill="#7a5530" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="60" cy="98" rx="8" ry="5" fill="#7a5530" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M52 98 Q52 93 56 92 Q54 89 58 89 Q57 86 60 86 Q63 86 62 89 Q66 89 64 92 Q68 93 68 98 Z" fill="#7a5530" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="90" cy="100" rx="8" ry="5" fill="#7a5530" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M82 100 Q82 95 86 94 Q84 91 88 91 Q87 88 90 88 Q93 88 92 91 Q96 91 94 94 Q98 95 98 100 Z" fill="#7a5530" stroke="#1a1410" stroke-width="1.5"/>
+                </g>
+                <!-- Kirby walking right with poop hat, looking back surprised -->
+                <g transform="translate(140,80)">
+                  <ellipse cx="-7" cy="20" rx="7" ry="3" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="7" cy="20" rx="7" ry="3" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="20" fill="#ff9ec2" stroke="#1a1410" stroke-width="2"/>
+                  <ellipse cx="-7" cy="-7" rx="5" ry="3" fill="#ffc4dc" opacity=".7"/>
+                  <ellipse cx="-20" cy="2" rx="5" ry="4" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="20" cy="2" rx="5" ry="4" fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="-10" cy="3" rx="2.5" ry="1.5" fill="#ff6b9a" opacity=".7"/>
+                  <ellipse cx="10" cy="3" rx="2.5" ry="1.5" fill="#ff6b9a" opacity=".7"/>
+                  <!-- surprised wide eyes -->
+                  <circle cx="-5" cy="-2" r="3" fill="#fff" stroke="#1a1410" stroke-width="1"/>
+                  <circle cx="5" cy="-2" r="3" fill="#fff" stroke="#1a1410" stroke-width="1"/>
+                  <circle cx="-5" cy="-2" r="1.5" fill="#1a1410"/>
+                  <circle cx="5" cy="-2" r="1.5" fill="#1a1410"/>
+                  <!-- O shocked mouth -->
+                  <ellipse cx="0" cy="8" rx="3" ry="4" fill="#1a1410"/>
+                  <!-- poop hat -->
+                  <g transform="translate(0,-22)">
+                    <path d="M-12 14 Q-13 0 -8 -2 Q-10 -5 -6 -5 Q-7 -10 -2 -10 Q-1 -13 2 -12 Q4 -14 7 -12 Q10 -13 8 -8 Q12 -8 10 -5 Q14 -4 12 0 Q15 2 13 7 Q17 9 13 10 Q16 14 11 14 L-8 14 Q-13 14 -12 14 Z" fill="#7a5530" stroke="#1a1410" stroke-width="1.5"/>
+                  </g>
+                </g>
+                <!-- WHAT?! bubble -->
+                <g transform="translate(170,30)">
+                  <ellipse cx="0" cy="0" rx="22" ry="12" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <path d="M-10 10 L-18 20 L-6 12 Z" fill="#fff" stroke="#1a1410" stroke-width="1.5"/>
+                  <text x="0" y="5" text-anchor="middle" font-family="Bagel Fat One" font-size="13" fill="#b53030">WHAT?!</text>
+                </g>
+                <!-- arrow pointing back -->
+                <path d="M120 95 Q90 85 60 90" stroke="#1a1410" stroke-width="2" fill="none" stroke-dasharray="3 2"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Panel 4 — Kirby angry I am mad -->
+          <div class="panel">
+            <div class="panel-text"><span class="red">"I AM MAD!"</span> 😡💢</div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="200" height="140" fill="#fff8e8"/>
+                <rect x="0" y="105" width="200" height="35" fill="#86c46a"/>
+                <line x1="0" y1="105" x2="200" y2="105" stroke="#1a1410" stroke-width="2"/>
+                <!-- ANGRY POOP KIRBY (centered) -->
+                <g transform="translate(100,70)">
+                  <ellipse cx="-10" cy="32" rx="9" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="10" cy="32" rx="9" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <!-- red angry kirby (slightly redder) -->
+                  <circle cx="0" cy="0" r="28" fill="#ff7090" stroke="#1a1410" stroke-width="3"/>
+                  <ellipse cx="-10" cy="-10" rx="8" ry="6" fill="#ff8aa5" opacity=".7"/>
+                  <!-- FISTS clenched -->
+                  <ellipse cx="-28" cy="0" rx="7" ry="6" fill="#ff7090" stroke="#1a1410" stroke-width="2"/>
+                  <ellipse cx="28" cy="0" rx="7" ry="6" fill="#ff7090" stroke="#1a1410" stroke-width="2"/>
+                  <ellipse cx="-14" cy="4" rx="4" ry="2" fill="#b53030" opacity=".7"/>
+                  <ellipse cx="14" cy="4" rx="4" ry="2" fill="#b53030" opacity=".7"/>
+                  <!-- VERY angry eyebrows -->
+                  <path d="M-14 -10 L-3 -3" stroke="#1a1410" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M14 -10 L3 -3" stroke="#1a1410" stroke-width="3" stroke-linecap="round"/>
+                  <!-- angry small eyes -->
+                  <ellipse cx="-6" cy="0" rx="2" ry="3" fill="#1a1410"/>
+                  <ellipse cx="6" cy="0" rx="2" ry="3" fill="#1a1410"/>
+                  <!-- YELLING mouth -->
+                  <ellipse cx="0" cy="14" rx="6" ry="5" fill="#1a1410"/>
+                  <ellipse cx="0" cy="15" rx="3" ry="3" fill="#b53030"/>
+                  <!-- POOP HAT -->
+                  <g transform="translate(0,-32)">
+                    <path d="M-14 14 Q-15 0 -10 -2 Q-12 -6 -7 -6 Q-8 -10 -3 -10 Q-2 -14 2 -13 Q5 -15 8 -13 Q11 -14 10 -10 Q14 -10 12 -6 Q17 -6 15 -2 Q18 0 16 6 Q20 8 17 10 Q20 14 14 14 L-10 14 Q-15 14 -14 14 Z" fill="#7a5530" stroke="#1a1410" stroke-width="2"/>
+                  </g>
+                  <!-- ANGER VEINS on head 💢 -->
+                  <g transform="translate(-22,-22)">
+                    <path d="M0 0 L-3 -4 L3 -3 L-2 -8 L4 -6 L-1 -10" stroke="#b53030" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  </g>
+                  <g transform="translate(22,-22)">
+                    <path d="M0 0 L3 -4 L-3 -3 L2 -8 L-4 -6 L1 -10" stroke="#b53030" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  </g>
+                </g>
+                <!-- I AM MAD bubble -->
+                <g transform="translate(45,30)">
+                  <ellipse cx="0" cy="0" rx="32" ry="14" fill="#fff" stroke="#1a1410" stroke-width="2"/>
+                  <path d="M14 12 L24 24 L18 14 Z" fill="#fff" stroke="#1a1410" stroke-width="2"/>
+                  <text x="0" y="5" text-anchor="middle" font-family="Bagel Fat One" font-size="14" fill="#b53030">I AM MAD!</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Panel 5 + 6 (big full panel) — "I want a FLIP-O-RAMA!" -->
+          <div class="panel full" style="grid-row: 3 / 4;">
+            <div class="panel-text"><span class="red">"I WANT A...</span> <span style="color:#7a5530;font-weight:700;font-size: 1.4em;">FLIP-O-RAMA!"</span> 📖✨</div>
+            <div class="panel-art">
+              <svg viewBox="0 0 480 110" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                <rect x="0" y="0" width="480" height="110" fill="#fff8e8"/>
+                <!-- starburst -->
+                <g transform="translate(120,55)">
+                  <path d="M0 -45 L8 -16 L32 -28 L14 -6 L48 0 L14 6 L32 28 L8 16 L0 45 L-8 16 L-32 28 L-14 6 L-48 0 L-14 -6 L-32 -28 L-8 -16 Z" fill="#f5d04a" opacity=".5"/>
+                </g>
+                <!-- super angry kirby with arms raised wide -->
+                <g transform="translate(120,60)">
+                  <ellipse cx="-12" cy="40" rx="10" ry="5" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="12" cy="40" rx="10" ry="5" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="32" fill="#ff7090" stroke="#1a1410" stroke-width="3"/>
+                  <ellipse cx="-12" cy="-12" rx="9" ry="6" fill="#ff8aa5" opacity=".7"/>
+                  <!-- arms raised wide -->
+                  <ellipse cx="-38" cy="-18" rx="8" ry="6" fill="#ff7090" stroke="#1a1410" stroke-width="2" transform="rotate(-30 -38 -18)"/>
+                  <ellipse cx="38" cy="-18" rx="8" ry="6" fill="#ff7090" stroke="#1a1410" stroke-width="2" transform="rotate(30 38 -18)"/>
+                  <ellipse cx="-15" cy="4" rx="4" ry="2" fill="#b53030" opacity=".7"/>
+                  <ellipse cx="15" cy="4" rx="4" ry="2" fill="#b53030" opacity=".7"/>
+                  <path d="M-15 -10 L-3 -4" stroke="#1a1410" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M15 -10 L3 -4" stroke="#1a1410" stroke-width="3" stroke-linecap="round"/>
+                  <ellipse cx="-6" cy="0" rx="2.5" ry="4" fill="#1a1410"/>
+                  <ellipse cx="6" cy="0" rx="2.5" ry="4" fill="#1a1410"/>
+                  <!-- HUGE YELLING mouth -->
+                  <ellipse cx="0" cy="16" rx="10" ry="8" fill="#1a1410"/>
+                  <ellipse cx="0" cy="18" rx="6" ry="5" fill="#b53030"/>
+                  <ellipse cx="0" cy="22" rx="4" ry="2" fill="#e85a8a"/>
+                  <!-- POOP HAT -->
+                  <g transform="translate(0,-36)">
+                    <path d="M-16 16 Q-17 0 -11 -2 Q-13 -6 -8 -6 Q-9 -12 -3 -12 Q-2 -16 2 -14 Q5 -17 9 -14 Q12 -16 11 -10 Q15 -10 13 -6 Q18 -6 15 -2 Q19 0 17 6 Q21 8 17 10 Q21 14 14 16 L-11 16 Q-17 16 -16 16 Z" fill="#7a5530" stroke="#1a1410" stroke-width="2"/>
+                  </g>
+                  <!-- anger veins -->
+                  <g transform="translate(-25,-25)">
+                    <path d="M0 0 L-3 -4 L3 -3 L-2 -8 L4 -6" stroke="#b53030" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  </g>
+                  <g transform="translate(25,-25)">
+                    <path d="M0 0 L3 -4 L-3 -3 L2 -8 L-4 -6" stroke="#b53030" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  </g>
+                </g>
+
+                <!-- HUGE "I WANT A FLIP-O-RAMA!" text -->
+                <g transform="translate(310,55)">
+                  <text x="0" y="-14" text-anchor="middle" font-family="Bagel Fat One" font-size="22" fill="#b53030">I WANT A...</text>
+                  <text x="0" y="18" text-anchor="middle" font-family="Bagel Fat One" font-size="28" fill="#7a5530" stroke="#1a1410" stroke-width="1">FLIP-O-RAMA!</text>
+                  <text x="0" y="38" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="12" fill="#1a1410">★ flip pages 5 & 6 fast! ★</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <span class="pagenum">4</span>
+      </section>
+
+      <!-- ============ PAGE 5 — FLIP-O-RAMA (Brian's version) ============ -->
+      <section class="page flipo" data-page="5">
+        <div class="flipo-banner">
+          <span class="tag">★ FLIP-O-RAMA ★</span>
+          <div class="flipo-instruction">flip back and forth fast to see Kirby move!</div>
+        </div>
+        <div class="flipo-art">
+          <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
+            <!-- background -->
+            <rect x="0" y="0" width="400" height="280" fill="#fdf8ee"/>
+            <!-- ground -->
+            <rect x="0" y="230" width="400" height="50" fill="#86c46a"/>
+            <line x1="0" y1="230" x2="400" y2="230" stroke="#1a1410" stroke-width="3"/>
+            <g stroke="#4a8030" stroke-width="2" fill="none">
+              <path d="M30 240 L28 232 M30 240 L32 232"/>
+              <path d="M370 240 L368 232 M370 240 L372 232"/>
+            </g>
+
+            <!-- ANGRY POOP KIRBY - position A (slightly LEFT, arms at sides) -->
+            <g transform="translate(190,160)">
+              <!-- shadow -->
+              <ellipse cx="0" cy="78" rx="55" ry="6" fill="rgba(0,0,0,.3)"/>
+              <!-- feet -->
+              <ellipse cx="-22" cy="70" rx="20" ry="10" fill="#e84a4a" stroke="#1a1410" stroke-width="3"/>
+              <ellipse cx="22" cy="70" rx="20" ry="10" fill="#e84a4a" stroke="#1a1410" stroke-width="3"/>
+              <ellipse cx="-22" cy="65" rx="13" ry="3" fill="#f57676" opacity=".6"/>
+              <ellipse cx="22" cy="65" rx="13" ry="3" fill="#f57676" opacity=".6"/>
+              <!-- body (red-tinted angry pink) -->
+              <circle cx="0" cy="0" r="55" fill="#ff7090" stroke="#1a1410" stroke-width="3.5"/>
+              <ellipse cx="-22" cy="-22" rx="18" ry="13" fill="#ff8aa5" opacity=".7"/>
+              <!-- hands at sides (down) -->
+              <ellipse cx="-46" cy="18" rx="15" ry="12" fill="#ff7090" stroke="#1a1410" stroke-width="3" transform="rotate(-15 -46 18)"/>
+              <ellipse cx="46" cy="18" rx="15" ry="12" fill="#ff7090" stroke="#1a1410" stroke-width="3" transform="rotate(15 46 18)"/>
+              <!-- cheeks -->
+              <ellipse cx="-28" cy="6" rx="9" ry="5" fill="#b53030" opacity=".6"/>
+              <ellipse cx="28" cy="6" rx="9" ry="5" fill="#b53030" opacity=".6"/>
+              <!-- angry eyebrows DOWN -->
+              <path d="M-22 -16 L-8 -10" stroke="#1a1410" stroke-width="4" stroke-linecap="round"/>
+              <path d="M22 -16 L8 -10" stroke="#1a1410" stroke-width="4" stroke-linecap="round"/>
+              <!-- angry small eyes -->
+              <ellipse cx="-10" cy="-4" rx="3" ry="6" fill="#1a1410"/>
+              <ellipse cx="10" cy="-4" rx="3" ry="6" fill="#1a1410"/>
+              <!-- angry frowning mouth -->
+              <path d="M-10 16 Q0 8 10 16" stroke="#1a1410" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <!-- POOP HAT -->
+              <g transform="translate(0,-55)">
+                <path d="M-28 24 Q-30 0 -22 -4 Q-24 -10 -16 -10 Q-18 -22 -8 -22 Q-5 -30 2 -28 Q6 -34 14 -28 Q18 -30 18 -22 Q26 -22 24 -14 Q32 -12 28 -4 Q34 0 32 8 Q36 12 30 16 Q34 22 25 24 L-22 24 Q-30 24 -28 24 Z" fill="#7a5530" stroke="#1a1410" stroke-width="3"/>
+                <path d="M-22 0 Q-10 -4 0 2 Q10 -2 22 4" stroke="#5a3a20" stroke-width="1.5" fill="none" opacity=".5"/>
+              </g>
+              <!-- anger lines around head -->
+              <g stroke="#b53030" stroke-width="2.5" stroke-linecap="round">
+                <line x1="-50" y1="-50" x2="-55" y2="-58"/>
+                <line x1="50" y1="-50" x2="55" y2="-58"/>
+                <line x1="-60" y1="-30" x2="-68" y2="-32"/>
+                <line x1="60" y1="-30" x2="68" y2="-32"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="flipo-sig">By: Brian Dai ✍️</div>
+        <span class="pagenum">5</span>
+      </section>
+
+      <!-- ============ PAGE 6 — FLIP-O-RAMA (Anna's version, slight movement!) ============ -->
+      <section class="page flipo" data-page="6">
+        <div class="flipo-banner">
+          <span class="tag">★ FLIP-O-RAMA ★</span>
+          <div class="flipo-instruction">flip back and forth fast to see Kirby move!</div>
+        </div>
+        <div class="flipo-art">
+          <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="400" height="280" fill="#fdf8ee"/>
+            <rect x="0" y="230" width="400" height="50" fill="#86c46a"/>
+            <line x1="0" y1="230" x2="400" y2="230" stroke="#1a1410" stroke-width="3"/>
+            <g stroke="#4a8030" stroke-width="2" fill="none">
+              <path d="M30 240 L28 232 M30 240 L32 232"/>
+              <path d="M370 240 L368 232 M370 240 L372 232"/>
+            </g>
+
+            <!-- ANGRY POOP KIRBY - position B (slightly RIGHT + arms UP, mouth wider!) -->
+            <g transform="translate(210,155)">
+              <!-- shadow -->
+              <ellipse cx="0" cy="83" rx="55" ry="6" fill="rgba(0,0,0,.3)"/>
+              <!-- feet (slightly apart) -->
+              <ellipse cx="-25" cy="75" rx="20" ry="10" fill="#e84a4a" stroke="#1a1410" stroke-width="3"/>
+              <ellipse cx="25" cy="75" rx="20" ry="10" fill="#e84a4a" stroke="#1a1410" stroke-width="3"/>
+              <ellipse cx="-25" cy="70" rx="13" ry="3" fill="#f57676" opacity=".6"/>
+              <ellipse cx="25" cy="70" rx="13" ry="3" fill="#f57676" opacity=".6"/>
+              <!-- body -->
+              <circle cx="0" cy="0" r="55" fill="#ff7090" stroke="#1a1410" stroke-width="3.5"/>
+              <ellipse cx="-22" cy="-22" rx="18" ry="13" fill="#ff8aa5" opacity=".7"/>
+              <!-- HANDS RAISED UP (different from page 5!) -->
+              <ellipse cx="-48" cy="-22" rx="15" ry="12" fill="#ff7090" stroke="#1a1410" stroke-width="3" transform="rotate(-45 -48 -22)"/>
+              <ellipse cx="48" cy="-22" rx="15" ry="12" fill="#ff7090" stroke="#1a1410" stroke-width="3" transform="rotate(45 48 -22)"/>
+              <!-- cheeks -->
+              <ellipse cx="-28" cy="6" rx="9" ry="5" fill="#b53030" opacity=".6"/>
+              <ellipse cx="28" cy="6" rx="9" ry="5" fill="#b53030" opacity=".6"/>
+              <!-- angry eyebrows DOWN -->
+              <path d="M-22 -16 L-8 -10" stroke="#1a1410" stroke-width="4" stroke-linecap="round"/>
+              <path d="M22 -16 L8 -10" stroke="#1a1410" stroke-width="4" stroke-linecap="round"/>
+              <!-- angry eyes -->
+              <ellipse cx="-10" cy="-4" rx="3" ry="6" fill="#1a1410"/>
+              <ellipse cx="10" cy="-4" rx="3" ry="6" fill="#1a1410"/>
+              <!-- WIDER yelling mouth (movement difference!) -->
+              <ellipse cx="0" cy="16" rx="11" ry="8" fill="#1a1410" stroke="#1a1410" stroke-width="2"/>
+              <ellipse cx="0" cy="17" rx="7" ry="5" fill="#b53030"/>
+              <ellipse cx="0" cy="21" rx="4" ry="2" fill="#e85a8a"/>
+              <!-- POOP HAT (slightly wobbled to right) -->
+              <g transform="translate(3,-55) rotate(5)">
+                <path d="M-28 24 Q-30 0 -22 -4 Q-24 -10 -16 -10 Q-18 -22 -8 -22 Q-5 -30 2 -28 Q6 -34 14 -28 Q18 -30 18 -22 Q26 -22 24 -14 Q32 -12 28 -4 Q34 0 32 8 Q36 12 30 16 Q34 22 25 24 L-22 24 Q-30 24 -28 24 Z" fill="#7a5530" stroke="#1a1410" stroke-width="3"/>
+                <path d="M-22 0 Q-10 -4 0 2 Q10 -2 22 4" stroke="#5a3a20" stroke-width="1.5" fill="none" opacity=".5"/>
+              </g>
+              <!-- BIGGER anger lines (more energy!) -->
+              <g stroke="#b53030" stroke-width="3" stroke-linecap="round">
+                <line x1="-55" y1="-55" x2="-65" y2="-65"/>
+                <line x1="55" y1="-55" x2="65" y2="-65"/>
+                <line x1="-65" y1="-30" x2="-75" y2="-32"/>
+                <line x1="65" y1="-30" x2="75" y2="-32"/>
+                <line x1="-50" y1="-70" x2="-52" y2="-80"/>
+                <line x1="50" y1="-70" x2="52" y2="-80"/>
+              </g>
+              <!-- extra rage burst -->
+              <text x="-65" y="-78" font-family="Bagel Fat One" font-size="14" fill="#b53030">💢</text>
+              <text x="55" y="-78" font-family="Bagel Fat One" font-size="14" fill="#b53030">💢</text>
+            </g>
+          </svg>
+        </div>
+        <div class="flipo-sig">By: Anna Dai ✍️</div>
+        <span class="pagenum">6</span>
+      </section>
+
+      <!-- ============ PAGE 7 — THE END (BOOM + Switch console) ============ -->
+      <section class="page endpage" data-page="7">
+        <div class="chapter-banner">
+          <span class="chapter-tag">FINAL CHAPTER</span>
+          <div class="chapter-title">The Big <em>BOOM!</em> 💥</div>
+        </div>
+        <div class="end-panels">
+          <!-- Row 1 panel A: "I don't like it" -->
+          <div class="panel">
+            <div class="panel-text"><span class="red">"I don't like it!"</span> 😡</div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="200" height="140" fill="#fff8e8"/>
+                <rect x="0" y="100" width="200" height="40" fill="#86c46a"/>
+                <line x1="0" y1="100" x2="200" y2="100" stroke="#1a1410" stroke-width="2"/>
+                <!-- angry poop kirby standing -->
+                <g transform="translate(100,72)">
+                  <ellipse cx="-10" cy="26" rx="9" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="10" cy="26" rx="9" ry="4" fill="#e84a4a" stroke="#1a1410" stroke-width="1.5"/>
+                  <circle cx="0" cy="0" r="24" fill="#ff7090" stroke="#1a1410" stroke-width="2.5"/>
+                  <ellipse cx="-9" cy="-10" rx="7" ry="5" fill="#ff8aa5" opacity=".7"/>
+                  <ellipse cx="-25" cy="2" rx="6" ry="5" fill="#ff7090" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="25" cy="2" rx="6" ry="5" fill="#ff7090" stroke="#1a1410" stroke-width="1.5"/>
+                  <ellipse cx="-12" cy="4" rx="3" ry="2" fill="#b53030" opacity=".7"/>
+                  <ellipse cx="12" cy="4" rx="3" ry="2" fill="#b53030" opacity=".7"/>
+                  <path d="M-12 -10 L-3 -4" stroke="#1a1410" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M12 -10 L3 -4" stroke="#1a1410" stroke-width="2.5" stroke-linecap="round"/>
+                  <ellipse cx="-6" cy="-1" rx="2" ry="4" fill="#1a1410"/>
+                  <ellipse cx="6" cy="-1" rx="2" ry="4" fill="#1a1410"/>
+                  <path d="M-7 12 Q0 6 7 12" stroke="#1a1410" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                  <g transform="translate(0,-28)">
+                    <path d="M-13 13 Q-14 0 -9 -2 Q-11 -6 -6 -6 Q-7 -10 -3 -10 Q-2 -13 2 -12 Q5 -14 8 -12 Q11 -13 10 -8 Q14 -8 11 -4 Q16 -4 13 0 Q17 2 14 7 Q18 9 14 10 Q18 13 12 13 L-9 13 Q-14 13 -13 13 Z" fill="#7a5530" stroke="#1a1410" stroke-width="1.5"/>
+                  </g>
+                </g>
+                <g transform="translate(45,30)">
+                  <ellipse cx="0" cy="0" rx="32" ry="13" fill="#fff" stroke="#1a1410" stroke-width="2"/>
+                  <path d="M14 11 L24 22 L18 13 Z" fill="#fff" stroke="#1a1410" stroke-width="2"/>
+                  <text x="0" y="-1" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="11" fill="#b53030">I don't</text>
+                  <text x="0" y="9" text-anchor="middle" font-family="Bagel Fat One" font-size="11" fill="#b53030">LIKE IT!</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Row 1 panel B: MORE angry "I don't like it" -->
+          <div class="panel">
+            <div class="panel-text"><span class="red">"I DON'T LIKE IT!"</span> 😡💢</div>
+            <div class="panel-art">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="200" height="140" fill="#ffe8e8"/>
+                <rect x="0" y="100" width="200" height="40" fill="#86c46a"/>
+                <line x1="0" y1="100" x2="200" y2="100" stroke="#1a1410" stroke-width="2"/>
+                <!-- EVEN angrier kirby (redder, fists up) -->
+                <g transform="translate(100,72)">
+                  <ellipse cx="-10" cy="26" rx="10" ry="5" fill="#e84a4a" stroke="#1a1410" stroke-width="2"/>
+                  <ellipse cx="10" cy="26" rx="10" ry="5" fill="#e84a4a" stroke="#1a1410" stroke-width="2"/>
+                  <circle cx="0" cy="0" r="26" fill="#ff5070" stroke="#1a1410" stroke-width="3"/>
+                  <ellipse cx="-9" cy="-10" rx="7" ry="5" fill="#ff7090" opacity=".7"/>
+                  <!-- fists raised -->
+                  <ellipse cx="-28" cy="-10" rx="7" ry="6" fill="#ff5070" stroke="#1a1410" stroke-width="2"/>
+                  <ellipse cx="28" cy="-10" rx="7" ry="6" fill="#ff5070" stroke="#1a1410" stroke-width="2"/>
+                  <ellipse cx="-13" cy="4" rx="3" ry="2" fill="#9a1010" opacity=".7"/>
+                  <ellipse cx="13" cy="4" rx="3" ry="2" fill="#9a1010" opacity=".7"/>
+                  <path d="M-14 -12 L-3 -4" stroke="#1a1410" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M14 -12 L3 -4" stroke="#1a1410" stroke-width="3" stroke-linecap="round"/>
+                  <ellipse cx="-6" cy="-1" rx="2" ry="4" fill="#1a1410"/>
+                  <ellipse cx="6" cy="-1" rx="2" ry="4" fill="#1a1410"/>
+                  <!-- yelling mouth -->
+                  <ellipse cx="0" cy="14" rx="7" ry="6" fill="#1a1410"/>
+                  <ellipse cx="0" cy="15" rx="4" ry="4" fill="#b53030"/>
+                  <g transform="translate(0,-30)">
+                    <path d="M-14 14 Q-15 0 -10 -2 Q-12 -6 -7 -6 Q-8 -10 -3 -10 Q-2 -13 2 -12 Q5 -15 8 -12 Q11 -14 10 -8 Q14 -8 12 -4 Q16 -4 14 0 Q18 2 15 7 Q19 9 15 10 Q19 14 13 14 L-10 14 Q-15 14 -14 14 Z" fill="#7a5530" stroke="#1a1410" stroke-width="2"/>
+                  </g>
+                  <!-- bigger anger lines -->
+                  <g stroke="#b53030" stroke-width="2.5" stroke-linecap="round">
+                    <line x1="-32" y1="-22" x2="-40" y2="-28"/>
+                    <line x1="32" y1="-22" x2="40" y2="-28"/>
+                    <line x1="-25" y1="-32" x2="-28" y2="-42"/>
+                    <line x1="25" y1="-32" x2="28" y2="-42"/>
+                    <line x1="0" y1="-35" x2="0" y2="-45"/>
+                  </g>
+                </g>
+                <g transform="translate(45,28)">
+                  <ellipse cx="0" cy="0" rx="36" ry="15" fill="#fff" stroke="#1a1410" stroke-width="2"/>
+                  <path d="M16 13 L26 26 L20 15 Z" fill="#fff" stroke="#1a1410" stroke-width="2"/>
+                  <text x="0" y="-2" text-anchor="middle" font-family="Bagel Fat One" font-size="11" fill="#b53030">I DON'T</text>
+                  <text x="0" y="10" text-anchor="middle" font-family="Bagel Fat One" font-size="12" fill="#b53030">LIKE IT!</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Row 2: BOOM! big panel -->
+          <div class="panel full">
+            <div class="panel-text"><span style="color:#b53030;font-weight:700;font-size:1.3em;">"💥 BOOM! 💥"</span></div>
+            <div class="panel-art">
+              <svg viewBox="0 0 480 130" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                <rect x="0" y="0" width="480" height="130" fill="#ffeb9a"/>
+                <!-- Big EXPLOSION burst -->
+                <g transform="translate(240,65)">
+                  <path d="M0 -60 L20 -30 L60 -50 L40 -15 L80 -20 L50 0 L80 20 L40 15 L60 50 L20 30 L0 60 L-20 30 L-60 50 L-40 15 L-80 20 L-50 0 L-80 -20 L-40 -15 L-60 -50 L-20 -30 Z" fill="#e84a4a" stroke="#1a1410" stroke-width="3"/>
+                  <path d="M0 -45 L15 -22 L45 -38 L30 -12 L60 -15 L38 0 L60 15 L30 12 L45 38 L15 22 L0 45 L-15 22 L-45 38 L-30 12 L-60 15 L-38 0 L-60 -15 L-30 -12 L-45 -38 L-15 -22 Z" fill="#f5d04a" stroke="#1a1410" stroke-width="2"/>
+                </g>
+                <!-- BOOM! text in middle -->
+                <text x="240" y="78" text-anchor="middle" font-family="Bagel Fat One" font-size="48" fill="#1a1410" stroke="#fff" stroke-width="2">BOOM!</text>
+                <!-- exploding bits flying out -->
+                <g fill="#7a5530" stroke="#1a1410" stroke-width="1.5">
+                  <ellipse cx="60" cy="30" rx="6" ry="5"/>
+                  <ellipse cx="420" cy="35" rx="5" ry="4"/>
+                  <ellipse cx="100" cy="95" rx="5" ry="4"/>
+                  <ellipse cx="380" cy="100" rx="6" ry="5"/>
+                </g>
+                <g fill="#ff9ec2" stroke="#1a1410" stroke-width="1.5">
+                  <circle cx="40" cy="60" r="6"/>
+                  <circle cx="450" cy="65" r="7"/>
+                  <circle cx="80" cy="20" r="5"/>
+                  <circle cx="420" cy="105" r="5"/>
+                </g>
+                <!-- motion lines burst -->
+                <g stroke="#b53030" stroke-width="3" stroke-linecap="round">
+                  <line x1="20" y1="20" x2="50" y2="40"/>
+                  <line x1="460" y1="20" x2="430" y2="40"/>
+                  <line x1="20" y1="110" x2="50" y2="90"/>
+                  <line x1="460" y1="110" x2="430" y2="90"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Row 3: SWITCH console "respond" -->
+          <div class="panel console">
+            <div class="panel-art" style="padding: 0;">
+              <svg viewBox="0 0 480 160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                <!-- Switch body: gray plastic -->
+                <rect x="20" y="20" width="440" height="120" fill="#fdf8ee" stroke="#1a1410" stroke-width="0"/>
+
+                <!-- LEFT joycon (with "THE") -->
+                <g>
+                  <!-- left handle body -->
+                  <path d="M20 30 Q20 20 30 20 L100 20 Q120 20 120 40 L120 120 Q120 140 100 140 L30 140 Q20 140 20 130 Z" fill="#5aaadd" stroke="#1a1410" stroke-width="3"/>
+                  <!-- D-PAD on left joycon (cross shape) -->
+                  <g transform="translate(70,80)">
+                    <!-- cross shape background -->
+                    <path d="M-22 -8 L-8 -8 L-8 -22 L8 -22 L8 -8 L22 -8 L22 8 L8 8 L8 22 L-8 22 L-8 8 L-22 8 Z" fill="#3a3a3a" stroke="#1a1410" stroke-width="2.5"/>
+                    <!-- D-pad arrows -->
+                    <text x="0" y="-12" text-anchor="middle" font-family="Bagel Fat One" font-size="10" fill="#fff">▲</text>
+                    <text x="0" y="20" text-anchor="middle" font-family="Bagel Fat One" font-size="10" fill="#fff">▼</text>
+                    <text x="-16" y="4" text-anchor="middle" font-family="Bagel Fat One" font-size="10" fill="#fff">◀</text>
+                    <text x="16" y="4" text-anchor="middle" font-family="Bagel Fat One" font-size="10" fill="#fff">▶</text>
+                  </g>
+                  <!-- "THE" label on left joycon -->
+                  <text x="70" y="45" text-anchor="middle" font-family="Bagel Fat One" font-size="18" fill="#fdf8ee" stroke="#1a1410" stroke-width="0.6">THE</text>
+                  <!-- minus button -->
+                  <rect x="95" y="40" width="12" height="3" fill="#1a1410" rx="1"/>
+                </g>
+
+                <!-- CENTER screen -->
+                <g>
+                  <rect x="125" y="25" width="230" height="110" fill="#1a1410" stroke="#1a1410" stroke-width="3" rx="6"/>
+                  <!-- inner glow -->
+                  <rect x="135" y="35" width="210" height="90" fill="#2a1a2a" rx="3"/>
+                  <!-- "RESTART" text on screen -->
+                  <text x="240" y="65" text-anchor="middle" font-family="Bagel Fat One" font-size="22" fill="#ff9ec2" stroke="#1a1410" stroke-width="0.8">RESTART?</text>
+                  <!-- restart icon (circular arrow) -->
+                  <g transform="translate(240,98)">
+                    <path d="M-18 0 A18 18 0 1 1 -8 14" stroke="#fdf8ee" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <path d="M-22 -2 L-18 4 L-12 -2" stroke="#fdf8ee" stroke-width="3" fill="none" stroke-linecap="round"/>
+                  </g>
+                  <!-- press button hint -->
+                  <text x="240" y="128" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="11" fill="#d8a8c8">★ press button to play again! ★</text>
+                </g>
+
+                <!-- RIGHT joycon (with "END") -->
+                <g>
+                  <!-- right handle body -->
+                  <path d="M360 20 L430 20 Q460 20 460 30 L460 130 Q460 140 450 140 L360 140 Q360 140 360 120 L360 40 Q360 20 380 20 Z" fill="#e84a4a" stroke="#1a1410" stroke-width="3"/>
+                  <!-- 4 ABXY buttons on right joycon (A button highlighted!) -->
+                  <g transform="translate(410,80)">
+                    <!-- X (top) -->
+                    <circle cx="0" cy="-18" r="10" fill="#3a3a3a" stroke="#1a1410" stroke-width="2"/>
+                    <text x="0" y="-14" text-anchor="middle" font-family="Bagel Fat One" font-size="11" fill="#fff">X</text>
+                    <!-- Y (left) -->
+                    <circle cx="-18" cy="0" r="10" fill="#3a3a3a" stroke="#1a1410" stroke-width="2"/>
+                    <text x="-18" y="4" text-anchor="middle" font-family="Bagel Fat One" font-size="11" fill="#fff">Y</text>
+                    <!-- B (bottom) -->
+                    <circle cx="0" cy="18" r="10" fill="#3a3a3a" stroke="#1a1410" stroke-width="2"/>
+                    <text x="0" y="22" text-anchor="middle" font-family="Bagel Fat One" font-size="11" fill="#fff">B</text>
+                    <!-- A button (right) - bigger, highlighted with glow! -->
+                    <circle cx="18" cy="0" r="12" fill="#f5d04a" stroke="#1a1410" stroke-width="3"/>
+                    <text x="18" y="5" text-anchor="middle" font-family="Bagel Fat One" font-size="13" fill="#1a1410">A</text>
+                    <!-- glow around A -->
+                    <circle cx="18" cy="0" r="16" fill="none" stroke="#f5d04a" stroke-width="1.5" opacity=".6"/>
+                  </g>
+                  <!-- "END" label on right joycon -->
+                  <text x="408" y="45" text-anchor="middle" font-family="Bagel Fat One" font-size="18" fill="#fdf8ee" stroke="#1a1410" stroke-width="0.6">END</text>
+                  <!-- plus button -->
+                  <line x1="376" y1="41" x2="382" y2="41" stroke="#1a1410" stroke-width="2.5"/>
+                  <line x1="379" y1="38" x2="379" y2="44" stroke="#1a1410" stroke-width="2.5"/>
+                </g>
+
+                <!-- "THE END" title above console -->
+                <text x="240" y="14" text-anchor="middle" font-family="Bagel Fat One" font-size="13" fill="#7a5530">★ THE END ★ press A to restart! ★</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <span class="pagenum">7</span>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="nav">
+    <button id="prev">← Prev</button>
+    <span class="counter" id="counter">1 / 7</span>
+    <button id="next">Next →</button>
+  </div>
+  <div class="hint">tip: use ← and → keys to flip pages — try flipping fast between pages 5 & 6!</div>
+
+<script>
+  const pages = document.querySelectorAll('.page');
+  const total = pages.length;
+  let current = 1;
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  const counter = document.getElementById('counter');
+
+  function show(n){
+    n = Math.max(1, Math.min(total, n));
+    current = n;
+    pages.forEach(p => p.classList.remove('active'));
+    const target = document.querySelector(`.page[data-page="${n}"]`);
+    if(target) target.classList.add('active');
+    counter.textContent = `${n} / ${total}`;
+    prevBtn.disabled = (n === 1);
+    nextBtn.disabled = (n === total);
+  }
+  prevBtn.addEventListener('click', () => show(current - 1));
+  nextBtn.addEventListener('click', () => show(current + 1));
+  document.addEventListener('keydown', e => {
+    if(e.key === 'ArrowLeft') show(current - 1);
+    if(e.key === 'ArrowRight') show(current + 1);
+  });
+  show(1);
+</script>
+</body>
+</html>

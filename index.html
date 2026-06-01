@@ -142,13 +142,70 @@
   }
 
   /* ============ BOOKSHELF ============ */
-  .shelf{
-    display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 32px;
+  /* === HORIZONTAL SHELF (scrollable) === */
+  .shelf-wrapper{
+    position: relative;
     margin-bottom: 80px;
   }
+  .shelf{
+    display:flex;
+    flex-direction: row;
+    gap: 32px;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 12px 8px 28px 8px;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: var(--ink) #f9e1ce;
+  }
+  .shelf::-webkit-scrollbar{ height: 14px;}
+  .shelf::-webkit-scrollbar-track{
+    background: #f9e1ce; border-radius: 10px; border: 2px solid var(--ink);
+  }
+  .shelf::-webkit-scrollbar-thumb{
+    background: var(--pink); border-radius: 10px; border: 2px solid var(--ink);
+  }
+  .shelf::-webkit-scrollbar-thumb:hover{ background: var(--ink);}
+  /* faded edges hinting more content */
+  .shelf-wrapper::before,
+  .shelf-wrapper::after{
+    content: ""; position: absolute;
+    top: 0; bottom: 28px;
+    width: 40px; pointer-events: none; z-index: 2;
+  }
+  .shelf-wrapper::before{ left: 0; background: linear-gradient(to right, #fff5e1, transparent);}
+  .shelf-wrapper::after{ right: 0; background: linear-gradient(to left, #fff5e1, transparent);}
+  /* nav arrow buttons */
+  .shelf-nav{
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    width: 44px; height: 44px;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 50%;
+    box-shadow: 4px 4px 0 var(--ink);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-family:'Bagel Fat One', cursive;
+    font-size: 20px; color: var(--ink);
+    z-index: 5; transition: all .15s; user-select: none;
+  }
+  .shelf-nav:hover{
+    background: var(--pink-light);
+    transform: translateY(-50%) translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .shelf-nav:active{
+    transform: translateY(-50%) translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--ink);
+  }
+  .shelf-nav.prev{ left: -10px;}
+  .shelf-nav.next{ right: -10px;}
+  @media (max-width: 600px){ .shelf-nav{ display: none;} }
   .book-card{
+    flex: 0 0 280px;
+    scroll-snap-align: start;
     background:var(--paper);
     border:3px solid var(--ink);
     border-radius: 8px;
@@ -297,6 +354,13 @@
     border: 2px solid var(--ink);
     border-radius: 12px;
     box-shadow: 4px 4px 0 var(--ink);
+    position: relative;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .author-card:hover{
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--ink);
   }
   .author-card .avatar{
     width:80px; height:80px;
@@ -314,6 +378,85 @@
     font-size: 18px;
     margin: 0;
   }
+  .author-card .tap-hint{
+    font-family:'Caveat', cursive;
+    font-size: 14px;
+    color: rgba(0,0,0,.5);
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  /* AUTHOR BIO POPOVER (tooltip on hover/click) */
+  .author-bio{
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    width: min(380px, 90vw);
+    background: #fff8ec;
+    border: 2.5px solid var(--ink);
+    border-radius: 14px;
+    box-shadow: 6px 6px 0 var(--ink), 0 12px 30px rgba(0,0,0,.25);
+    padding: 18px 20px;
+    font-family:'Patrick Hand', cursive;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink);
+    text-align: left;
+    z-index: 50;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .25s, transform .25s, visibility .25s;
+  }
+  .author-bio::before{
+    content:"";
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid var(--ink);
+  }
+  .author-bio::after{
+    content:"";
+    position: absolute;
+    bottom: -9px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #fff8ec;
+  }
+  .author-bio strong{
+    color: var(--pink);
+    font-family:'Bagel Fat One', cursive;
+    font-size: 17px;
+    letter-spacing: .5px;
+  }
+  .author-card:hover .author-bio,
+  .author-card.open .author-bio{
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-2px);
+    pointer-events: auto;
+  }
+  .author-bio-close{
+    position: absolute;
+    top: 6px; right: 10px;
+    background: none;
+    border: none;
+    font-family:'Bagel Fat One', cursive;
+    font-size: 16px;
+    color: var(--ink);
+    cursor: pointer;
+    padding: 2px 6px;
+    line-height: 1;
+  }
+  .author-bio-close:hover{ color: var(--pink);}
 
   /* footer */
   footer{
@@ -355,7 +498,10 @@
 
     <!-- ============ BOOKSHELF ============ -->
     <h2 class="section-title">📖 Bookshelf</h2>
-    <div class="shelf">
+    <div class="shelf-wrapper">
+      <button class="shelf-nav prev" id="shelf-prev" aria-label="Previous">←</button>
+      <button class="shelf-nav next" id="shelf-next" aria-label="Next">→</button>
+      <div class="shelf" id="shelf">
 
       <!-- EMILY book card -->
       <a href="emily.html" class="book-card">
@@ -573,14 +719,191 @@
         </div>
       </a>
 
+      <!-- A POTION NAMED PO-PO PART 2 book card -->
+      <a href="popo2.html" class="book-card">
+        <div class="book-cover" style="background: radial-gradient(circle at 50% 35%, #fff7e8 0%, #f0e0f5 70%, #d8c5e8 100%);">
+          <div class="book-cover-tag">A BriAnna Comic</div>
+          <h3 class="book-cover-title" style="font-size: clamp(20px, 3.8vw, 28px); text-shadow: 3px 3px 0 #9a6fc4, 6px 6px 0 #e87a30;">A POTION<br/>NAMED PO-PO</h3>
+          <div style="font-family:'Bagel Fat One', cursive; font-size: clamp(16px, 2.8vw, 22px); color:#b53030; letter-spacing: 4px; text-shadow: 2px 2px 0 #1a1410; transform: rotate(-2deg); margin-top: -4px;">★ PART 2 ★</div>
+          <!-- mini cover: Super Pom VS Poo-Poo Man -->
+          <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="100" cy="130" rx="60" ry="4" fill="rgba(0,0,0,.2)"/>
+            <!-- Super Pom on left -->
+            <g transform="translate(55,80)">
+              <path d="M-10 -5 Q-22 0 -28 14 Q-20 22 -12 18 Q-6 8 -5 3 Z" fill="#e87a30" stroke="#1a1410" stroke-width="1.5"/>
+              <rect x="-7" y="20" width="6" height="20" fill="#f5d04a" stroke="#1a1410" stroke-width="1.5"/>
+              <rect x="1" y="20" width="6" height="20" fill="#f5d04a" stroke="#1a1410" stroke-width="1.5"/>
+              <ellipse cx="-4" cy="42" rx="5" ry="2.5" fill="#e87a30" stroke="#1a1410" stroke-width="1.2"/>
+              <ellipse cx="4" cy="42" rx="5" ry="2.5" fill="#e87a30" stroke="#1a1410" stroke-width="1.2"/>
+              <path d="M-13 -5 L-12 22 L12 22 L13 -5 Z" fill="#f5d04a" stroke="#1a1410" stroke-width="1.5"/>
+              <circle cx="0" cy="7" r="6" fill="#fdf8ee" stroke="#1a1410" stroke-width="1.2"/>
+              <text x="0" y="11" text-anchor="middle" font-family="Bagel Fat One" font-size="10" fill="#e87a30">P</text>
+              <ellipse cx="0" cy="-15" rx="11" ry="12" fill="#fcd9b6" stroke="#1a1410" stroke-width="1.5"/>
+              <path d="M-9 -20 Q0 -28 9 -20 Q7 -23 5 -22 Q3 -25 0 -22 Q-3 -25 -5 -22 Q-7 -23 -9 -20 Z" fill="#3b2a1f"/>
+              <text x="0" y="-15" text-anchor="middle" font-family="Bagel Fat One" font-size="8" fill="#b04e10">P</text>
+              <circle cx="-3" cy="-14" r="1" fill="#1a1410"/>
+              <circle cx="3" cy="-14" r="1" fill="#1a1410"/>
+              <path d="M-2 -8 Q0 -6 2 -8" stroke="#1a1410" stroke-width="1" fill="none"/>
+            </g>
+            <!-- VS -->
+            <text x="100" y="80" text-anchor="middle" font-family="Bagel Fat One" font-size="22" fill="#b53030" stroke="#1a1410" stroke-width="1">VS</text>
+            <!-- Poo-Poo Man on right -->
+            <g transform="translate(145,85)">
+              <path d="M-10 25 L-14 42 L-6 42 L-5 25 Z" fill="#e87a30" stroke="#1a1410" stroke-width="1.5"/>
+              <path d="M10 25 L14 42 L6 42 L5 25 Z" fill="#e87a30" stroke="#1a1410" stroke-width="1.5"/>
+              <ellipse cx="-10" cy="35" rx="5" ry="2.5" fill="#f5d04a" stroke="#1a1410" stroke-width="1"/>
+              <ellipse cx="10" cy="35" rx="5" ry="2.5" fill="#f5d04a" stroke="#1a1410" stroke-width="1"/>
+              <ellipse cx="-10" cy="45" rx="6" ry="2.5" fill="#e87a30" stroke="#1a1410" stroke-width="1.2"/>
+              <ellipse cx="10" cy="45" rx="6" ry="2.5" fill="#e87a30" stroke="#1a1410" stroke-width="1.2"/>
+              <path d="M-17 -5 L-16 25 L16 25 L17 -5 Q14 -10 0 -12 Q-14 -10 -17 -5 Z" fill="#e87a30" stroke="#1a1410" stroke-width="1.5"/>
+              <ellipse cx="-17" cy="-5" rx="6" ry="4" fill="#f5d04a" stroke="#1a1410" stroke-width="1"/>
+              <ellipse cx="17" cy="-5" rx="6" ry="4" fill="#f5d04a" stroke="#1a1410" stroke-width="1"/>
+              <!-- poop head -->
+              <g transform="translate(0,-20)">
+                <path d="M-16 12 Q-17 -2 -12 -3 Q-13 -8 -8 -8 Q-10 -13 -4 -13 Q-3 -17 1 -16 Q3 -19 7 -16 Q10 -17 10 -13 Q14 -13 12 -8 Q17 -8 14 -3 Q18 -2 17 6 Q19 12 14 13 L-12 13 Q-17 12 -16 12 Z" fill="#7a5530" stroke="#1a1410" stroke-width="1.2"/>
+                <ellipse cx="-5" cy="-1" rx="2.5" ry="2" fill="#fff" stroke="#1a1410" stroke-width="0.6"/>
+                <ellipse cx="5" cy="-1" rx="2.5" ry="2" fill="#fff" stroke="#1a1410" stroke-width="0.6"/>
+                <circle cx="-5" cy="-1" r="1" fill="#e84a4a"/>
+                <circle cx="5" cy="-1" r="1" fill="#e84a4a"/>
+                <path d="M-7 6 L-5 10 L-3 6 L-1 10 L1 6 L3 10 L5 6 L7 10" fill="#fff" stroke="#1a1410" stroke-width="0.5"/>
+              </g>
+            </g>
+            <!-- sparkles -->
+            <text x="20" y="40" font-family="Bagel Fat One" font-size="14" fill="#d8a23c">✦</text>
+            <text x="175" y="35" font-family="Bagel Fat One" font-size="12" fill="#d8a23c">✧</text>
+          </svg>
+          <div class="book-cover-by">By <strong>Brian Dai</strong> &amp; <strong>Anna Dai</strong></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">A POTION NAMED PO-PO · PART 2</div>
+          <div class="book-meta">💩 Comic · Adventure · 8 pages</div>
+          <p class="book-desc">The epic showdown continues! Pom is back from the dead, but Poo-Poo Man has a gun, and a potion of his own. Who will win in this wild battle of bullets, growth, and forbidden tubes? Read on to find out!</p>
+          <span class="book-cta">📖 Read now →</span>
+        </div>
+      </a>
+
+      <!-- KIRBY IN THE DARK WORLD book card -->
+      <a href="kirby.html" class="book-card">
+        <div class="book-cover" style="background: radial-gradient(circle at 50% 35%, #5a3a5a 0%, #2a1a30 70%, #1a1020 100%);">
+          <div class="book-cover-tag" style="color: rgba(255,255,255,.6);">A BriAnna Comic</div>
+          <h3 class="book-cover-title" style="font-size: clamp(20px, 3.8vw, 30px); color:#fdf8ee; text-shadow: 3px 3px 0 #ff9ec2, 6px 6px 0 #e84a4a;">KIRBY IN<br/>THE DARK</h3>
+          <div style="font-family:'Bagel Fat One', cursive; font-size: clamp(16px, 2.8vw, 22px); color:#d8a8c8; letter-spacing: 4px; text-shadow: 2px 2px 0 #1a1410; transform: rotate(2deg); margin-top: -2px;">★ WORLD ★</div>
+          <!-- mini cover: Kirby in dark world -->
+          <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+            <!-- dark world background -->
+            <defs>
+              <radialGradient id="kirbyDark" cx="50%" cy="55%">
+                <stop offset="0%" stop-color="#5a3a5a" stop-opacity="0.8"/>
+                <stop offset="100%" stop-color="#1a0a20" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <circle cx="100" cy="90" r="90" fill="url(#kirbyDark)"/>
+            <!-- small stars -->
+            <g fill="#fdf8ee">
+              <circle cx="30" cy="30" r="1"/>
+              <circle cx="170" cy="40" r="1.2"/>
+              <circle cx="40" cy="120" r="1"/>
+              <circle cx="160" cy="125" r="1.2"/>
+              <circle cx="25" cy="80" r="0.8"/>
+            </g>
+            <!-- Kirby -->
+            <g transform="translate(100,95)">
+              <ellipse cx="0" cy="42" rx="35" ry="4" fill="rgba(0,0,0,.5)"/>
+              <ellipse cx="-14" cy="36" rx="13" ry="7" fill="#e84a4a" stroke="#1a1410" stroke-width="2"/>
+              <ellipse cx="14" cy="36" rx="13" ry="7" fill="#e84a4a" stroke="#1a1410" stroke-width="2"/>
+              <ellipse cx="-14" cy="33" rx="8" ry="2" fill="#f57676" opacity=".6"/>
+              <ellipse cx="14" cy="33" rx="8" ry="2" fill="#f57676" opacity=".6"/>
+              <circle cx="0" cy="0" r="32" fill="#ff9ec2" stroke="#1a1410" stroke-width="2.5"/>
+              <ellipse cx="-13" cy="-13" rx="11" ry="8" fill="#ffc4dc" opacity=".7"/>
+              <ellipse cx="-28" cy="10" rx="11" ry="9" fill="#ff9ec2" stroke="#1a1410" stroke-width="2" transform="rotate(-20 -28 10)"/>
+              <ellipse cx="28" cy="10" rx="11" ry="9" fill="#ff9ec2" stroke="#1a1410" stroke-width="2" transform="rotate(20 28 10)"/>
+              <ellipse cx="-16" cy="3" rx="5" ry="3" fill="#ff6b9a" opacity=".7"/>
+              <ellipse cx="16" cy="3" rx="5" ry="3" fill="#ff6b9a" opacity=".7"/>
+              <ellipse cx="-7" cy="-4" rx="3" ry="6" fill="#1a1410"/>
+              <ellipse cx="7" cy="-4" rx="3" ry="6" fill="#1a1410"/>
+              <ellipse cx="-7" cy="-8" rx="1.5" ry="2.5" fill="#fff"/>
+              <ellipse cx="7" cy="-8" rx="1.5" ry="2.5" fill="#fff"/>
+              <path d="M-4 4 Q0 9 4 4" stroke="#1a1410" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </g>
+          </svg>
+          <div class="book-cover-by" style="color:#fdf8ee;">By <strong style="color:#ff9ec2;">Brian Dai</strong> &amp; <strong style="color:#ff9ec2;">Anna Dai</strong></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">KIRBY IN THE DARK WORLD</div>
+          <div class="book-meta">⭐ Comic · Adventure · 7 pages</div>
+          <p class="book-desc">Kirby falls into a hole, swims in a strange ocean, eats a fish, and gets POOP POWER?! Featuring a real <strong>Flip-O-Rama</strong> animation and a Nintendo Switch ending! Press A to restart!</p>
+          <span class="book-cta">📖 Read now →</span>
+        </div>
+      </a>
+
+      <!-- CINNAMOROLL'S STORY book card -->
+      <a href="cinnamoroll.html" class="book-card">
+        <div class="book-cover" style="background: radial-gradient(circle at 50% 35%, #fff0f8 0%, #e8d0f0 60%, #b8a5dd 100%);">
+          <div class="book-cover-tag">A BriAnna Comic</div>
+          <h3 class="book-cover-title" style="font-size: clamp(18px, 3.4vw, 26px); text-shadow: 3px 3px 0 #b8e0f3, 5px 5px 0 #e88aac;">CINNAMOROLL'S</h3>
+          <div style="font-family:'Caveat', cursive; font-weight:700; font-size: clamp(16px, 2.8vw, 22px); color:#e88aac; letter-spacing: 2px; margin-top: -2px;">★ STORY ★</div>
+          <!-- mini cover: Cinnamoroll with tea cup + flashlight -->
+          <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="100" cy="140" rx="40" ry="4" fill="rgba(0,0,0,.15)"/>
+            <!-- Cinnamoroll -->
+            <g transform="translate(100,85)">
+              <!-- legs -->
+              <ellipse cx="-10" cy="38" rx="7" ry="5" fill="#fff" stroke="#1a1410" stroke-width="2"/>
+              <ellipse cx="10" cy="38" rx="7" ry="5" fill="#fff" stroke="#1a1410" stroke-width="2"/>
+              <!-- body -->
+              <ellipse cx="0" cy="12" rx="24" ry="28" fill="#fff" stroke="#1a1410" stroke-width="2.5"/>
+              <!-- tail -->
+              <path d="M21 24 Q30 22 32 14 Q30 8 24 10" stroke="#1a1410" stroke-width="2.5" fill="#fff" stroke-linejoin="round"/>
+              <!-- arms -->
+              <ellipse cx="-22" cy="12" rx="6" ry="11" fill="#fff" stroke="#1a1410" stroke-width="2" transform="rotate(-15 -22 12)"/>
+              <ellipse cx="22" cy="12" rx="6" ry="11" fill="#fff" stroke="#1a1410" stroke-width="2" transform="rotate(15 22 12)"/>
+              <!-- head -->
+              <circle cx="0" cy="-16" r="24" fill="#fff" stroke="#1a1410" stroke-width="2.5"/>
+              <!-- ears -->
+              <path d="M-22 -22 Q-36 -14 -40 -2 Q-38 6 -32 4 Q-26 -8 -20 -14 Z" fill="#fff" stroke="#1a1410" stroke-width="2"/>
+              <path d="M22 -22 Q36 -14 40 -2 Q38 6 32 4 Q26 -8 20 -14 Z" fill="#fff" stroke="#1a1410" stroke-width="2"/>
+              <!-- cheeks -->
+              <ellipse cx="-12" cy="-10" rx="5" ry="3.5" fill="#ffb8d0" opacity=".8"/>
+              <ellipse cx="12" cy="-10" rx="5" ry="3.5" fill="#ffb8d0" opacity=".8"/>
+              <!-- eyes -->
+              <ellipse cx="-8" cy="-16" rx="3.5" ry="5.5" fill="#1a1410"/>
+              <ellipse cx="8" cy="-16" rx="3.5" ry="5.5" fill="#1a1410"/>
+              <ellipse cx="-7" cy="-19" rx="1.2" ry="2" fill="#fff"/>
+              <ellipse cx="9" cy="-19" rx="1.2" ry="2" fill="#fff"/>
+              <!-- happy mouth -->
+              <path d="M-4 -6 Q0 -3 4 -6" stroke="#1a1410" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <!-- TEA CUP HAT -->
+              <g transform="translate(0,-44)">
+                <path d="M-12 0 L-10 11 L10 11 L12 0 Z" fill="#fdf8ee" stroke="#1a1410" stroke-width="2"/>
+                <ellipse cx="0" cy="0" rx="12" ry="2.5" fill="#fdf8ee" stroke="#1a1410" stroke-width="2"/>
+                <ellipse cx="0" cy="0" rx="9" ry="1.5" fill="#a06846" opacity=".4"/>
+                <path d="M12 3 Q19 3 19 7 Q19 11 12 11" stroke="#1a1410" stroke-width="2" fill="none"/>
+                <ellipse cx="0" cy="6" rx="11" ry="1.2" fill="none" stroke="#ffb8d0" stroke-width="1.2"/>
+              </g>
+            </g>
+            <!-- sparkles -->
+            <text x="30" y="40" font-family="Bagel Fat One" font-size="14" fill="#e88aac">✦</text>
+            <text x="165" y="50" font-family="Bagel Fat One" font-size="12" fill="#e88aac">✧</text>
+            <text x="25" y="110" font-family="Bagel Fat One" font-size="10" fill="#e88aac">✦</text>
+          </svg>
+          <div class="book-cover-by">By <strong>Anna Dai</strong> &amp; <strong>Brian Dai</strong></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">CINNAMOROLL'S STORY</div>
+          <div class="book-meta">🌸 Comic · Adventure · 9 pages</div>
+          <p class="book-desc">An evil guy has captured Cinnamoroll's Mom and Dad in cages on a thundercloud! Can Cinnamoroll fly up and save them? Featuring a <strong>Flip-O-Rama</strong> flying scene and a sneak peek at the next book!</p>
+          <span class="book-cta">📖 Read now →</span>
+        </div>
+      </a>
+
+      </div>
     </div>
 
     <!-- ============ ABOUT ============ -->
     <section class="about">
       <h2>About Author</h2>
-      <p>All Authors are kids.They are Creators, Co-creators, storystellers, or illustrators.</p>
       <div class="authors">
-        <div class="author-card">
+        <div class="author-card" id="brian-card">
           <div class="avatar">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
               <circle cx="50" cy="50" r="45" fill="#a9d6e8" stroke="#2a1f17" stroke-width="2"/>
@@ -593,38 +916,134 @@
           </div>
           <h3>Brian</h3>
           <p>Co-creator &amp; storyteller</p>
+          <div class="tap-hint">👆 tap to learn more</div>
+          <div class="author-bio">
+            <button class="author-bio-close" aria-label="close">✕</button>
+            <p><strong>Brian</strong> is an 11-year-old boy and the storyteller behind the BriAnna Comic. He loves creating fun and imaginative stories full of adventure, humor, and creativity. Brian enjoys reading, brainstorming new comic ideas, and working together with Anna to bring their characters to life. He hopes readers will laugh and have fun while reading their comics. 📖✨</p>
+          </div>
         </div>
-        <div class="author-card">
+        <div class="author-card" id="anna-card">
           <div class="avatar">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <!-- pink background -->
               <circle cx="50" cy="50" r="45" fill="#f7b3c8" stroke="#2a1f17" stroke-width="2"/>
-              <ellipse cx="50" cy="55" rx="22" ry="24" fill="#fcd9b6" stroke="#2a1f17" stroke-width="2"/>
-              <!-- top hair only above forehead -->
-              <path d="M28 48 Q26 25 50 22 Q74 25 72 50 Q66 42 60 44 Q53 38 47 44 Q40 38 35 44 Q30 42 28 48 Z" fill="#3b2a1f" stroke="#2a1f17" stroke-width="1"/>
-              <!-- side locks -->
-              <path d="M28 50 Q26 70 30 80 Q34 72 35 65 Q30 58 30 52 Z" fill="#3b2a1f"/>
-              <path d="M72 50 Q74 70 70 80 Q66 72 65 65 Q70 58 70 52 Z" fill="#3b2a1f"/>
-              <path d="M48 22 Q50 12 52 22" stroke="#2a1f17" stroke-width="2" fill="none" stroke-linecap="round"/>
-              <ellipse cx="42" cy="55" rx="2" ry="3" fill="#1a1410"/>
-              <ellipse cx="58" cy="55" rx="2" ry="3" fill="#1a1410"/>
-              <ellipse cx="36" cy="63" rx="3.5" ry="2" fill="#e85a8a" opacity=".6"/>
-              <ellipse cx="64" cy="63" rx="3.5" ry="2" fill="#e85a8a" opacity=".6"/>
-              <path d="M44 68 Q50 73 56 68" fill="none" stroke="#1a1410" stroke-width="2" stroke-linecap="round"/>
+              <!-- left curtain hair: inner edge x=29 matches face left (x=30 at widest) -->
+              <path d="M35 30 Q22 35 25 50 Q18 70 26 68 L35 68 L35 50 Q28 38 35 30 Z" fill="#3b2a1f"/>
+              <!-- right curtain hair: inner edge x=71 matches face right (x=70 at widest) -->
+              <path d="M65 30 Q78 35 75 50 Q82 70 76 68 L65 68 L65 50 Q72 38 65 30 Z" fill="#3b2a1f"/>
+              <!-- face -->
+              <ellipse cx="50" cy="48" rx="20" ry="22" fill="#fcd9b6" stroke="#2a1f17" stroke-width="2"/>
+              <!-- crown hair: arches from (29,30) over top to (71,30), hugging face top -->
+              <path d="M28 38 Q50 35 72 38 Q50 5 28 38 Z" fill="#3b2a1f"/>
+              <!-- eyes — two short vertical lines -->
+              <line x1="43" y1="42" x2="43" y2="48" stroke="#1a1410" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="57" y1="42" x2="57" y2="48" stroke="#1a1410" stroke-width="2.5" stroke-linecap="round"/>
+              <!-- cheeks -->
+              <ellipse cx="36" cy="53" rx="4" ry="2.5" fill="#e85a8a" opacity=".55"/>
+              <ellipse cx="64" cy="53" rx="4" ry="2.5" fill="#e85a8a" opacity=".55"/>
+              <!-- smile (small U) -->
+              <path d="M45 57 Q50 63 55 57" fill="none" stroke="#1a1410" stroke-width="2" stroke-linecap="round"/>
+              <!-- heart at neckline -->
+              <path d="M50 88 C50 88,43 82,43 78 C43 75,46 74,50 77 C54 74,57 75,57 78 C57 82,50 88,50 88 Z" fill="#e85a8a" stroke="#2a1f17" stroke-width="1"/>
             </svg>
           </div>
           <h3>Anna</h3>
           <p>Co-creator &amp; illustrator</p>
+          <div class="tap-hint">👆 tap to learn more</div>
+          <div class="author-bio">
+            <button class="author-bio-close" aria-label="close">✕</button>
+            <p><strong>Anna</strong> is a 9-year-old girl and the illustrator of BriAnna Comic! She loves drawing colorful characters, making funny jokes, and adding creative details to every comic. Anna enjoys expressing her imagination through art and always comes up with silly and cheerful ideas. She is proud to be part of BriAnna Comic and hopes everyone enjoys the stories and artwork as much as she does. 🎨🌸</p>
+          </div>
         </div>
       </div>
     </section>
     <section class="about">
       <h2>About BriAnna Comics</h2>
       <p>BriAnna Comics is the home for stories created by kids. Every comic here was originally hand-drawn and hand-written on paper — then carefully turned into an e-book so friends and family can read along.</p>
-      <p><em>EMILY</em>, mixes high school worries with secret swords and alien invasions.<br/><em>PAUL vs. MOM ROBOT 3000</em>, sends a purple superhero cat to fight a robot mom — with a giant Brianna in the final round!<br/><em>THE ELEMENTAL KID</em>, takes four magical kids through a stormy ocean to face mysterious ant-people and a spiky-tooth bread-person.<br/><em>A POTION NAMED PO-PO</em>, follows a boy whose magic potion turns him into something... unexpected. 💩<br/> All four are funny, brave, and full of imagination — the way only kids can write.</p>
+      <p><em>EMILY</em>, mixes high school worries with secret swords and alien invasions.<br/><em>PAUL vs. MOM ROBOT 3000</em>, sends a purple superhero cat to fight a robot mom — with a giant Brianna in the final round!<br/><em>THE ELEMENTAL KID</em>, takes four magical kids through a stormy ocean to face mysterious ant-people and a spiky-tooth bread-person.<br/><em>A POTION NAMED PO-PO</em>, follows a boy whose magic potion turns him into something... unexpected. 💩<br/><em>A POTION NAMED PO-PO · PART 2</em>, continues the epic battle — with guns, growth, and even more potions! 🧪<br/><em>KIRBY IN THE DARK WORLD</em>, sends a pink fluffy hero into a dark hole, an underwater home, and a wild Flip-O-Rama showdown! ⭐<br/><em>CINNAMOROLL'S STORY</em>, follows a brave little pup who flies up to a thundercloud to rescue his Mom and Dad from an evil guy! 🌸<br/> All seven are funny, brave, and full of imagination — the way only kids can write.</p>
     </section>   
     <footer>
       Made with <span class="heart">♥</span> BriAnna Comics Production
     </footer>
   </div>
+<script>
+  // Bookshelf horizontal scroll controls
+  (function(){
+    const shelf = document.getElementById('shelf');
+    const prevBtn = document.getElementById('shelf-prev');
+    const nextBtn = document.getElementById('shelf-next');
+    if(!shelf || !prevBtn || !nextBtn) return;
+
+    function scrollAmount(){
+      const card = shelf.querySelector('.book-card');
+      if(!card) return 312;
+      return card.offsetWidth + 32;
+    }
+    prevBtn.addEventListener('click', () => {
+      shelf.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+    });
+    nextBtn.addEventListener('click', () => {
+      shelf.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+    });
+    function updateButtons(){
+      const atStart = shelf.scrollLeft <= 4;
+      const atEnd = shelf.scrollLeft + shelf.clientWidth >= shelf.scrollWidth - 4;
+      prevBtn.style.opacity = atStart ? '0.3' : '1';
+      prevBtn.style.pointerEvents = atStart ? 'none' : 'auto';
+      nextBtn.style.opacity = atEnd ? '0.3' : '1';
+      nextBtn.style.pointerEvents = atEnd ? 'none' : 'auto';
+    }
+    shelf.addEventListener('scroll', updateButtons);
+    window.addEventListener('resize', updateButtons);
+    updateButtons();
+
+    // arrow key nav when shelf in view
+    document.addEventListener('keydown', (e) => {
+      const rect = shelf.getBoundingClientRect();
+      const visible = rect.top < window.innerHeight && rect.bottom > 0;
+      if(!visible) return;
+      if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) return;
+      if(e.key === 'ArrowLeft' && !e.metaKey && !e.ctrlKey){
+        shelf.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+      } else if(e.key === 'ArrowRight' && !e.metaKey && !e.ctrlKey){
+        shelf.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+      }
+    });
+  })();
+
+  // === Author bio popover (click to toggle on mobile, hover works on desktop via CSS) ===
+  (function(){
+    const cards = document.querySelectorAll('.author-card');
+    cards.forEach(card => {
+      // toggle on tap/click anywhere on the card (except close button)
+      card.addEventListener('click', (e) => {
+        // close button has its own handler below
+        if(e.target.classList.contains('author-bio-close')) return;
+        // toggle this card; close the others
+        const wasOpen = card.classList.contains('open');
+        cards.forEach(c => c.classList.remove('open'));
+        if(!wasOpen) card.classList.add('open');
+      });
+      // close button inside the bio
+      const closeBtn = card.querySelector('.author-bio-close');
+      if(closeBtn){
+        closeBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          card.classList.remove('open');
+        });
+      }
+    });
+    // click outside any card closes the popovers
+    document.addEventListener('click', (e) => {
+      if(!e.target.closest('.author-card')){
+        cards.forEach(c => c.classList.remove('open'));
+      }
+    });
+    // ESC key closes too
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') cards.forEach(c => c.classList.remove('open'));
+    });
+  })();
+</script>
 </body>
 </html>
