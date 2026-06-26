@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Meow's Big Adventure — BriAnna Comics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Caveat:wght@400;700&family=Patrick+Hand&family=Gloock&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fdf8ee;--ink:#2a1f17;--pink:#e85a8a;--pink-light:#f7b3c8;
+  --gold:#d8a23c;--sky:#5bc4e0;--sky-dark:#3aa0bc;--water:#5aaadd;
+  --qcat:#c09060;--meow-black:#1a1410;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#3a6a7a}
+body{
+  font-family:'Patrick Hand',cursive;color:var(--ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:100vh;padding:20px 16px 24px;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;
+  background:radial-gradient(circle at 30% 30%,#2a5a6a,transparent 60%),
+             radial-gradient(circle at 70% 70%,#4a8a9a,transparent 60%),#3a6a7a;
+}
+.book{width:min(420px,92vw)}
+.page{
+  display:none;width:100%;aspect-ratio:5/7;
+  background:var(--paper);border:3px solid var(--ink);
+  border-radius:6px;box-shadow:8px 8px 0 rgba(0,0,0,.45);
+  position:relative;overflow:hidden;padding:22px 20px 18px;flex-direction:column;
+}
+.page.active{display:flex}
+.page::before{
+  content:"";position:absolute;inset:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' seed='5'/><feColorMatrix values='0 0 0 0 0.4 0 0 0 0 0.25 0 0 0 0 0.1 0 0 0 0.04 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity:.5;pointer-events:none;z-index:0;
+}
+.page>*{position:relative;z-index:1}
+.cover{background:var(--sky)!important;border-color:var(--sky-dark)!important;align-items:center;justify-content:space-between;padding:26px 20px 20px}
+.cover::before{opacity:.12!important}
+.nav{display:flex;justify-content:space-between;align-items:center;width:min(420px,92vw);margin-top:14px}
+.nav-btn{
+  font-family:'Bagel Fat One',cursive;font-size:17px;background:var(--paper);
+  border:3px solid var(--ink);border-radius:30px;padding:7px 18px;
+  box-shadow:4px 4px 0 var(--ink);cursor:pointer;color:var(--ink);transition:all .15s;
+}
+.nav-btn:hover{background:var(--pink-light);transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.nav-btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.nav-btn:disabled{opacity:.3;cursor:default;pointer-events:none}
+.pg-ctr{font-family:'Caveat',cursive;font-size:19px;color:#fdf8ee;font-weight:700}
+/* panels */
+.panel{border:2px solid var(--ink);border-radius:4px;background:white;padding:6px;position:relative}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
+.grid1{margin-bottom:6px}
+/* story text */
+.story{font-family:'Caveat',cursive;font-size:clamp(14px,3.5vw,17px);line-height:1.5;margin-bottom:6px}
+/* chapter banner */
+.ch-banner{
+  display:inline-block;background:var(--pink);color:#fff;
+  font-family:'Caveat',cursive;font-weight:700;font-size:13px;letter-spacing:1.5px;
+  text-transform:uppercase;padding:3px 14px;border-radius:20px;border:2px solid var(--ink);margin-bottom:6px;
+}
+.ch-title{
+  font-family:'Bagel Fat One',cursive;font-size:clamp(24px,6vw,34px);
+  color:var(--ink);text-shadow:2px 2px 0 var(--pink-light);margin-bottom:8px;line-height:1.1;
+}
+/* speech bubble helper */
+.bubble{
+  background:white;border:2px solid var(--ink);border-radius:10px;
+  font-family:'Bagel Fat One',cursive;font-size:clamp(11px,2.8vw,14px);
+  padding:3px 8px;display:inline-block;white-space:nowrap;
+}
+/* facts box */
+.facts{
+  background:#fff8e6;border:2.5px dashed var(--gold);border-radius:10px;
+  padding:8px 12px;margin-bottom:6px;font-family:'Caveat',cursive;font-size:clamp(13px,3vw,15px);
+}
+.facts-title{font-family:'Bagel Fat One',cursive;font-size:clamp(14px,3.5vw,17px);color:var(--qcat)}
+/* flip-o-rama */
+.for-page{
+  background:linear-gradient(135deg,#fff8ec,#f0e8d0);
+  border:3px solid var(--ink);border-radius:6px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:20px;text-align:center;flex:1;
+}
+/* page number corner */
+.pg-num{position:absolute;bottom:12px;right:16px;font-family:'Caveat',cursive;font-size:14px;color:rgba(0,0,0,.38)}
+  .topbar{
+    width:100%;max-width:900px;display:flex;justify-content:space-between;
+    align-items:center;margin-bottom:18px;color:#fdf8ee;font-family:'Caveat',cursive;
+  }
+  .topbar a{
+    color:#fdf8ee;text-decoration:none;background:rgba(0,0,0,.25);
+    padding:8px 16px;border-radius:30px;border:1.5px solid rgba(255,255,255,.3);
+    font-size:18px;transition:all .2s;
+  }
+  .topbar a:hover{background:rgba(255,255,255,.15);transform:translateY(-2px);}
+  .brand{font-size:22px;letter-spacing:1px;opacity:.85;}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">📚 BriAnna Library</span>
+  <a href="index.html">← Back to Library</a>
+</header>
+<div class="book">
+
+<!-- ═══════════ PAGE 1 · COVER ═══════════ -->
+<div class="page cover active" id="p1">
+  <div style="font-family:'Caveat',cursive;font-weight:700;font-size:13px;color:rgba(255,255,255,.8);letter-spacing:2px;text-align:center">✦ BriAnna Comics Presents ✦</div>
+  <div style="text-align:center">
+    <div style="font-family:'Bagel Fat One',cursive;font-size:clamp(36px,9vw,54px);color:#fff;text-shadow:3px 3px 0 var(--sky-dark),6px 6px 0 rgba(0,0,0,.18);line-height:1">Meow's Big</div>
+    <div style="font-family:'Bagel Fat One',cursive;font-size:clamp(40px,10vw,60px);color:#fff;text-shadow:3px 3px 0 var(--sky-dark),6px 6px 0 rgba(0,0,0,.18);line-height:1">Adventure</div>
+  </div>
+  <!-- Meow cover illustration -->
+  <svg viewBox="0 0 200 200" style="width:60%;max-width:260px;filter:drop-shadow(2px 4px 6px rgba(0,0,0,.25))">
+    <!-- body -->
+    <ellipse cx="100" cy="145" rx="42" ry="48" fill="white" stroke="#1a1410" stroke-width="2.5"/>
+    <!-- tail -->
+    <path d="M142 160 Q175 150 178 130 Q175 115 162 120" stroke="#1a1410" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <!-- arms -->
+    <ellipse cx="62" cy="130" rx="10" ry="20" fill="white" stroke="#1a1410" stroke-width="2" transform="rotate(-20 62 130)"/>
+    <ellipse cx="138" cy="130" rx="10" ry="20" fill="white" stroke="#1a1410" stroke-width="2" transform="rotate(20 138 130)"/>
+    <!-- black bow tie -->
+    <path d="M85 104 L100 111 L85 118 Z" fill="#1a1410"/>
+    <path d="M115 104 L100 111 L115 118 Z" fill="#1a1410"/>
+    <circle cx="100" cy="111" r="4" fill="#1a1410"/>
+    <!-- legs / paws -->
+    <ellipse cx="80" cy="188" rx="14" ry="8" fill="white" stroke="#1a1410" stroke-width="2"/>
+    <ellipse cx="120" cy="188" rx="14" ry="8" fill="white" stroke="#1a1410" stroke-width="2"/>
+    <!-- head -->
+    <circle cx="100" cy="72" r="44" fill="white" stroke="#1a1410" stroke-width="2.5"/>
+    <!-- LEFT ear: BLACK -->
+    <path d="M64 44 L50 14 L82 38 Z" fill="#1a1410" stroke="#1a1410" stroke-width="1.5"/>
+    <!-- RIGHT ear: white with pink -->
+    <path d="M118 36 L148 14 L136 44 Z" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+    <path d="M121 38 L143 18 L134 42 Z" fill="#ffb8c8" opacity=".8"/>
+    <!-- eyes -->
+    <ellipse cx="86" cy="72" rx="7" ry="8" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+    <circle cx="86" cy="73" r="5" fill="#1a1410"/>
+    <circle cx="87" cy="70" r="1.8" fill="white"/>
+    <ellipse cx="114" cy="72" rx="7" ry="8" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+    <circle cx="114" cy="73" r="5" fill="#1a1410"/>
+    <circle cx="115" cy="70" r="1.8" fill="white"/>
+    <!-- nose -->
+    <ellipse cx="100" cy="83" rx="4" ry="2.5" fill="#f7b3c8"/>
+    <!-- mouth -->
+    <path d="M92 89 Q100 95 108 89" fill="none" stroke="#1a1410" stroke-width="2" stroke-linecap="round"/>
+    <!-- whiskers -->
+    <line x1="52" y1="82" x2="82" y2="86" stroke="#1a1410" stroke-width="1" opacity=".7"/>
+    <line x1="52" y1="89" x2="82" y2="88" stroke="#1a1410" stroke-width="1" opacity=".7"/>
+    <line x1="118" y1="86" x2="148" y2="82" stroke="#1a1410" stroke-width="1" opacity=".7"/>
+    <line x1="118" y1="88" x2="148" y2="89" stroke="#1a1410" stroke-width="1" opacity=".7"/>
+    <!-- stars -->
+    <text x="22" y="50" font-family="Bagel Fat One" font-size="18" fill="#fff4c0">★</text>
+    <text x="166" y="48" font-family="Bagel Fat One" font-size="16" fill="#fff4c0">✦</text>
+    <text x="155" y="90" font-family="Bagel Fat One" font-size="12" fill="#fff4c0">★</text>
+    <text x="28" y="100" font-family="Bagel Fat One" font-size="12" fill="#fff4c0">✧</text>
+  </svg>
+  <div style="font-family:'Caveat',cursive;font-size:clamp(15px,3.8vw,20px);color:rgba(255,255,255,.95);text-align:center">By: <strong style="color:#fff">Anna and Brian</strong></div>
+</div>
+
+<!-- ═══════════ PAGE 2 · MEET MEOW ═══════════ -->
+<div class="page" id="p2">
+  <span class="ch-banner">Book 1</span>
+  <div class="ch-title">Meet Meow</div>
+  <!-- large Meow head portrait -->
+  <div style="flex:1;display:flex;align-items:center;justify-content:center">
+    <svg viewBox="0 0 200 180" style="width:85%;max-width:300px">
+      <!-- big head -->
+      <circle cx="100" cy="105" r="70" fill="white" stroke="#1a1410" stroke-width="3"/>
+      <!-- LEFT ear: BLACK with label -->
+      <path d="M50 68 L32 25 L74 58 Z" fill="#1a1410" stroke="#1a1410" stroke-width="2"/>
+      <!-- RIGHT ear: white -->
+      <path d="M132 56 L168 25 L152 68 Z" fill="white" stroke="#1a1410" stroke-width="2"/>
+      <path d="M135 58 L162 32 L150 66 Z" fill="#ffb8c8" opacity=".8"/>
+      <!-- eyes (big cute) -->
+      <ellipse cx="80" cy="105" rx="12" ry="14" fill="white" stroke="#1a1410" stroke-width="2"/>
+      <circle cx="80" cy="107" r="9" fill="#1a1410"/>
+      <circle cx="82" cy="103" r="3" fill="white"/>
+      <ellipse cx="120" cy="105" rx="12" ry="14" fill="white" stroke="#1a1410" stroke-width="2"/>
+      <circle cx="120" cy="107" r="9" fill="#1a1410"/>
+      <circle cx="122" cy="103" r="3" fill="white"/>
+      <!-- nose -->
+      <ellipse cx="100" cy="122" rx="6" ry="4" fill="#f7b3c8"/>
+      <!-- smile -->
+      <path d="M88 132 Q100 142 112 132" fill="none" stroke="#1a1410" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- cheeks -->
+      <ellipse cx="66" cy="124" rx="10" ry="6" fill="#f7b3c8" opacity=".5"/>
+      <ellipse cx="134" cy="124" rx="10" ry="6" fill="#f7b3c8" opacity=".5"/>
+      <!-- whiskers -->
+      <line x1="24" y1="118" x2="72" y2="124" stroke="#1a1410" stroke-width="1.5" opacity=".7"/>
+      <line x1="24" y1="128" x2="72" y2="126" stroke="#1a1410" stroke-width="1.5" opacity=".7"/>
+      <line x1="128" y1="124" x2="176" y2="118" stroke="#1a1410" stroke-width="1.5" opacity=".7"/>
+      <line x1="128" y1="126" x2="176" y2="128" stroke="#1a1410" stroke-width="1.5" opacity=".7"/>
+      <!-- arrow + label for black ear -->
+      <line x1="52" y1="48" x2="38" y2="15" stroke="#e85a8a" stroke-width="2" stroke-dasharray="4,3"/>
+      <circle cx="38" cy="14" r="2" fill="#e85a8a"/>
+      <text x="6" y="12" font-family="Caveat" font-size="11" fill="#e85a8a">Black ear!</text>
+    </svg>
+  </div>
+  <div class="pg-num">2</div>
+</div>
+
+<!-- ═══════════ PAGE 3 · STORY BEGINS ═══════════ -->
+<div class="page" id="p3">
+  <!-- Panel 1: This is Meow -->
+  <div class="grid1 panel" style="display:flex;gap:10px;align-items:center;padding:8px">
+    <svg viewBox="0 0 80 80" style="width:70px;flex-shrink:0">
+      <circle cx="40" cy="46" r="30" fill="white" stroke="#1a1410" stroke-width="2"/>
+      <path d="M20 30 L12 8 L34 24 Z" fill="#1a1410"/>
+      <path d="M52 24 L68 8 L60 30 Z" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+      <path d="M54 26 L65 12 L59 28 Z" fill="#ffb8c8" opacity=".8"/>
+      <circle cx="31" cy="46" r="5" fill="#1a1410"/><circle cx="32" cy="44" r="1.5" fill="white"/>
+      <circle cx="49" cy="46" r="5" fill="#1a1410"/><circle cx="50" cy="44" r="1.5" fill="white"/>
+      <ellipse cx="40" cy="55" rx="3" ry="2" fill="#f7b3c8"/>
+      <path d="M34 60 Q40 65 46 60" fill="none" stroke="#1a1410" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="10" y1="52" x2="28" y2="55" stroke="#1a1410" stroke-width="1" opacity=".7"/>
+      <line x1="10" y1="57" x2="28" y2="57" stroke="#1a1410" stroke-width="1" opacity=".7"/>
+      <line x1="52" y1="55" x2="70" y2="52" stroke="#1a1410" stroke-width="1" opacity=".7"/>
+      <line x1="52" y1="57" x2="70" y2="57" stroke="#1a1410" stroke-width="1" opacity=".7"/>
+      <!-- bow tie -->
+      <path d="M30 74 L40 79 L30 84 Z" fill="#1a1410"/>
+      <path d="M50 74 L40 79 L50 84 Z" fill="#1a1410"/>
+      <circle cx="40" cy="79" r="3" fill="#1a1410"/>
+    </svg>
+    <div>
+      <div class="story" style="font-size:clamp(15px,4vw,19px);font-weight:700">This is Meow.</div>
+      <div class="story" style="font-size:clamp(12px,3vw,14px)">But his ear is different<br/>from others.</div>
+    </div>
+  </div>
+  <!-- Panel 2: bullied -->
+  <div class="grid2" style="margin-bottom:6px">
+    <div class="panel" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px">
+      <svg viewBox="0 0 80 70" style="width:100%;max-width:90px">
+        <!-- other cat: BOTH ears black -->
+        <circle cx="40" cy="42" r="26" fill="#d0c0a0" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M20 26 L14 6 L32 20 Z" fill="#1a1410"/>
+        <path d="M50 20 L66 6 L60 26 Z" fill="#1a1410"/>
+        <circle cx="32" cy="42" r="4" fill="#1a1410"/>
+        <circle cx="48" cy="42" r="4" fill="#1a1410"/>
+        <ellipse cx="40" cy="51" rx="3" ry="2" fill="#f7b3c8"/>
+        <path d="M34 56 Q40 60 46 56" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+        <line x1="14" y1="47" x2="30" y2="49" stroke="#1a1410" stroke-width="1" opacity=".7"/>
+        <line x1="50" y1="49" x2="66" y2="47" stroke="#1a1410" stroke-width="1" opacity=".7"/>
+      </svg>
+      <div style="font-family:'Bagel Fat One',cursive;font-size:14px;color:#e84a4a">Ha ha!</div>
+    </div>
+    <div class="panel" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px">
+      <svg viewBox="0 0 80 70" style="width:100%;max-width:90px">
+        <!-- Meow sad -->
+        <circle cx="40" cy="42" r="26" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M20 26 L14 6 L32 20 Z" fill="#1a1410"/>
+        <path d="M50 20 L66 6 L60 26 Z" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M52 22 L63 8 L58 24 Z" fill="#ffb8c8" opacity=".8"/>
+        <!-- sad eyes - drooping -->
+        <circle cx="32" cy="40" r="4.5" fill="#1a1410"/><circle cx="33" cy="38" r="1.2" fill="white"/>
+        <circle cx="48" cy="40" r="4.5" fill="#1a1410"/><circle cx="49" cy="38" r="1.2" fill="white"/>
+        <!-- sad brows (pointing down toward center) -->
+        <path d="M26 32 Q30 35 34 33" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M46 33 Q50 35 54 32" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+        <!-- frown -->
+        <path d="M34 54 Q40 50 46 54" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+        <!-- tear -->
+        <path d="M29 44 Q27 48 29 52" fill="#7ac8e8" stroke="#5aaadd" stroke-width="0.8"/>
+        <line x1="10" y1="47" x2="28" y2="49" stroke="#1a1410" stroke-width="1" opacity=".7"/>
+        <line x1="52" y1="49" x2="70" y2="47" stroke="#1a1410" stroke-width="1" opacity=".7"/>
+      </svg>
+      <div style="font-family:'Caveat',cursive;font-size:11px;color:rgba(0,0,0,.55)">Meow feels sad...</div>
+    </div>
+  </div>
+  <!-- Panel 3: leaving Cat Town -->
+  <div class="grid1 panel" style="padding:6px">
+    <div class="story" style="font-size:clamp(12px,3vw,14px);margin-bottom:4px">So he left Cat Town, carrying a bag of cat food.</div>
+    <svg viewBox="0 0 280 110" style="width:100%">
+      <!-- sky -->
+      <rect width="280" height="110" fill="#d6eff8" rx="3"/>
+      <!-- stone wall -->
+      <rect x="0" y="38" width="280" height="72" fill="#b0a898" stroke="#1a1410" stroke-width="1.5"/>
+      <!-- brick pattern -->
+      <g stroke="#8a8078" stroke-width="0.8" fill="none">
+        <line x1="0" y1="55" x2="280" y2="55"/><line x1="0" y1="70" x2="280" y2="70"/><line x1="0" y1="85" x2="280" y2="85"/><line x1="0" y1="100" x2="280" y2="100"/>
+        <line x1="28" y1="38" x2="28" y2="55"/><line x1="56" y1="38" x2="56" y2="55"/><line x1="84" y1="38" x2="84" y2="55"/>
+        <line x1="196" y1="38" x2="196" y2="55"/><line x1="224" y1="38" x2="224" y2="55"/><line x1="252" y1="38" x2="252" y2="55"/>
+        <line x1="14" y1="55" x2="14" y2="70"/><line x1="42" y1="55" x2="42" y2="70"/><line x1="70" y1="55" x2="70" y2="70"/>
+        <line x1="210" y1="55" x2="210" y2="70"/><line x1="238" y1="55" x2="238" y2="70"/><line x1="266" y1="55" x2="266" y2="70"/>
+      </g>
+      <!-- gate arch -->
+      <path d="M108 110 L108 60 Q140 38 172 60 L172 110 Z" fill="#6a5a4a" stroke="#1a1410" stroke-width="2"/>
+      <path d="M116 110 L116 64 Q140 44 164 64 L164 110 Z" fill="#3a2a1a"/>
+      <!-- Cat Town sign -->
+      <rect x="94" y="18" width="92" height="18" rx="4" fill="#f5e4c8" stroke="#1a1410" stroke-width="1.5"/>
+      <text x="140" y="31" text-anchor="middle" font-family="Bagel Fat One" font-size="11" fill="#2a1f17">Cat Town</text>
+      <!-- Meow running out (right side, facing right) -->
+      <g transform="translate(200,55)">
+        <!-- running body -->
+        <circle cx="0" cy="-18" r="14" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M-12 -24 L-18 -38 L-4 -28 Z" fill="#1a1410"/>
+        <path d="M6 -28 L18 -38 L12 -24 Z" fill="white" stroke="#1a1410" stroke-width="1"/>
+        <path d="M8 -27 L16 -35 L11 -23 Z" fill="#ffb8c8" opacity=".8"/>
+        <circle cx="-5" cy="-18" r="3" fill="#1a1410"/><circle cx="5" cy="-18" r="3" fill="#1a1410"/>
+        <ellipse cx="0" cy="-12" rx="2" ry="1.5" fill="#f7b3c8"/>
+        <path d="M-4 -8 Q0 -5 4 -8" fill="none" stroke="#1a1410" stroke-width="1.2"/>
+        <!-- body + running legs -->
+        <ellipse cx="0" cy="5" rx="12" ry="16" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <line x1="0" y1="20" x2="-10" y2="40" stroke="#1a1410" stroke-width="2" stroke-linecap="round"/>
+        <line x1="0" y1="20" x2="14" y2="36" stroke="#1a1410" stroke-width="2" stroke-linecap="round"/>
+        <!-- arms running -->
+        <line x1="-10" y1="5" x2="-22" y2="-4" stroke="#1a1410" stroke-width="2" stroke-linecap="round"/>
+        <line x1="10" y1="5" x2="20" y2="0" stroke="#1a1410" stroke-width="2" stroke-linecap="round"/>
+        <!-- food bundle -->
+        <line x1="15" y1="-2" x2="28" y2="-10" stroke="#c09060" stroke-width="2"/>
+        <circle cx="30" cy="-14" r="10" fill="#d4b090" stroke="#1a1410" stroke-width="1.5"/>
+        <text x="30" y="-10" text-anchor="middle" font-family="Caveat" font-size="7" fill="#2a1f17">Food</text>
+        <!-- motion lines -->
+        <line x1="-18" y1="8" x2="-28" y2="8" stroke="#1a1410" stroke-width="1" stroke-dasharray="3,2"/>
+        <line x1="-16" y1="14" x2="-28" y2="14" stroke="#1a1410" stroke-width="1" stroke-dasharray="3,2"/>
+      </g>
+    </svg>
+  </div>
+  <div class="pg-num">3</div>
+</div>
+
+<!-- ═══════════ PAGE 4 · BONK! ═══════════ -->
+<div class="page" id="p4">
+  <div class="story">He ran and ran...</div>
+  <!-- BONK panel -->
+  <div class="grid1 panel" style="padding:8px;margin-bottom:6px;background:#fff8e6">
+    <svg viewBox="0 0 280 130" style="width:100%">
+      <!-- collision effect -->
+      <polygon points="140,30 152,55 180,52 158,72 168,100 140,82 112,100 122,72 100,52 128,55" fill="#f5d04a" stroke="#e87a30" stroke-width="2" opacity=".9"/>
+      <text x="140" y="70" text-anchor="middle" font-family="Bagel Fat One" font-size="28" fill="#e84a4a" stroke="#2a1f17" stroke-width="1">BONK!</text>
+      <!-- Meow (left, facing right, surprised) -->
+      <g transform="translate(52,65)">
+        <circle cx="0" cy="-18" r="16" fill="white" stroke="#1a1410" stroke-width="2"/>
+        <path d="M-14 -28 L-20 -44 L-4 -32 Z" fill="#1a1410"/>
+        <path d="M8 -32 L20 -44 L14 -28 Z" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M10 -31 L18 -40 L13 -27 Z" fill="#ffb8c8" opacity=".8"/>
+        <!-- surprised eyes (wide open) -->
+        <ellipse cx="-6" cy="-18" rx="5" ry="6" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <circle cx="-6" cy="-18" r="3.5" fill="#1a1410"/>
+        <ellipse cx="6" cy="-18" rx="5" ry="6" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <circle cx="6" cy="-18" r="3.5" fill="#1a1410"/>
+        <ellipse cx="0" cy="-9" rx="3" ry="2" fill="#f7b3c8"/>
+        <!-- O mouth (surprised) -->
+        <ellipse cx="0" cy="-4" rx="4" ry="4" fill="none" stroke="#1a1410" stroke-width="2"/>
+        <!-- motion lines behind -->
+        <line x1="-20" y1="-20" x2="-34" y2="-20" stroke="#1a1410" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="-18" y1="-10" x2="-32" y2="-6" stroke="#1a1410" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- body squished -->
+        <ellipse cx="0" cy="10" rx="14" ry="10" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+      </g>
+      <!-- Q Cat (right, facing left, surprised) -->
+      <g transform="translate(228,65)">
+        <circle cx="0" cy="-18" r="18" fill="#c09060" stroke="#1a1410" stroke-width="2"/>
+        <!-- fluffy cheeks -->
+        <ellipse cx="-20" cy="-12" rx="7" ry="5" fill="#c09060" stroke="#1a1410" stroke-width="1"/>
+        <ellipse cx="20" cy="-12" rx="7" ry="5" fill="#c09060" stroke="#1a1410" stroke-width="1"/>
+        <!-- ears -->
+        <path d="M-14 -30 L-20 -48 L-2 -34 Z" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M-12 -32 L-17 -44 L-4 -34 Z" fill="#f7b3c8"/>
+        <path d="M10 -34 L20 -48 L14 -30 Z" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M12 -34 L17 -44 L13 -30 Z" fill="#f7b3c8"/>
+        <!-- wide surprised eyes -->
+        <ellipse cx="-7" cy="-18" rx="6" ry="7" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <circle cx="-7" cy="-18" r="4" fill="#1a1410"/>
+        <circle cx="-6" cy="-20" r="1.5" fill="white"/>
+        <ellipse cx="7" cy="-18" rx="6" ry="7" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <circle cx="7" cy="-18" r="4" fill="#1a1410"/>
+        <circle cx="8" cy="-20" r="1.5" fill="white"/>
+        <ellipse cx="0" cy="-8" rx="3" ry="2" fill="#e8a090"/>
+        <ellipse cx="0" cy="-3" rx="4" ry="4" fill="none" stroke="#1a1410" stroke-width="2"/>
+        <!-- motion lines -->
+        <line x1="20" y1="-20" x2="34" y2="-20" stroke="#1a1410" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="18" y1="-10" x2="32" y2="-6" stroke="#1a1410" stroke-width="1.5" stroke-linecap="round"/>
+        <ellipse cx="0" cy="10" rx="16" ry="10" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+      </g>
+    </svg>
+  </div>
+  <!-- Ouch panel -->
+  <div class="grid2">
+    <div class="panel" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px">
+      <svg viewBox="0 0 80 72" style="width:80px">
+        <circle cx="40" cy="36" r="26" fill="white" stroke="#1a1410" stroke-width="2"/>
+        <path d="M20 22 L13 4 L32 17 Z" fill="#1a1410"/>
+        <path d="M52 16 L67 4 L61 22 Z" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M54 18 L64 6 L60 21 Z" fill="#ffb8c8" opacity=".8"/>
+        <circle cx="32" cy="35" r="5" fill="#1a1410"/><circle cx="33" cy="33" r="1.5" fill="white"/>
+        <circle cx="48" cy="35" r="5" fill="#1a1410"/><circle cx="49" cy="33" r="1.5" fill="white"/>
+        <ellipse cx="40" cy="45" rx="3" ry="2" fill="#f7b3c8"/>
+        <path d="M34 50 Q40 46 46 50" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+        <!-- stars of pain -->
+        <text x="10" y="16" font-family="Caveat" font-size="10" fill="#d8a23c">★</text>
+        <text x="60" y="14" font-family="Caveat" font-size="10" fill="#d8a23c">★</text>
+      </svg>
+      <div class="bubble">"Ouch!"</div>
+      <div style="font-family:'Caveat',cursive;font-size:11px;color:rgba(0,0,0,.5)">Meow</div>
+    </div>
+    <div class="panel" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px">
+      <svg viewBox="0 0 80 72" style="width:80px">
+        <circle cx="40" cy="36" r="26" fill="#c09060" stroke="#1a1410" stroke-width="2"/>
+        <ellipse cx="16" cy="40" rx="7" ry="5" fill="#c09060" stroke="#1a1410" stroke-width="1"/>
+        <ellipse cx="64" cy="40" rx="7" ry="5" fill="#c09060" stroke="#1a1410" stroke-width="1"/>
+        <path d="M20 22 L13 4 L32 17 Z" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M18 20 L14 6 L28 17 Z" fill="#f7b3c8"/>
+        <path d="M52 16 L67 4 L61 22 Z" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M54 18 L64 6 L60 21 Z" fill="#f7b3c8"/>
+        <circle cx="32" cy="34" r="5" fill="#1a1410"/><circle cx="33" cy="32" r="1.5" fill="white"/>
+        <circle cx="48" cy="34" r="5" fill="#1a1410"/><circle cx="49" cy="32" r="1.5" fill="white"/>
+        <ellipse cx="40" cy="44" rx="3" ry="2" fill="#e8a090"/>
+        <path d="M34 49 Q40 45 46 49" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+        <text x="10" y="16" font-family="Caveat" font-size="10" fill="#d8a23c">★</text>
+        <text x="60" y="14" font-family="Caveat" font-size="10" fill="#d8a23c">★</text>
+      </svg>
+      <div class="bubble">"Ouch!"</div>
+      <div style="font-family:'Caveat',cursive;font-size:11px;color:rgba(0,0,0,.5)">Q Cat</div>
+    </div>
+  </div>
+  <div class="pg-num">4</div>
+</div>
+
+<!-- ═══════════ PAGE 5 · Q CAT ═══════════ -->
+<div class="page" id="p5">
+  <!-- No way! -->
+  <div class="grid2" style="margin-bottom:6px">
+    <div class="panel" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px">
+      <svg viewBox="0 0 70 72" style="width:70px">
+        <circle cx="35" cy="38" r="24" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M17 24 L10 6 L28 18 Z" fill="#1a1410"/>
+        <path d="M46 18 L60 6 L54 24 Z" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M48 20 L57 8 L53 23 Z" fill="#ffb8c8" opacity=".8"/>
+        <!-- awkward eyes -->
+        <circle cx="28" cy="36" r="4" fill="#1a1410"/><circle cx="29" cy="34" r="1.2" fill="white"/>
+        <circle cx="42" cy="36" r="4" fill="#1a1410"/><circle cx="43" cy="34" r="1.2" fill="white"/>
+        <!-- sweat drop -->
+        <path d="M56 28 Q58 22 56 18" fill="#7ac8e8" stroke="#5aaadd" stroke-width="0.8"/>
+        <ellipse cx="35" cy="46" rx="3" ry="2" fill="#f7b3c8"/>
+        <path d="M29 50 L35 47 L41 50" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+      </svg>
+      <div style="font-family:'Caveat',cursive;font-size:10px;color:rgba(0,0,0,.5)">Meow</div>
+    </div>
+    <div class="panel" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px">
+      <svg viewBox="0 0 70 72" style="width:70px">
+        <circle cx="35" cy="38" r="24" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <ellipse cx="13" cy="42" rx="6" ry="4" fill="#c09060" stroke="#1a1410" stroke-width="1"/>
+        <ellipse cx="57" cy="42" rx="6" ry="4" fill="#c09060" stroke="#1a1410" stroke-width="1"/>
+        <path d="M18 24 L12 6 L28 19 Z" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M20 22 L15 9 L26 19 Z" fill="#f7b3c8"/>
+        <path d="M46 18 L60 6 L54 24 Z" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M48 20 L57 8 L53 22 Z" fill="#f7b3c8"/>
+        <!-- angry eyes -->
+        <circle cx="28" cy="37" r="5" fill="#1a1410"/>
+        <circle cx="42" cy="37" r="5" fill="#1a1410"/>
+        <path d="M22 30 L30 34" stroke="#1a1410" stroke-width="2"/>
+        <path d="M40 34 L48 30" stroke="#1a1410" stroke-width="2"/>
+        <ellipse cx="35" cy="47" rx="3" ry="2" fill="#e8a090"/>
+        <path d="M28 52 Q35 48 42 52" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+      </svg>
+      <div class="bubble" style="font-size:10px">"No way!"</div>
+    </div>
+  </div>
+  <!-- Q Cat facts -->
+  <div class="facts">
+    <div class="facts-title">Q Cat = Smart 🧠</div>
+    <div style="margin-top:3px">📋 Facts about Q Cat:<br/>He is Brian's <strong>fluffy fake pet</strong>.</div>
+  </div>
+  <!-- What? Shiver -->
+  <div class="grid2" style="margin-bottom:6px">
+    <div class="panel" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px">
+      <svg viewBox="0 0 70 60" style="width:70px">
+        <circle cx="35" cy="32" r="22" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M17 20 L10 4 L28 15 Z" fill="#1a1410"/>
+        <path d="M46 15 L60 4 L54 20 Z" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M48 16 L57 6 L53 19 Z" fill="#ffb8c8" opacity=".8"/>
+        <circle cx="28" cy="30" r="4" fill="#1a1410"/><circle cx="29" cy="28" r="1.2" fill="white"/>
+        <circle cx="42" cy="30" r="4" fill="#1a1410"/><circle cx="43" cy="28" r="1.2" fill="white"/>
+        <ellipse cx="35" cy="38" rx="2.5" ry="1.8" fill="#f7b3c8"/>
+        <path d="M29 43 Q35 48 41 43" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+      </svg>
+      <div class="bubble" style="font-size:10px">"What?"</div>
+    </div>
+    <div class="panel" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px">
+      <svg viewBox="0 0 70 60" style="width:70px">
+        <!-- Q Cat shivering: vibration lines + scared face -->
+        <circle cx="35" cy="32" r="22" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <ellipse cx="13" cy="36" rx="5" ry="4" fill="#c09060" stroke="#1a1410" stroke-width="1"/>
+        <ellipse cx="57" cy="36" rx="5" ry="4" fill="#c09060" stroke="#1a1410" stroke-width="1"/>
+        <path d="M18 20 L12 4 L27 16 Z" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M46 15 L60 4 L54 20 Z" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <!-- wide scared eyes -->
+        <ellipse cx="27" cy="30" rx="5" ry="6" fill="white" stroke="#1a1410" stroke-width="1"/>
+        <circle cx="27" cy="31" r="3.5" fill="#1a1410"/>
+        <ellipse cx="43" cy="30" rx="5" ry="6" fill="white" stroke="#1a1410" stroke-width="1"/>
+        <circle cx="43" cy="31" r="3.5" fill="#1a1410"/>
+        <ellipse cx="35" cy="40" rx="3" ry="2" fill="#e8a090"/>
+        <path d="M29 46 Q35 42 41 46" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+        <!-- shiver lines -->
+        <line x1="6" y1="28" x2="2" y2="28" stroke="#5aaadd" stroke-width="1.5"/>
+        <line x1="6" y1="34" x2="1" y2="34" stroke="#5aaadd" stroke-width="1.5"/>
+        <line x1="64" y1="28" x2="68" y2="28" stroke="#5aaadd" stroke-width="1.5"/>
+        <line x1="64" y1="34" x2="69" y2="34" stroke="#5aaadd" stroke-width="1.5"/>
+      </svg>
+      <div class="bubble" style="font-size:10px">"Shiver..."</div>
+    </div>
+  </div>
+  <!-- ??? Ahh -->
+  <div class="grid2">
+    <div class="panel" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px">
+      <svg viewBox="0 0 70 55" style="width:70px">
+        <circle cx="35" cy="28" r="22" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M17 16 L10 0 L28 11 Z" fill="#1a1410"/>
+        <path d="M46 11 L60 0 L54 16 Z" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M48 12 L57 2 L53 15 Z" fill="#ffb8c8" opacity=".8"/>
+        <circle cx="28" cy="26" r="4" fill="#1a1410"/>
+        <circle cx="42" cy="26" r="4" fill="#1a1410"/>
+        <ellipse cx="35" cy="34" rx="2.5" ry="1.8" fill="#f7b3c8"/>
+        <path d="M29 39 Q35 44 41 39" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+      </svg>
+      <div class="bubble" style="font-size:12px">"???"</div>
+    </div>
+    <div class="panel" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px">
+      <svg viewBox="0 0 70 55" style="width:70px">
+        <circle cx="35" cy="28" r="22" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <ellipse cx="13" cy="32" rx="5" ry="4" fill="#c09060" stroke="#1a1410" stroke-width="1"/>
+        <ellipse cx="57" cy="32" rx="5" ry="4" fill="#c09060" stroke="#1a1410" stroke-width="1"/>
+        <path d="M18 16 L12 0 L27 12 Z" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M46 11 L60 0 L54 16 Z" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <!-- horrified eyes - huge -->
+        <ellipse cx="26" cy="26" rx="7" ry="8" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <circle cx="26" cy="27" r="5" fill="#1a1410"/>
+        <circle cx="27" cy="24" r="2" fill="white"/>
+        <ellipse cx="44" cy="26" rx="7" ry="8" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <circle cx="44" cy="27" r="5" fill="#1a1410"/>
+        <circle cx="45" cy="24" r="2" fill="white"/>
+        <!-- screaming mouth -->
+        <ellipse cx="35" cy="38" rx="6" ry="7" fill="#3a1a1a" stroke="#1a1410" stroke-width="1.5"/>
+      </svg>
+      <div class="bubble" style="font-size:12px">"Ahh!!"</div>
+    </div>
+  </div>
+  <div class="pg-num">5</div>
+</div>
+
+<!-- ═══════════ PAGE 6 · FLIP-O-RAMA INSTRUCTIONS ═══════════ -->
+<div class="page" id="p6">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px">
+    <div style="font-family:'Bagel Fat One',cursive;font-size:clamp(28px,7vw,38px);color:var(--ink);text-align:center;text-shadow:3px 3px 0 var(--pink-light)">
+      Time for<br/>Flip-o-Rama!
+    </div>
+    <div style="font-family:'Caveat',cursive;font-size:clamp(15px,3.8vw,19px);text-align:center;color:var(--ink)">
+      How to do it:<br/><strong>keep pressing ← and →</strong>
+    </div>
+    <!-- diagram: two pages with buttons -->
+    <svg viewBox="0 0 260 120" style="width:90%;max-width:300px">
+      <!-- left page -->
+      <rect x="10" y="5" width="100" height="88" rx="4" fill="white" stroke="#2a1f17" stroke-width="2"/>
+      <text x="60" y="50" text-anchor="middle" font-family="Caveat" font-size="11" fill="#888">Page A</text>
+      <!-- left arrow button -->
+      <rect x="32" y="76" width="56" height="20" rx="10" fill="#5bc4e0" stroke="#2a1f17" stroke-width="1.5"/>
+      <text x="60" y="91" text-anchor="middle" font-family="Bagel Fat One" font-size="14" fill="white">←</text>
+      <!-- arc above left button -->
+      <path d="M60 70 Q40 60 30 70" fill="none" stroke="#2a1f17" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <!-- right page -->
+      <rect x="150" y="5" width="100" height="88" rx="4" fill="white" stroke="#2a1f17" stroke-width="2"/>
+      <text x="200" y="50" text-anchor="middle" font-family="Caveat" font-size="11" fill="#888">Page B</text>
+      <!-- right arrow button -->
+      <rect x="172" y="76" width="56" height="20" rx="10" fill="#e85a8a" stroke="#2a1f17" stroke-width="1.5"/>
+      <text x="200" y="91" text-anchor="middle" font-family="Bagel Fat One" font-size="14" fill="white">→</text>
+      <!-- arc above right button -->
+      <path d="M200 70 Q220 60 230 70" fill="none" stroke="#2a1f17" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <!-- double arrow between pages -->
+      <text x="130" y="50" text-anchor="middle" font-family="Bagel Fat One" font-size="18" fill="#d8a23c">⇄</text>
+    </svg>
+    <div style="font-family:'Caveat',cursive;font-size:clamp(14px,3.5vw,17px);text-align:center;color:var(--ink)">
+      Then you will get an<br/><strong style="color:var(--pink)">Animation!</strong> ✨
+    </div>
+  </div>
+  <div class="pg-num">6</div>
+</div>
+
+<!-- ═══════════ PAGE 7 · FLIP-O-RAMA A ═══════════ -->
+<div class="page" id="p7">
+  <div style="font-family:'Caveat',cursive;font-size:12px;color:rgba(0,0,0,.4);text-align:center;margin-bottom:6px">← Flip-O-Rama →</div>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center">
+    <svg viewBox="0 0 300 220" style="width:100%;max-width:340px">
+      <!-- ground line -->
+      <line x1="20" y1="200" x2="280" y2="200" stroke="#c0a878" stroke-width="2"/>
+      <!-- Meow (left, standing, facing right, neutral curious) -->
+      <g transform="translate(80,110)">
+        <circle cx="0" cy="-30" r="30" fill="white" stroke="#1a1410" stroke-width="2.5"/>
+        <path d="M-20 -45 L-28 -66 L-6 -50 Z" fill="#1a1410"/>
+        <path d="M14 -50 L28 -66 L20 -44 Z" fill="white" stroke="#1a1410" stroke-width="2"/>
+        <path d="M16 -49 L26 -62 L19 -43 Z" fill="#ffb8c8" opacity=".8"/>
+        <ellipse cx="-10" cy="-30" rx="7" ry="8" fill="white" stroke="#1a1410" stroke-width="2"/>
+        <circle cx="-10" cy="-30" r="5" fill="#1a1410"/><circle cx="-9" cy="-33" r="2" fill="white"/>
+        <ellipse cx="10" cy="-30" rx="7" ry="8" fill="white" stroke="#1a1410" stroke-width="2"/>
+        <circle cx="10" cy="-30" r="5" fill="#1a1410"/><circle cx="11" cy="-33" r="2" fill="white"/>
+        <ellipse cx="0" cy="-18" rx="4" ry="3" fill="#f7b3c8"/>
+        <path d="M-6 -12 Q0 -6 6 -12" fill="none" stroke="#1a1410" stroke-width="2" stroke-linecap="round"/>
+        <line x1="-32" y1="-25" x2="-10" y2="-22" stroke="#1a1410" stroke-width="1.5" opacity=".7"/>
+        <line x1="-32" y1="-18" x2="-10" y2="-18" stroke="#1a1410" stroke-width="1.5" opacity=".7"/>
+        <line x1="10" y1="-22" x2="32" y2="-25" stroke="#1a1410" stroke-width="1.5" opacity=".7"/>
+        <line x1="10" y1="-18" x2="32" y2="-18" stroke="#1a1410" stroke-width="1.5" opacity=".7"/>
+        <!-- bow tie -->
+        <path d="M-12 0 L0 6 L-12 12 Z" fill="#1a1410"/>
+        <path d="M12 0 L0 6 L12 12 Z" fill="#1a1410"/>
+        <circle cx="0" cy="6" r="3.5" fill="#1a1410"/>
+        <!-- body -->
+        <ellipse cx="0" cy="38" rx="26" ry="36" fill="white" stroke="#1a1410" stroke-width="2.5"/>
+        <!-- tail -->
+        <path d="M26 55 Q50 50 52 35 Q50 22 38 26" stroke="#1a1410" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- legs -->
+        <ellipse cx="-14" cy="86" rx="10" ry="7" fill="white" stroke="#1a1410" stroke-width="2"/>
+        <ellipse cx="14" cy="86" rx="10" ry="7" fill="white" stroke="#1a1410" stroke-width="2"/>
+      </g>
+      <!-- Q Cat (right, standing, facing left, arms crossed - confident) -->
+      <g transform="translate(220,115)">
+        <circle cx="0" cy="-30" r="32" fill="#c09060" stroke="#1a1410" stroke-width="2.5"/>
+        <ellipse cx="-34" cy="-22" rx="9" ry="7" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <ellipse cx="34" cy="-22" rx="9" ry="7" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M-20 -48 L-28 -68 L-6 -52 Z" fill="#c09060" stroke="#1a1410" stroke-width="2"/>
+        <path d="M-18 -50 L-24 -64 L-8 -52 Z" fill="#f7b3c8"/>
+        <path d="M14 -52 L28 -68 L20 -48 Z" fill="#c09060" stroke="#1a1410" stroke-width="2"/>
+        <path d="M16 -51 L24 -64 L18 -48 Z" fill="#f7b3c8"/>
+        <!-- wise eyes with glasses -->
+        <ellipse cx="-11" cy="-30" rx="8" ry="9" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <circle cx="-11" cy="-30" r="5.5" fill="#1a1410"/><circle cx="-10" cy="-33" r="2" fill="white"/>
+        <ellipse cx="11" cy="-30" rx="8" ry="9" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <circle cx="11" cy="-30" r="5.5" fill="#1a1410"/><circle cx="12" cy="-33" r="2" fill="white"/>
+        <!-- glasses frames -->
+        <rect x="-20" y="-40" width="18" height="14" rx="3" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+        <rect x="2" y="-40" width="18" height="14" rx="3" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+        <line x1="-2" y1="-33" x2="2" y2="-33" stroke="#1a1410" stroke-width="1.5"/>
+        <line x1="-22" y1="-33" x2="-26" y2="-33" stroke="#1a1410" stroke-width="1.5"/>
+        <line x1="20" y1="-33" x2="24" y2="-33" stroke="#1a1410" stroke-width="1.5"/>
+        <!-- smug expression -->
+        <path d="M-6 -15 Q2 -10 8 -14" fill="none" stroke="#1a1410" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="0" cy="-19" rx="4" ry="2.5" fill="#e8a090"/>
+        <!-- body -->
+        <ellipse cx="0" cy="40" rx="28" ry="38" fill="#c09060" stroke="#1a1410" stroke-width="2.5"/>
+        <!-- tail -->
+        <path d="M-28 55 Q-52 50 -54 34 Q-52 20 -40 24" stroke="#1a1410" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- legs -->
+        <ellipse cx="-14" cy="90" rx="12" ry="8" fill="#c09060" stroke="#1a1410" stroke-width="2"/>
+        <ellipse cx="14" cy="90" rx="12" ry="8" fill="#c09060" stroke="#1a1410" stroke-width="2"/>
+      </g>
+      <!-- page label -->
+      <text x="150" y="215" text-anchor="middle" font-family="Bagel Fat One" font-size="13" fill="#888">Frame A</text>
+    </svg>
+  </div>
+  <div class="pg-num">7</div>
+</div>
+
+<!-- ═══════════ PAGE 8 · FLIP-O-RAMA B ═══════════ -->
+<div class="page" id="p8">
+  <div style="font-family:'Caveat',cursive;font-size:12px;color:rgba(0,0,0,.4);text-align:center;margin-bottom:6px">← Flip-O-Rama →</div>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center">
+    <svg viewBox="0 0 300 220" style="width:100%;max-width:340px">
+      <line x1="20" y1="200" x2="280" y2="200" stroke="#c0a878" stroke-width="2"/>
+      <!-- Meow (left, looking up, same position) -->
+      <g transform="translate(80,130)">
+        <circle cx="0" cy="-30" r="28" fill="white" stroke="#1a1410" stroke-width="2.5"/>
+        <path d="M-18 -44 L-25 -62 L-5 -48 Z" fill="#1a1410"/>
+        <path d="M12 -48 L26 -62 L18 -43 Z" fill="white" stroke="#1a1410" stroke-width="2"/>
+        <path d="M14 -47 L23 -58 L17 -42 Z" fill="#ffb8c8" opacity=".8"/>
+        <!-- eyes looking up -->
+        <ellipse cx="-10" cy="-35" rx="6" ry="7" fill="white" stroke="#1a1410" stroke-width="2"/>
+        <circle cx="-10" cy="-36" r="4" fill="#1a1410"/><circle cx="-9" cy="-38" r="1.5" fill="white"/>
+        <ellipse cx="10" cy="-35" rx="6" ry="7" fill="white" stroke="#1a1410" stroke-width="2"/>
+        <circle cx="10" cy="-36" r="4" fill="#1a1410"/><circle cx="11" cy="-38" r="1.5" fill="white"/>
+        <ellipse cx="0" cy="-18" rx="3" ry="2" fill="#f7b3c8"/>
+        <path d="M-5 -12 Q0 -8 5 -12" fill="none" stroke="#1a1410" stroke-width="2" stroke-linecap="round"/>
+        <line x1="-28" y1="-22" x2="-8" y2="-20" stroke="#1a1410" stroke-width="1.5" opacity=".7"/>
+        <line x1="8" y1="-20" x2="28" y2="-22" stroke="#1a1410" stroke-width="1.5" opacity=".7"/>
+        <path d="M-10 0 L0 6 L-10 12 Z" fill="#1a1410"/>
+        <path d="M10 0 L0 6 L10 12 Z" fill="#1a1410"/>
+        <circle cx="0" cy="6" r="3" fill="#1a1410"/>
+        <ellipse cx="0" cy="36" rx="24" ry="32" fill="white" stroke="#1a1410" stroke-width="2.5"/>
+        <ellipse cx="-12" cy="78" rx="9" ry="6" fill="white" stroke="#1a1410" stroke-width="2"/>
+        <ellipse cx="12" cy="78" rx="9" ry="6" fill="white" stroke="#1a1410" stroke-width="2"/>
+      </g>
+      <!-- Q Cat JUMPING (right, leaping up, "Ahhh") -->
+      <g transform="translate(215,60)">
+        <circle cx="0" cy="-30" r="32" fill="#c09060" stroke="#1a1410" stroke-width="2.5"/>
+        <ellipse cx="-34" cy="-22" rx="9" ry="7" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <ellipse cx="34" cy="-22" rx="9" ry="7" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M-20 -48 L-28 -68 L-6 -52 Z" fill="#c09060" stroke="#1a1410" stroke-width="2"/>
+        <path d="M-18 -50 L-24 -64 L-8 -52 Z" fill="#f7b3c8"/>
+        <path d="M14 -52 L28 -68 L20 -48 Z" fill="#c09060" stroke="#1a1410" stroke-width="2"/>
+        <path d="M16 -51 L24 -64 L18 -48 Z" fill="#f7b3c8"/>
+        <!-- glasses staying on -->
+        <rect x="-20" y="-40" width="18" height="14" rx="3" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+        <rect x="2" y="-40" width="18" height="14" rx="3" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+        <line x1="-2" y1="-33" x2="2" y2="-33" stroke="#1a1410" stroke-width="1.5"/>
+        <!-- huge terrified eyes -->
+        <ellipse cx="-11" cy="-30" rx="8" ry="10" fill="white" stroke="#1a1410" stroke-width="1"/>
+        <circle cx="-11" cy="-30" r="6" fill="#1a1410"/>
+        <circle cx="-10" cy="-34" r="2.5" fill="white"/>
+        <ellipse cx="11" cy="-30" rx="8" ry="10" fill="white" stroke="#1a1410" stroke-width="1"/>
+        <circle cx="11" cy="-30" r="6" fill="#1a1410"/>
+        <circle cx="12" cy="-34" r="2.5" fill="white"/>
+        <!-- screaming O mouth -->
+        <ellipse cx="0" cy="-14" rx="8" ry="9" fill="#3a1a1a" stroke="#1a1410" stroke-width="2"/>
+        <!-- body flying up, legs kicked out -->
+        <ellipse cx="0" cy="35" rx="28" ry="32" fill="#c09060" stroke="#1a1410" stroke-width="2.5"/>
+        <!-- legs kicked in the air -->
+        <line x1="-18" y1="62" x2="-32" y2="88" stroke="#c09060" stroke-width="7" stroke-linecap="round"/>
+        <ellipse cx="-36" cy="92" rx="10" ry="7" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <line x1="18" y1="62" x2="32" y2="88" stroke="#c09060" stroke-width="7" stroke-linecap="round"/>
+        <ellipse cx="36" cy="92" rx="10" ry="7" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <!-- motion lines -->
+        <line x1="40" y1="40" x2="54" y2="52" stroke="#1a1410" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="42" y1="55" x2="58" y2="60" stroke="#1a1410" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="38" y1="26" x2="54" y2="24" stroke="#1a1410" stroke-width="1.5" stroke-linecap="round"/>
+      </g>
+      <!-- Ahhh speech bubble -->
+      <ellipse cx="248" cy="8" rx="30" ry="16" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+      <path d="M232 20 Q228 32 222 36 Q232 28 236 20 Z" fill="white" stroke="#1a1410" stroke-width="1"/>
+      <text x="248" y="13" text-anchor="middle" font-family="Bagel Fat One" font-size="13" fill="#e84a4a">Ahhh!</text>
+      <!-- motion lines below Q Cat (jumped from here) -->
+      <line x1="200" y1="175" x2="210" y2="170" stroke="#888" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <line x1="215" y1="178" x2="220" y2="172" stroke="#888" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <line x1="230" y1="178" x2="228" y2="172" stroke="#888" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <!-- frame label -->
+      <text x="150" y="215" text-anchor="middle" font-family="Bagel Fat One" font-size="13" fill="#888">Frame B</text>
+    </svg>
+  </div>
+  <div class="pg-num">8</div>
+</div>
+
+<!-- ═══════════ PAGE 9 · TRAINING ═══════════ -->
+<div class="page" id="p9">
+  <!-- Q Cat offers to teach -->
+  <div class="grid1 panel" style="padding:7px;margin-bottom:6px">
+    <div class="story" style="font-size:clamp(13px,3.2vw,15px)">Then Q cat calmed down and said...</div>
+    <div style="display:flex;gap:8px;align-items:center;justify-content:center;margin-top:4px">
+      <svg viewBox="0 0 64 64" style="width:58px;flex-shrink:0">
+        <circle cx="32" cy="32" r="26" fill="#c09060" stroke="#1a1410" stroke-width="2"/>
+        <ellipse cx="8" cy="36" rx="7" ry="5" fill="#c09060" stroke="#1a1410" stroke-width="1"/>
+        <ellipse cx="56" cy="36" rx="7" ry="5" fill="#c09060" stroke="#1a1410" stroke-width="1"/>
+        <path d="M14 18 L8 2 L24 14 Z" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M44 14 L56 2 L50 18 Z" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <rect x="20" y="22" width="11" height="8" rx="2" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+        <rect x="33" y="22" width="11" height="8" rx="2" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+        <line x1="31" y1="26" x2="33" y2="26" stroke="#1a1410" stroke-width="1.5"/>
+        <circle cx="25" cy="26" r="3" fill="#1a1410"/>
+        <circle cx="38" cy="26" r="3" fill="#1a1410"/>
+        <path d="M26 38 Q32 43 38 38" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+        <ellipse cx="32" cy="33" rx="3" ry="2" fill="#e8a090"/>
+      </svg>
+      <div style="flex:1">
+        <div style="font-family:'Caveat',cursive;font-weight:700;font-size:clamp(13px,3.5vw,16px);color:#c09060">"Do you want to be<br/>my student?"</div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:4px">
+      <div style="font-family:'Caveat',cursive;font-weight:700;font-size:clamp(13px,3.5vw,16px);color:var(--sky-dark)">"Sure!"</div>
+      <svg viewBox="0 0 52 52" style="width:46px">
+        <circle cx="26" cy="26" r="22" fill="white" stroke="#1a1410" stroke-width="2"/>
+        <path d="M10 16 L4 2 L20 12 Z" fill="#1a1410"/>
+        <path d="M38 12 L48 2 L42 16 Z" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <!-- big happy eyes -->
+        <path d="M16 22 Q20 18 24 22" fill="none" stroke="#1a1410" stroke-width="2"/>
+        <path d="M28 22 Q32 18 36 22" fill="none" stroke="#1a1410" stroke-width="2"/>
+        <ellipse cx="26" cy="30" rx="2.5" ry="1.5" fill="#f7b3c8"/>
+        <path d="M18 35 Q26 42 34 35" fill="none" stroke="#1a1410" stroke-width="2" stroke-linecap="round"/>
+        <text x="4" y="14" font-family="Caveat" font-size="10" fill="#d8a23c">★</text>
+        <text x="42" y="14" font-family="Caveat" font-size="10" fill="#d8a23c">★</text>
+      </svg>
+    </div>
+  </div>
+  <!-- Training + water power -->
+  <div class="story">So Meow was trained and trained... until Meow learns <strong style="color:var(--water)">water power!</strong></div>
+  <div class="grid1 panel" style="padding:6px;margin-bottom:6px">
+    <svg viewBox="0 0 280 110" style="width:100%">
+      <!-- training scene bg -->
+      <rect width="280" height="110" fill="#eef8ff" rx="3"/>
+      <!-- Water power Meow (center, powered up) -->
+      <g transform="translate(140,58)">
+        <!-- water aura circles -->
+        <circle cx="0" cy="0" r="52" fill="none" stroke="#5aaadd" stroke-width="2" opacity=".3" stroke-dasharray="6,4"/>
+        <circle cx="0" cy="0" r="42" fill="none" stroke="#5aaadd" stroke-width="1.5" opacity=".5" stroke-dasharray="4,3"/>
+        <!-- water droplets swirling -->
+        <g fill="#5aaadd" opacity=".8">
+          <ellipse cx="-44" cy="-10" rx="5" ry="8" transform="rotate(-30 -44 -10)"/>
+          <ellipse cx="44" cy="10" rx="5" ry="8" transform="rotate(30 44 10)"/>
+          <ellipse cx="-10" cy="-44" rx="5" ry="8" transform="rotate(-60 -10 -44)"/>
+          <ellipse cx="10" cy="44" rx="5" ry="8" transform="rotate(60 10 44)"/>
+          <ellipse cx="-36" cy="28" rx="4" ry="6" transform="rotate(-80 -36 28)"/>
+          <ellipse cx="36" cy="-28" rx="4" ry="6" transform="rotate(80 36 -28)"/>
+        </g>
+        <!-- Meow body powered up -->
+        <ellipse cx="0" cy="22" rx="20" ry="26" fill="white" stroke="#1a1410" stroke-width="2"/>
+        <!-- arms raised (power pose) -->
+        <line x1="-18" y1="14" x2="-34" y2="-4" stroke="white" stroke-width="7" stroke-linecap="round"/>
+        <ellipse cx="-36" cy="-8" rx="8" ry="6" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <line x1="18" y1="14" x2="34" y2="-4" stroke="white" stroke-width="7" stroke-linecap="round"/>
+        <ellipse cx="36" cy="-8" rx="8" ry="6" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <!-- head -->
+        <circle cx="0" cy="-22" r="22" fill="white" stroke="#1a1410" stroke-width="2"/>
+        <path d="M-14 -32 L-20 -48 L-4 -36 Z" fill="#1a1410"/>
+        <path d="M10 -36 L20 -48 L14 -32 Z" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M12 -35 L18 -44 L13 -31 Z" fill="#ffb8c8" opacity=".8"/>
+        <!-- glowing eyes -->
+        <ellipse cx="-8" cy="-22" rx="6" ry="7" fill="#d6f0ff" stroke="#1a1410" stroke-width="1.5"/>
+        <circle cx="-8" cy="-22" r="4" fill="#5aaadd"/>
+        <circle cx="-7" cy="-25" r="1.5" fill="white"/>
+        <ellipse cx="8" cy="-22" rx="6" ry="7" fill="#d6f0ff" stroke="#1a1410" stroke-width="1.5"/>
+        <circle cx="8" cy="-22" r="4" fill="#5aaadd"/>
+        <circle cx="9" cy="-25" r="1.5" fill="white"/>
+        <ellipse cx="0" cy="-13" rx="3" ry="2" fill="#f7b3c8"/>
+        <path d="M-5 -7 Q0 -2 5 -7" fill="none" stroke="#1a1410" stroke-width="2" stroke-linecap="round"/>
+        <!-- paws -->
+        <ellipse cx="-12" cy="56" rx="9" ry="6" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <ellipse cx="12" cy="56" rx="9" ry="6" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <!-- bow tie -->
+        <path d="M-8 -1 L0 4 L-8 9 Z" fill="#1a1410"/>
+        <path d="M8 -1 L0 4 L8 9 Z" fill="#1a1410"/>
+        <circle cx="0" cy="4" r="2.5" fill="#1a1410"/>
+      </g>
+      <!-- caption -->
+      <text x="140" y="106" text-anchor="middle" font-family="Bagel Fat One" font-size="11" fill="#5aaadd">~ Water Power! ~</text>
+    </svg>
+  </div>
+  <!-- Good job / Thanks -->
+  <div class="grid2">
+    <div class="panel" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px">
+      <svg viewBox="0 0 64 58" style="width:60px">
+        <circle cx="32" cy="30" r="24" fill="#c09060" stroke="#1a1410" stroke-width="2"/>
+        <ellipse cx="9" cy="34" rx="6" ry="5" fill="#c09060" stroke="#1a1410" stroke-width="1"/>
+        <ellipse cx="55" cy="34" rx="6" ry="5" fill="#c09060" stroke="#1a1410" stroke-width="1"/>
+        <path d="M14 18 L8 2 L24 14 Z" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M44 14 L56 2 L50 18 Z" fill="#c09060" stroke="#1a1410" stroke-width="1.5"/>
+        <rect x="20" y="22" width="10" height="7" rx="2" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+        <rect x="34" y="22" width="10" height="7" rx="2" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+        <line x1="30" y1="25" x2="34" y2="25" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M24 38 Q32 44 40 38" fill="none" stroke="#1a1410" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="32" cy="30" rx="3" ry="2" fill="#e8a090"/>
+        <text x="32" y="14" text-anchor="middle" font-family="Bagel Fat One" font-size="9" fill="#d8a23c">★</text>
+      </svg>
+      <div class="bubble" style="font-size:10px">"Good job!"</div>
+    </div>
+    <div class="panel" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px">
+      <svg viewBox="0 0 64 58" style="width:60px">
+        <circle cx="32" cy="30" r="22" fill="white" stroke="#1a1410" stroke-width="2"/>
+        <path d="M14 18 L8 2 L26 13 Z" fill="#1a1410"/>
+        <path d="M42 13 L56 2 L50 18 Z" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+        <path d="M45 15 L54 4 L50 17 Z" fill="#ffb8c8" opacity=".8"/>
+        <path d="M20 26 Q24 22 28 26" fill="none" stroke="#1a1410" stroke-width="2"/>
+        <path d="M36 26 Q40 22 44 26" fill="none" stroke="#1a1410" stroke-width="2"/>
+        <ellipse cx="32" cy="35" rx="2.5" ry="1.5" fill="#f7b3c8"/>
+        <path d="M24 40 Q32 47 40 40" fill="none" stroke="#1a1410" stroke-width="2" stroke-linecap="round"/>
+        <text x="14" y="18" font-family="Caveat" font-size="10" fill="#d8a23c">★</text>
+        <text x="46" y="16" font-family="Caveat" font-size="10" fill="#d8a23c">★</text>
+      </svg>
+      <div class="bubble" style="font-size:10px">"Thanks!"</div>
+    </div>
+  </div>
+  <div class="pg-num">9</div>
+</div>
+
+<!-- ═══════════ PAGE 10 · THE END ═══════════ -->
+<div class="page cover" id="p10" style="justify-content:space-between;align-items:center">
+  <div style="font-family:'Bagel Fat One',cursive;font-size:clamp(16px,4vw,22px);color:rgba(255,255,255,.88);letter-spacing:2px;text-align:center">
+    ~ The End of Book 1 ~
+  </div>
+  <svg viewBox="0 0 260 180" style="width:75%;max-width:290px">
+    <!-- Meow waving "Bye" -->
+    <g transform="translate(130,100)">
+      <!-- body -->
+      <ellipse cx="0" cy="40" rx="32" ry="38" fill="white" stroke="#1a1410" stroke-width="2.5"/>
+      <!-- tail -->
+      <path d="M32 55 Q58 45 60 28 Q58 14 46 18" stroke="#1a1410" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- waving arm (right) -->
+      <line x1="28" y1="28" x2="54" y2="4" stroke="white" stroke-width="8" stroke-linecap="round"/>
+      <ellipse cx="58" cy="2" rx="10" ry="7" fill="white" stroke="#1a1410" stroke-width="2" transform="rotate(-30 58 2)"/>
+      <!-- other arm -->
+      <line x1="-28" y1="32" x2="-40" y2="44" stroke="white" stroke-width="7" stroke-linecap="round"/>
+      <ellipse cx="-43" cy="48" rx="9" ry="6" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+      <!-- paws -->
+      <ellipse cx="-16" cy="86" rx="12" ry="7" fill="white" stroke="#1a1410" stroke-width="2"/>
+      <ellipse cx="16" cy="86" rx="12" ry="7" fill="white" stroke="#1a1410" stroke-width="2"/>
+      <!-- bow tie -->
+      <path d="M-12 3 L0 9 L-12 15 Z" fill="#1a1410"/>
+      <path d="M12 3 L0 9 L12 15 Z" fill="#1a1410"/>
+      <circle cx="0" cy="9" r="4" fill="#1a1410"/>
+      <!-- head -->
+      <circle cx="0" cy="-28" r="34" fill="white" stroke="#1a1410" stroke-width="2.5"/>
+      <path d="M-22 -44 L-30 -66 L-6 -50 Z" fill="#1a1410"/>
+      <path d="M16 -50 L30 -66 L22 -44 Z" fill="white" stroke="#1a1410" stroke-width="2"/>
+      <path d="M18 -49 L27 -62 L21 -43 Z" fill="#ffb8c8" opacity=".8"/>
+      <!-- happy eyes (curved closed) -->
+      <path d="M-16 -32 Q-10 -38 -4 -32" fill="none" stroke="#1a1410" stroke-width="3" stroke-linecap="round"/>
+      <path d="M4 -32 Q10 -38 16 -32" fill="none" stroke="#1a1410" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="0" cy="-18" rx="4" ry="3" fill="#f7b3c8"/>
+      <path d="M-10 -10 Q0 -2 10 -10" fill="none" stroke="#1a1410" stroke-width="2.5" stroke-linecap="round"/>
+      <ellipse cx="-18" cy="-16" rx="7" ry="4" fill="#f7b3c8" opacity=".5"/>
+      <ellipse cx="18" cy="-16" rx="7" ry="4" fill="#f7b3c8" opacity=".5"/>
+      <line x1="-36" y1="-22" x2="-12" y2="-20" stroke="#1a1410" stroke-width="1.5" opacity=".7"/>
+      <line x1="12" y1="-20" x2="36" y2="-22" stroke="#1a1410" stroke-width="1.5" opacity=".7"/>
+    </g>
+    <!-- Bye speech bubble -->
+    <ellipse cx="190" cy="24" rx="36" ry="20" fill="white" stroke="#1a1410" stroke-width="2"/>
+    <path d="M168 40 Q164 52 158 56 Q168 48 172 40 Z" fill="white" stroke="#1a1410" stroke-width="1.5"/>
+    <text x="190" y="30" text-anchor="middle" font-family="Bagel Fat One" font-size="18" fill="#5bc4e0">Bye!</text>
+    <!-- sparkles -->
+    <text x="20" y="36" font-family="Bagel Fat One" font-size="16" fill="#fff4c0">★</text>
+    <text x="240" y="70" font-family="Bagel Fat One" font-size="14" fill="#fff4c0">✦</text>
+    <text x="18" y="140" font-family="Bagel Fat One" font-size="12" fill="#fff4c0">✧</text>
+  </svg>
+  <div style="font-family:'Caveat',cursive;font-size:17px;color:rgba(255,255,255,.65)">to be continued... 🐾</div>
+</div>
+
+</div><!-- .book -->
+
+<div class="nav">
+  <button class="nav-btn" id="prev" disabled>← Prev</button>
+  <span class="pg-ctr" id="ctr">1 / 10</span>
+  <button class="nav-btn" id="next">Next →</button>
+</div>
+
+<script>
+(function(){
+  const N=10; let c=1;
+  function go(n){
+    document.getElementById('p'+c).classList.remove('active');
+    c=n;
+    document.getElementById('p'+c).classList.add('active');
+    document.getElementById('ctr').textContent=c+' / '+N;
+    document.getElementById('prev').disabled=c===1;
+    document.getElementById('next').disabled=c===N;
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  document.getElementById('prev').onclick=()=>{if(c>1)go(c-1)};
+  document.getElementById('next').onclick=()=>{if(c<N)go(c+1)};
+  document.addEventListener('keydown',e=>{
+    if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName))return;
+    if(e.key==='ArrowLeft'&&c>1)go(c-1);
+    if(e.key==='ArrowRight'&&c<N)go(c+1);
+  });
+})();
+</script>
+</body>
+</html>

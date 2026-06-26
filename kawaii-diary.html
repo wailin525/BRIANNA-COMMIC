@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kawaii Diary Book 1 — Anna</title>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Caveat:wght@400;700&family=Patrick+Hand&family=Gloock&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fdf8ee;--ink:#2a1f17;--pink:#e85a8a;
+  --gold:#d8a23c;--teal:#5aaadd;--orange:#e87040;
+  --warmline:#f0cca8;--marker:#c85a20;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#5a3828;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:100vh;padding:20px 0;
+  font-family:'Patrick Hand',sans-serif;
+}
+#book{position:relative;width:min(520px,96vw);aspect-ratio:5/7}
+.page{
+  position:absolute;inset:0;background:var(--paper);
+  border-radius:4px;box-shadow:4px 5px 22px #0008;
+  display:none;overflow:hidden;
+}
+.page.active{display:block}
+#nav{display:flex;align-items:center;gap:14px;margin-top:14px}
+#nav button{
+  background:var(--orange);color:#fff;border:none;border-radius:20px;
+  padding:7px 24px;font-family:'Caveat',cursive;font-size:1.1rem;cursor:pointer;
+  transition:opacity .15s;
+}
+#nav button:hover{opacity:.82}
+#ctr{font-family:'Caveat',cursive;color:#ddd;font-size:1.1rem}
+.topbar{
+  width:100%;max-width:900px;display:flex;justify-content:space-between;
+  align-items:center;margin-bottom:18px;color:#fdf8ee;font-family:'Caveat',cursive;
+}
+.topbar a{
+  color:#fdf8ee;text-decoration:none;background:rgba(0,0,0,.25);
+  padding:8px 16px;border-radius:30px;border:1.5px solid rgba(255,255,255,.3);
+  font-size:18px;transition:all .2s;
+}
+.topbar a:hover{background:rgba(255,255,255,.15);transform:translateY(-2px);}
+.brand{font-size:22px;letter-spacing:1px;opacity:.85;}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">📚 BriAnna Library</span>
+  <a href="index.html">← Back to Library</a>
+</header>
+<div id="book">
+
+<!-- ═══════════════════════════════════════════
+     PAGE 1 · COVER
+═══════════════════════════════════════════ -->
+<div class="page active" id="p1">
+<svg viewBox="0 0 520 728" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+<rect width="520" height="728" fill="#f8a860"/>
+<!-- subtle warm pattern -->
+<rect width="520" height="728" fill="#e87040" opacity=".06"/>
+
+<!-- TITLE: Kawaii DIARY -->
+<text x="142" y="78" font-family="'Caveat',cursive" font-size="58" font-weight="700" fill="#c85a20">Kawaii</text>
+<text x="310" y="78" font-family="'Bagel Fat One',cursive" font-size="56" fill="#c85a20">DIARY</text>
+
+<!-- "This Diary belong to" banner -->
+<rect x="38" y="100" width="210" height="62" rx="4" fill="white" stroke="#c85a20" stroke-width="2.5"/>
+<text x="46" y="122" font-family="'Caveat',cursive" font-size="18" font-weight="700" fill="#c85a20">This Diary</text>
+<text x="46" y="146" font-family="'Caveat',cursive" font-size="18" font-weight="700" fill="#c85a20">belong to</text>
+<!-- name banner below -->
+<rect x="58" y="162" width="148" height="32" rx="4" fill="white" stroke="#c85a20" stroke-width="2.5"/>
+<text x="132" y="184" text-anchor="middle" font-family="'Bagel Fat One',cursive" font-size="20" fill="#c85a20">Rookie</text>
+
+<!-- "Book 1" small banner -->
+<g transform="translate(330,110) rotate(8)">
+  <rect x="0" y="0" width="80" height="28" rx="3" fill="white" stroke="#c85a20" stroke-width="2"/>
+  <text x="40" y="20" text-anchor="middle" font-family="'Caveat',cursive" font-size="16" font-weight="700" fill="#c85a20">Book 1</text>
+</g>
+
+<!-- ═══ ROOKIE PUPPY CHARACTER ═══ -->
+<g transform="translate(260,420)">
+  <!-- tail (small white puff behind) -->
+  <ellipse cx="-55" cy="68" rx="14" ry="12" fill="white" stroke="#3a2a1a" stroke-width="2.5"/>
+  <!-- body -->
+  <ellipse cx="0" cy="46" rx="54" ry="60" fill="white" stroke="#3a2a1a" stroke-width="3"/>
+  <!-- yellow-green top -->
+  <path d="M-48,18 Q-52,46 -42,64 L42,64 Q52,46 48,18 Z" fill="#d8dc80" stroke="#3a2a1a" stroke-width="2.5"/>
+  <!-- purple shorts -->
+  <path d="M-40,64 L-44,96 Q-42,100 -34,100 L-8,100 L-8,64 Z" fill="#c0a8d0" stroke="#3a2a1a" stroke-width="2"/>
+  <path d="M40,64 L44,96 Q42,100 34,100 L8,100 L8,64 Z" fill="#c0a8d0" stroke="#3a2a1a" stroke-width="2"/>
+  <!-- green pockets -->
+  <rect x="-38" y="66" width="16" height="12" rx="3" fill="#88c890" stroke="#3a2a1a" stroke-width="1.5"/>
+  <rect x="22" y="66" width="16" height="12" rx="3" fill="#88c890" stroke="#3a2a1a" stroke-width="1.5"/>
+  <!-- arms (stubby pink) -->
+  <ellipse cx="-58" cy="36" rx="16" ry="13" fill="#f0d0c8" stroke="#3a2a1a" stroke-width="2.5"/>
+  <ellipse cx="58" cy="36" rx="16" ry="13" fill="#f0d0c8" stroke="#3a2a1a" stroke-width="2.5"/>
+  <!-- feet (stubby pink) -->
+  <ellipse cx="-24" cy="104" rx="16" ry="10" fill="#f0d0c8" stroke="#3a2a1a" stroke-width="2.5"/>
+  <ellipse cx="24" cy="104" rx="16" ry="10" fill="#f0d0c8" stroke="#3a2a1a" stroke-width="2.5"/>
+  <!-- head -->
+  <circle cx="0" cy="-32" r="60" fill="white" stroke="#3a2a1a" stroke-width="3"/>
+  <!-- three dots on forehead -->
+  <circle cx="-8" cy="-70" r="3.5" fill="#3a2a1a"/>
+  <circle cx="0" cy="-74" r="3.5" fill="#3a2a1a"/>
+  <circle cx="8" cy="-70" r="3.5" fill="#3a2a1a"/>
+  <!-- left floppy ear -->
+  <ellipse cx="-52" cy="-22" rx="22" ry="32" fill="#c0a070" stroke="#3a2a1a" stroke-width="2.5" transform="rotate(-10,-52,-22)"/>
+  <!-- right floppy ear -->
+  <ellipse cx="52" cy="-22" rx="22" ry="32" fill="#c0a070" stroke="#3a2a1a" stroke-width="2.5" transform="rotate(10,52,-22)"/>
+  <!-- pink flower on right ear -->
+  <circle cx="46" cy="-46" r="5" fill="#f0d040"/>
+  <circle cx="40" cy="-46" r="4.5" fill="#e85a8a"/>
+  <circle cx="52" cy="-46" r="4.5" fill="#e85a8a"/>
+  <circle cx="46" cy="-52" r="4.5" fill="#e85a8a"/>
+  <circle cx="46" cy="-40" r="4.5" fill="#e85a8a"/>
+  <circle cx="46" cy="-46" r="3.5" fill="#f0d040"/>
+  <!-- brown patch around right eye -->
+  <ellipse cx="16" cy="-34" rx="18" ry="14" fill="#c0a070" opacity=".5"/>
+  <!-- eyes (tiny dots) -->
+  <circle cx="-14" cy="-34" r="3" fill="#3a2a1a"/>
+  <circle cx="14" cy="-34" r="3" fill="#3a2a1a"/>
+  <!-- nose (heart shape) -->
+  <path d="M0,-20 C-2,-20 -5,-24 -5,-26 C-5,-28 -3,-29 0,-27 C3,-29 5,-28 5,-26 C5,-24 2,-20 0,-20Z" fill="#3a2a1a"/>
+  <!-- blush lines left -->
+  <line x1="-30" y1="-28" x2="-24" y2="-26" stroke="#e85a8a" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="-28" y1="-24" x2="-22" y2="-22" stroke="#e85a8a" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="-26" y1="-20" x2="-20" y2="-18" stroke="#e85a8a" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- blush lines right -->
+  <line x1="24" y1="-28" x2="30" y2="-26" stroke="#e85a8a" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="22" y1="-24" x2="28" y2="-22" stroke="#e85a8a" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="20" y1="-20" x2="26" y2="-18" stroke="#e85a8a" stroke-width="1.8" stroke-linecap="round"/>
+</g>
+
+<!-- small decorative dots -->
+<circle cx="460" cy="620" r="5" fill="#c85a20" opacity=".3"/>
+<circle cx="60" cy="660" r="4" fill="#c85a20" opacity=".3"/>
+<circle cx="440" cy="350" r="3" fill="#c85a20" opacity=".25"/>
+</svg>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 2 · DIARY ENTRY — FIELD TRIP
+═══════════════════════════════════════════ -->
+<div class="page" id="p2">
+<svg viewBox="0 0 520 728" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+<rect width="520" height="728" fill="#fdf8ee"/>
+<!-- orange ruled lines -->
+<line x1="0" y1="68" x2="520" y2="68" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="116" x2="520" y2="116" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="164" x2="520" y2="164" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="212" x2="520" y2="212" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="260" x2="520" y2="260" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="308" x2="520" y2="308" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="356" x2="520" y2="356" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="404" x2="520" y2="404" stroke="#f0cca8" stroke-width="1.2"/>
+<!-- left margin (orange) -->
+<line x1="56" y1="0" x2="56" y2="728" stroke="#e87040" stroke-width="1.2"/>
+
+<!-- diary header -->
+<text x="70" y="54" font-family="'Caveat',cursive" font-size="30" font-weight="700" fill="#c85a20">Dear  Diary</text>
+<text x="320" y="54" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">6/24</text>
+
+<!-- diary text lines -->
+<text x="70" y="100" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">Today was fun I went</text>
+<text x="70" y="148" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">On a Field trip</text>
+<text x="70" y="196" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">I got to catch</text>
+<text x="70" y="244" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">Butterflys!</text>
+
+<!-- butterfly catching illustration -->
+<rect x="90" y="360" width="340" height="210" rx="6" fill="white" stroke="#e87040" stroke-width="2"/>
+<text x="260" y="390" text-anchor="middle" font-family="'Caveat',cursive" font-size="16" fill="#c85a20">Butterfly catching</text>
+
+<!-- Rookie with butterfly net -->
+<g transform="translate(200,490)">
+  <!-- net handle -->
+  <line x1="30" y1="-30" x2="70" y2="-85" stroke="#a06020" stroke-width="4" stroke-linecap="round"/>
+  <!-- net ring -->
+  <circle cx="78" cy="-95" r="20" fill="none" stroke="#a06020" stroke-width="3"/>
+  <!-- net mesh -->
+  <path d="M62,-85 Q78,-65 94,-85" stroke="#c8b898" stroke-width="1.5" fill="none"/>
+  <path d="M66,-80 Q78,-60 90,-80" stroke="#c8b898" stroke-width="1" fill="none"/>
+
+  <!-- Rookie puppy body -->
+  <ellipse cx="0" cy="12" rx="22" ry="24" fill="white" stroke="#3a2a1a" stroke-width="2"/>
+  <path d="M-20,0 Q-22,12 -16,22 L16,22 Q22,12 20,0 Z" fill="#d8dc80" stroke="#3a2a1a" stroke-width="1.5"/>
+  <path d="M-16,22 L-18,34 L-4,34 L-4,22 Z" fill="#c0a8d0" stroke="#3a2a1a" stroke-width="1.2"/>
+  <path d="M16,22 L18,34 L4,34 L4,22 Z" fill="#c0a8d0" stroke="#3a2a1a" stroke-width="1.2"/>
+  <!-- head -->
+  <circle cx="0" cy="-22" r="24" fill="white" stroke="#3a2a1a" stroke-width="2"/>
+  <!-- floppy ears -->
+  <ellipse cx="-20" cy="-18" rx="10" ry="14" fill="#c0a070" stroke="#3a2a1a" stroke-width="1.5" transform="rotate(-10,-20,-18)"/>
+  <ellipse cx="20" cy="-18" rx="10" ry="14" fill="#c0a070" stroke="#3a2a1a" stroke-width="1.5" transform="rotate(10,20,-18)"/>
+  <!-- flower on right ear -->
+  <circle cx="20" cy="-28" r="3" fill="#f0d040"/><circle cx="17" cy="-28" r="2.5" fill="#e85a8a"/><circle cx="23" cy="-28" r="2.5" fill="#e85a8a"/><circle cx="20" cy="-31" r="2.5" fill="#e85a8a"/>
+  <!-- dots on forehead -->
+  <circle cx="-3" cy="-38" r="1.5" fill="#3a2a1a"/><circle cx="0" cy="-40" r="1.5" fill="#3a2a1a"/><circle cx="3" cy="-38" r="1.5" fill="#3a2a1a"/>
+  <!-- brown eye patch -->
+  <ellipse cx="6" cy="-22" rx="8" ry="6" fill="#c0a070" opacity=".5"/>
+  <!-- eyes -->
+  <circle cx="-6" cy="-22" r="1.5" fill="#3a2a1a"/><circle cx="6" cy="-22" r="1.5" fill="#3a2a1a"/>
+  <!-- nose -->
+  <path d="M0,-16 C-1,-16 -2.5,-18 -2.5,-19 C-2.5,-20 -1,-20.5 0,-19.5 C1,-20.5 2.5,-20 2.5,-19 C2.5,-18 1,-16 0,-16Z" fill="#3a2a1a"/>
+  <!-- blush -->
+  <line x1="-12" y1="-20" x2="-9" y2="-19" stroke="#e85a8a" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="-11" y1="-17" x2="-8" y2="-16" stroke="#e85a8a" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="9" y1="-20" x2="12" y2="-19" stroke="#e85a8a" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="8" y1="-17" x2="11" y2="-16" stroke="#e85a8a" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- arms + feet (pink stubs) -->
+  <ellipse cx="-22" cy="6" rx="7" ry="5" fill="#f0d0c8" stroke="#3a2a1a" stroke-width="1.5"/>
+  <ellipse cx="-9" cy="36" rx="7" ry="5" fill="#f0d0c8" stroke="#3a2a1a" stroke-width="1.5"/>
+  <ellipse cx="9" cy="36" rx="7" ry="5" fill="#f0d0c8" stroke="#3a2a1a" stroke-width="1.5"/>
+  <!-- arm reaching for net -->
+  <line x1="20" y1="-2" x2="32" y2="-26" stroke="#f0d0c8" stroke-width="6" stroke-linecap="round"/>
+  <line x1="20" y1="-2" x2="32" y2="-26" stroke="#3a2a1a" stroke-width="2" stroke-linecap="round"/>
+</g>
+
+<!-- butterflies flying around -->
+<g transform="translate(300,430)" fill="#e85a8a" stroke="#c85a20" stroke-width="1.2">
+  <path d="M0,-5 Q-12,-18 -8,-5 Q-12,8 0,5 Q12,8 8,-5 Q12,-18 0,-5Z"/>
+  <circle cx="0" cy="0" r="2" fill="#c85a20"/>
+</g>
+<g transform="translate(340,460) scale(.8)" fill="#d8a23c" stroke="#c85a20" stroke-width="1.2">
+  <path d="M0,-5 Q-12,-18 -8,-5 Q-12,8 0,5 Q12,8 8,-5 Q12,-18 0,-5Z"/>
+  <circle cx="0" cy="0" r="2" fill="#c85a20"/>
+</g>
+<g transform="translate(145,440) scale(.7)" fill="#f0b0c0" stroke="#c85a20" stroke-width="1.2">
+  <path d="M0,-5 Q-12,-18 -8,-5 Q-12,8 0,5 Q12,8 8,-5 Q12,-18 0,-5Z"/>
+  <circle cx="0" cy="0" r="2" fill="#c85a20"/>
+</g>
+<g transform="translate(360,500) scale(.6)" fill="#a0d890" stroke="#c85a20" stroke-width="1.5">
+  <path d="M0,-5 Q-12,-18 -8,-5 Q-12,8 0,5 Q12,8 8,-5 Q12,-18 0,-5Z"/>
+  <circle cx="0" cy="0" r="2" fill="#c85a20"/>
+</g>
+
+<!-- page number -->
+<text x="480" y="710" font-family="'Caveat',cursive" font-size="16" fill="#c8a080">1</text>
+</svg>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 3 · DIARY ENTRY CONTINUED — FLOWERS
+═══════════════════════════════════════════ -->
+<div class="page" id="p3">
+<svg viewBox="0 0 520 728" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+<rect width="520" height="728" fill="#fdf8ee"/>
+<!-- orange ruled lines -->
+<line x1="0" y1="46" x2="520" y2="46" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="94" x2="520" y2="94" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="142" x2="520" y2="142" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="190" x2="520" y2="190" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="238" x2="520" y2="238" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="286" x2="520" y2="286" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="334" x2="520" y2="334" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="382" x2="520" y2="382" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="56" y1="0" x2="56" y2="728" stroke="#e87040" stroke-width="1.2"/>
+
+<!-- diary continued -->
+<text x="70" y="36" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">missy loved it</text>
+<text x="70" y="84" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">to! After butter-</text>
+<text x="70" y="132" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">fly catching we got to</text>
+<text x="70" y="180" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">pick lots of</text>
+<text x="70" y="228" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">flowers!</text>
+<text x="70" y="276" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">It was so fun!</text>
+
+<!-- ═══ Illustration: Missy with flowers ═══ -->
+<rect x="40" y="340" width="440" height="340" rx="6" fill="white" stroke="#e87040" stroke-width="2"/>
+
+<!-- Sky panel (top portion of illustration) -->
+<rect x="42" y="342" width="436" height="130" fill="#e0f0f8"/>
+<!-- sun -->
+<circle cx="140" cy="386" r="26" fill="#f0d840" stroke="#e87040" stroke-width="2"/>
+<!-- sun rays -->
+<line x1="140" y1="354" x2="140" y2="342" stroke="#e87040" stroke-width="2" stroke-linecap="round"/>
+<line x1="162" y1="364" x2="170" y2="354" stroke="#e87040" stroke-width="2" stroke-linecap="round"/>
+<line x1="168" y1="386" x2="180" y2="386" stroke="#e87040" stroke-width="2" stroke-linecap="round"/>
+<line x1="118" y1="364" x2="110" y2="354" stroke="#e87040" stroke-width="2" stroke-linecap="round"/>
+<line x1="112" y1="386" x2="100" y2="386" stroke="#e87040" stroke-width="2" stroke-linecap="round"/>
+<line x1="162" y1="408" x2="170" y2="418" stroke="#e87040" stroke-width="2" stroke-linecap="round"/>
+<line x1="118" y1="408" x2="110" y2="418" stroke="#e87040" stroke-width="2" stroke-linecap="round"/>
+<!-- clouds -->
+<ellipse cx="320" cy="378" rx="34" ry="14" fill="white" opacity=".9"/>
+<ellipse cx="420" cy="390" rx="28" ry="12" fill="white" opacity=".85"/>
+
+<!-- grass line -->
+<rect x="42" y="470" width="436" height="2" fill="#a0d080"/>
+<rect x="42" y="470" width="436" height="80" fill="#d8f0c0"/>
+
+<!-- "missy" label with arrow -->
+<text x="330" y="500" font-family="'Caveat',cursive" font-size="22" font-weight="700" fill="#c85a20">missy</text>
+<path d="M340,504 Q330,518 320,528" stroke="#c85a20" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+<!-- heart -->
+<path d="M395,510 C395,510 389,504 389,500 C389,496 392,495 395,498 C398,495 401,496 401,500 C401,504 395,510 395,510Z" fill="#e87040"/>
+
+<!-- Missy the calico cat (kawaii style, holding flowers) -->
+<g transform="translate(280,568)">
+  <!-- body -->
+  <ellipse cx="0" cy="16" rx="30" ry="34" fill="white" stroke="#c85a20" stroke-width="2.5"/>
+  <!-- brown patch on body -->
+  <path d="M-15,5 Q-5,-5 5,5 Q-2,15 -15,5Z" fill="#a07048" opacity=".6"/>
+  <path d="M10,20 Q20,12 28,22 Q18,30 10,20Z" fill="#a07048" opacity=".6"/>
+  <!-- head -->
+  <circle cx="0" cy="-26" r="30" fill="white" stroke="#c85a20" stroke-width="2.5"/>
+  <!-- brown patches on head -->
+  <path d="M-20,-35 Q-10,-45 -5,-30 Q-15,-28 -20,-35Z" fill="#a07048" opacity=".7"/>
+  <path d="M15,-40 Q25,-35 18,-26 Q10,-30 15,-40Z" fill="#a07048" opacity=".7"/>
+  <!-- ears -->
+  <path d="M-18,-46 L-14,-64 L-4,-46" stroke="#c85a20" stroke-width="2.5" fill="white" stroke-linejoin="round"/>
+  <path d="M18,-46 L14,-64 L4,-46" stroke="#c85a20" stroke-width="2.5" fill="white" stroke-linejoin="round"/>
+  <!-- inner ears (pink) -->
+  <path d="M-15,-48 L-13,-58 L-7,-48" fill="#f0b0c0" stroke="none"/>
+  <path d="M15,-48 L13,-58 L7,-48" fill="#f0b0c0" stroke="none"/>
+  <!-- eyes -->
+  <circle cx="-10" cy="-28" r="5" fill="#5a3a1a"/>
+  <circle cx="10" cy="-28" r="5" fill="#5a3a1a"/>
+  <circle cx="-8" cy="-30" r="2" fill="white"/>
+  <circle cx="12" cy="-30" r="2" fill="white"/>
+  <!-- blush -->
+  <circle cx="-18" cy="-22" r="6" fill="#f0b0c0" opacity=".5"/>
+  <circle cx="18" cy="-22" r="6" fill="#f0b0c0" opacity=".5"/>
+  <!-- nose -->
+  <ellipse cx="0" cy="-19" rx="3" ry="2" fill="#f0b0c0"/>
+  <!-- mouth -->
+  <path d="M-4,-15 Q0,-12 4,-15" stroke="#5a3a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- whiskers -->
+  <line x1="-28" y1="-22" x2="-14" y2="-20" stroke="#c85a20" stroke-width="1" stroke-linecap="round"/>
+  <line x1="-26" y1="-16" x2="-14" y2="-17" stroke="#c85a20" stroke-width="1" stroke-linecap="round"/>
+  <line x1="28" y1="-22" x2="14" y2="-20" stroke="#c85a20" stroke-width="1" stroke-linecap="round"/>
+  <line x1="26" y1="-16" x2="14" y2="-17" stroke="#c85a20" stroke-width="1" stroke-linecap="round"/>
+
+  <!-- flowers missy is holding -->
+  <line x1="0" y1="2" x2="0" y2="-6" stroke="#4a8040" stroke-width="2.5"/>
+  <line x1="-6" y1="0" x2="-6" y2="-8" stroke="#4a8040" stroke-width="2"/>
+  <line x1="6" y1="0" x2="6" y2="-8" stroke="#4a8040" stroke-width="2"/>
+  <!-- flower heads -->
+  <circle cx="0" cy="-8" r="5" fill="#f0d040"/>
+  <circle cx="-4" cy="-10" r="3" fill="#e85a8a"/>
+  <circle cx="4" cy="-10" r="3" fill="#e85a8a"/>
+  <circle cx="0" cy="-13" r="3" fill="#e85a8a"/>
+  <circle cx="0" cy="-5" r="3" fill="#e85a8a"/>
+  <circle cx="-6" cy="-10" r="4" fill="#f0d040"/>
+  <circle cx="-9" cy="-12" r="2.5" fill="#e85a8a"/>
+  <circle cx="-3" cy="-12" r="2.5" fill="#e85a8a"/>
+  <circle cx="-6" cy="-14" r="2.5" fill="#e85a8a"/>
+  <circle cx="6" cy="-10" r="4" fill="#f0d040"/>
+  <circle cx="3" cy="-12" r="2.5" fill="#f0b0c0"/>
+  <circle cx="9" cy="-12" r="2.5" fill="#f0b0c0"/>
+
+  <!-- paws -->
+  <ellipse cx="-10" cy="2" rx="7" ry="6" fill="white" stroke="#c85a20" stroke-width="1.5"/>
+  <ellipse cx="10" cy="2" rx="7" ry="6" fill="white" stroke="#c85a20" stroke-width="1.5"/>
+</g>
+
+<!-- small flower sticker (lower left) -->
+<g transform="translate(100,606)">
+  <circle cx="0" cy="0" r="10" fill="#f0d040"/>
+  <circle cx="-8" cy="0" r="5" fill="#f8a060"/>
+  <circle cx="8" cy="0" r="5" fill="#f8a060"/>
+  <circle cx="0" cy="-8" r="5" fill="#f8a060"/>
+  <circle cx="0" cy="8" r="5" fill="#f8a060"/>
+</g>
+
+<!-- page number -->
+<text x="480" y="710" font-family="'Caveat',cursive" font-size="16" fill="#c8a080">2</text>
+</svg>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 4 · SNACK TIME — APPLES FROM THE TREE
+═══════════════════════════════════════════ -->
+<div class="page" id="p4">
+<svg viewBox="0 0 520 728" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+<rect width="520" height="728" fill="#fdf8ee"/>
+<!-- orange ruled lines -->
+<line x1="0" y1="46" x2="520" y2="46" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="94" x2="520" y2="94" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="142" x2="520" y2="142" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="190" x2="520" y2="190" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="238" x2="520" y2="238" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="286" x2="520" y2="286" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="56" y1="0" x2="56" y2="728" stroke="#e87040" stroke-width="1.2"/>
+
+<!-- diary text -->
+<text x="70" y="36" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">Then we had</text>
+<text x="260" y="84" font-family="'Caveat',cursive" font-size="30" font-weight="700" fill="#c85a20">Snack</text>
+<text x="70" y="132" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">I had</text>
+<text x="70" y="180" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">apples from the</text>
+<text x="70" y="228" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">tree!</text>
+
+<!-- illustration box -->
+<rect x="60" y="300" width="400" height="360" rx="6" fill="white" stroke="#e87040" stroke-width="2"/>
+
+<!-- Apple tree -->
+<g transform="translate(340,500)">
+  <!-- trunk -->
+  <rect x="-12" y="10" width="24" height="60" rx="4" fill="#8a6030" stroke="#5a3a1a" stroke-width="1.5"/>
+  <!-- crown (green foliage) -->
+  <circle cx="0" cy="-10" r="50" fill="#7bc060" stroke="#4a8040" stroke-width="2"/>
+  <circle cx="-30" cy="0" r="30" fill="#7bc060" stroke="#4a8040" stroke-width="1.5"/>
+  <circle cx="30" cy="0" r="30" fill="#7bc060" stroke="#4a8040" stroke-width="1.5"/>
+  <circle cx="-15" cy="-30" r="28" fill="#8ad070" stroke="#4a8040" stroke-width="1.5"/>
+  <circle cx="15" cy="-30" r="28" fill="#8ad070" stroke="#4a8040" stroke-width="1.5"/>
+  <!-- apples on tree -->
+  <circle cx="-20" cy="-5" r="7" fill="#e04030" stroke="#a02020" stroke-width="1"/>
+  <circle cx="18" cy="-20" r="6" fill="#e04030" stroke="#a02020" stroke-width="1"/>
+  <circle cx="-8" cy="-35" r="6" fill="#e04030" stroke="#a02020" stroke-width="1"/>
+  <circle cx="30" cy="5" r="7" fill="#e04030" stroke="#a02020" stroke-width="1"/>
+  <circle cx="-30" cy="-20" r="5" fill="#e04030" stroke="#a02020" stroke-width="1"/>
+  <!-- apple stems -->
+  <line x1="-20" y1="-12" x2="-18" y2="-15" stroke="#5a3a1a" stroke-width="1.5"/>
+  <line x1="18" y1="-26" x2="20" y2="-29" stroke="#5a3a1a" stroke-width="1.5"/>
+  <line x1="-8" y1="-41" x2="-6" y2="-44" stroke="#5a3a1a" stroke-width="1.5"/>
+  <line x1="30" y1="-2" x2="32" y2="-5" stroke="#5a3a1a" stroke-width="1.5"/>
+  <!-- label -->
+  <text x="0" y="84" text-anchor="middle" font-family="'Caveat',cursive" font-size="18" fill="#c85a20">tree!</text>
+</g>
+
+<!-- Rookie puppy eating apple -->
+<g transform="translate(170,520)">
+  <ellipse cx="-26" cy="28" rx="8" ry="6" fill="white" stroke="#3a2a1a" stroke-width="1.5"/>
+  <ellipse cx="0" cy="18" rx="26" ry="30" fill="white" stroke="#3a2a1a" stroke-width="2"/>
+  <path d="M-22,2 Q-24,18 -18,28 L18,28 Q24,18 22,2 Z" fill="#d8dc80" stroke="#3a2a1a" stroke-width="1.5"/>
+  <path d="M-16,28 L-18,42 L-4,42 L-4,28 Z" fill="#c0a8d0" stroke="#3a2a1a" stroke-width="1.2"/>
+  <path d="M16,28 L18,42 L4,42 L4,28 Z" fill="#c0a8d0" stroke="#3a2a1a" stroke-width="1.2"/>
+  <circle cx="0" cy="-22" r="28" fill="white" stroke="#3a2a1a" stroke-width="2"/>
+  <ellipse cx="-22" cy="-16" rx="10" ry="14" fill="#c0a070" stroke="#3a2a1a" stroke-width="1.5" transform="rotate(-10,-22,-16)"/>
+  <ellipse cx="22" cy="-16" rx="10" ry="14" fill="#c0a070" stroke="#3a2a1a" stroke-width="1.5" transform="rotate(10,22,-16)"/>
+  <circle cx="22" cy="-28" r="3" fill="#f0d040"/><circle cx="19" cy="-28" r="2.5" fill="#e85a8a"/><circle cx="25" cy="-28" r="2.5" fill="#e85a8a"/><circle cx="22" cy="-31" r="2.5" fill="#e85a8a"/>
+  <circle cx="-3" cy="-40" r="1.5" fill="#3a2a1a"/><circle cx="0" cy="-42" r="1.5" fill="#3a2a1a"/><circle cx="3" cy="-40" r="1.5" fill="#3a2a1a"/>
+  <ellipse cx="8" cy="-22" rx="9" ry="7" fill="#c0a070" opacity=".5"/>
+  <!-- happy closed eyes -->
+  <path d="M-9,-23 Q-6,-19 -3,-23" stroke="#3a2a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <path d="M3,-23 Q6,-19 9,-23" stroke="#3a2a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <path d="M0,-14 C-1,-14 -2.5,-16 -2.5,-17 C-2.5,-18 -1,-18.5 0,-17.5 C1,-18.5 2.5,-18 2.5,-17 C2.5,-16 1,-14 0,-14Z" fill="#3a2a1a"/>
+  <ellipse cx="0" cy="-8" rx="5" ry="4" fill="#f8a060" stroke="#3a2a1a" stroke-width="1.2"/>
+  <line x1="-12" y1="-18" x2="-9" y2="-17" stroke="#e85a8a" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="-11" y1="-15" x2="-8" y2="-14" stroke="#e85a8a" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="9" y1="-18" x2="12" y2="-17" stroke="#e85a8a" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="8" y1="-15" x2="11" y2="-14" stroke="#e85a8a" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- paws holding apple -->
+  <ellipse cx="-18" cy="4" rx="7" ry="5" fill="#f0d0c8" stroke="#3a2a1a" stroke-width="1.5"/>
+  <ellipse cx="18" cy="4" rx="7" ry="5" fill="#f0d0c8" stroke="#3a2a1a" stroke-width="1.5"/>
+  <circle cx="0" cy="2" r="9" fill="#e04030" stroke="#a02020" stroke-width="1.5"/>
+  <line x1="0" y1="-6" x2="2" y2="-10" stroke="#5a3a1a" stroke-width="1.5"/>
+  <path d="M2,-10 Q5,-12 6,-10" fill="#4a8040" stroke="none"/>
+  <ellipse cx="-10" cy="46" rx="8" ry="6" fill="#f0d0c8" stroke="#3a2a1a" stroke-width="1.5"/>
+  <ellipse cx="10" cy="46" rx="8" ry="6" fill="#f0d0c8" stroke="#3a2a1a" stroke-width="1.5"/>
+</g>
+
+<!-- page number -->
+<text x="480" y="710" font-family="'Caveat',cursive" font-size="16" fill="#c8a080">3</text>
+</svg>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 5 · LEAVING — SAD BUT HAPPY
+═══════════════════════════════════════════ -->
+<div class="page" id="p5">
+<svg viewBox="0 0 520 728" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+<rect width="520" height="728" fill="#fdf8ee"/>
+<line x1="0" y1="46" x2="520" y2="46" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="94" x2="520" y2="94" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="142" x2="520" y2="142" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="190" x2="520" y2="190" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="238" x2="520" y2="238" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="56" y1="0" x2="56" y2="728" stroke="#e87040" stroke-width="1.2"/>
+
+<text x="70" y="36" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">when we</text>
+<text x="70" y="84" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">finished</text>
+<text x="70" y="132" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">our Snack we left.</text>
+<text x="70" y="180" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">missy was</text>
+<text x="70" y="228" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">Sad but happy!</text>
+
+<!-- Missy illustration box (on the bus) -->
+<rect x="60" y="280" width="400" height="250" rx="6" fill="white" stroke="#e87040" stroke-width="2"/>
+<!-- bus shape -->
+<rect x="100" y="320" width="300" height="140" rx="14" fill="#f0d040" stroke="#c85a20" stroke-width="2.5"/>
+<!-- windows -->
+<rect x="130" y="340" width="60" height="50" rx="6" fill="#c8e8f8" stroke="#c85a20" stroke-width="1.5"/>
+<rect x="210" y="340" width="60" height="50" rx="6" fill="#c8e8f8" stroke="#c85a20" stroke-width="1.5"/>
+<rect x="290" y="340" width="60" height="50" rx="6" fill="#c8e8f8" stroke="#c85a20" stroke-width="1.5"/>
+<!-- wheels -->
+<circle cx="170" cy="462" r="18" fill="#555" stroke="#c85a20" stroke-width="2"/>
+<circle cx="170" cy="462" r="8" fill="#aaa"/>
+<circle cx="330" cy="462" r="18" fill="#555" stroke="#c85a20" stroke-width="2"/>
+<circle cx="330" cy="462" r="8" fill="#aaa"/>
+<!-- Missy in the window (calico cat face) -->
+<circle cx="240" cy="358" r="18" fill="white" stroke="#c85a20" stroke-width="2"/>
+<path d="M228,347 Q225,334 232,347" fill="#a07048" stroke="#c85a20" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M252,347 Q255,334 248,347" fill="white" stroke="#c85a20" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M253,349 Q256,337 250,349" fill="#f0b0c0" opacity=".7"/>
+<path d="M230,346 Q226,336 234,346" fill="#a07048" opacity=".6"/>
+<circle cx="234" cy="354" r="4" fill="#5a3a1a"/>
+<circle cx="246" cy="354" r="4" fill="#5a3a1a"/>
+<circle cx="235" cy="352" r="1.5" fill="white"/>
+<circle cx="247" cy="352" r="1.5" fill="white"/>
+<ellipse cx="240" cy="362" rx="2.5" ry="1.5" fill="#f0b0c0"/>
+<path d="M237,365 Q240,368 243,365" stroke="#5a3a1a" stroke-width="1" fill="none" stroke-linecap="round"/>
+<!-- Missy waving from window -->
+<line x1="256" y1="358" x2="268" y2="346" stroke="#c85a20" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="270" cy="344" r="4" fill="white" stroke="#c85a20" stroke-width="1.5"/>
+<!-- "on the bus" label -->
+<text x="260" y="508" text-anchor="middle" font-family="'Caveat',cursive" font-size="18" fill="#c85a20">on the bus</text>
+
+<!-- "well bye!" at bottom -->
+<text x="260" y="580" text-anchor="middle" font-family="'Caveat',cursive" font-size="30" font-weight="700" fill="#c85a20">well  bye!</text>
+<text x="480" y="710" font-family="'Caveat',cursive" font-size="16" fill="#c8a080">4</text>
+</svg>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 6 · RAINY DAY ENTRY
+═══════════════════════════════════════════ -->
+<div class="page" id="p6">
+<svg viewBox="0 0 520 728" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+<rect width="520" height="728" fill="#fdf8ee"/>
+<line x1="0" y1="68" x2="520" y2="68" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="116" x2="520" y2="116" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="164" x2="520" y2="164" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="212" x2="520" y2="212" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="260" x2="520" y2="260" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="56" y1="0" x2="56" y2="728" stroke="#e87040" stroke-width="1.2"/>
+
+<!-- diary header -->
+<text x="70" y="52" font-family="'Caveat',cursive" font-size="30" font-weight="700" fill="#c85a20">Dear  Diary</text>
+<text x="340" y="52" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">6/25</text>
+<!-- diary text -->
+<text x="70" y="100" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">it's a rainy</text>
+<text x="70" y="148" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">Day.</text>
+<text x="70" y="204" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">ok  well</text>
+<text x="210" y="250" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">bye</text>
+
+<!-- rainy illustration -->
+<!-- dark rain cloud -->
+<g transform="translate(260,400)">
+  <ellipse cx="0" cy="0" rx="80" ry="40" fill="#8898a8" stroke="#c85a20" stroke-width="2"/>
+  <ellipse cx="-50" cy="8" rx="40" ry="28" fill="#8898a8" stroke="#c85a20" stroke-width="1.5"/>
+  <ellipse cx="50" cy="8" rx="40" ry="28" fill="#8898a8" stroke="#c85a20" stroke-width="1.5"/>
+  <ellipse cx="-25" cy="-20" rx="35" ry="28" fill="#9aa8b8" stroke="#c85a20" stroke-width="1.5"/>
+  <ellipse cx="25" cy="-20" rx="35" ry="28" fill="#9aa8b8" stroke="#c85a20" stroke-width="1.5"/>
+  <!-- cover the bottom strokes -->
+  <ellipse cx="0" cy="10" rx="78" ry="30" fill="#8898a8"/>
+</g>
+<!-- rain drops falling -->
+<line x1="180" y1="445" x2="175" y2="475" stroke="#5aaadd" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="220" y1="450" x2="215" y2="490" stroke="#5aaadd" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="260" y1="445" x2="255" y2="485" stroke="#5aaadd" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="300" y1="450" x2="295" y2="480" stroke="#5aaadd" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="340" y1="445" x2="335" y2="478" stroke="#5aaadd" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="200" y1="490" x2="195" y2="520" stroke="#5aaadd" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+<line x1="240" y1="498" x2="235" y2="528" stroke="#5aaadd" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+<line x1="280" y1="492" x2="275" y2="522" stroke="#5aaadd" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+<line x1="320" y1="488" x2="315" y2="518" stroke="#5aaadd" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+
+<!-- small Rookie with umbrella at bottom -->
+<g transform="translate(260,610)">
+  <!-- umbrella -->
+  <path d="M0,-55 Q-60,-55 -60,-20 Q-60,0 0,-5 Q60,0 60,-20 Q60,-55 0,-55Z" fill="#e85a8a" stroke="#c85a20" stroke-width="2"/>
+  <line x1="0" y1="-55" x2="0" y2="10" stroke="#c85a20" stroke-width="3" stroke-linecap="round"/>
+  <path d="M0,10 Q4,16 0,18" stroke="#c85a20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Rookie puppy (small, under umbrella) -->
+  <ellipse cx="0" cy="20" rx="18" ry="22" fill="white" stroke="#3a2a1a" stroke-width="2"/>
+  <path d="M-16,8 Q-18,20 -12,26 L12,26 Q18,20 16,8 Z" fill="#d8dc80" stroke="#3a2a1a" stroke-width="1.2"/>
+  <path d="M-11,26 L-12,36 L-3,36 L-3,26 Z" fill="#c0a8d0" stroke="#3a2a1a" stroke-width="1"/>
+  <path d="M11,26 L12,36 L3,36 L3,26 Z" fill="#c0a8d0" stroke="#3a2a1a" stroke-width="1"/>
+  <circle cx="0" cy="-2" r="18" fill="white" stroke="#3a2a1a" stroke-width="2"/>
+  <ellipse cx="-14" cy="0" rx="7" ry="10" fill="#c0a070" stroke="#3a2a1a" stroke-width="1.5" transform="rotate(-10,-14,0)"/>
+  <ellipse cx="14" cy="0" rx="7" ry="10" fill="#c0a070" stroke="#3a2a1a" stroke-width="1.5" transform="rotate(10,14,0)"/>
+  <circle cx="14" cy="-10" r="2.5" fill="#f0d040"/><circle cx="12" cy="-10" r="2" fill="#e85a8a"/><circle cx="16" cy="-10" r="2" fill="#e85a8a"/><circle cx="14" cy="-12" r="2" fill="#e85a8a"/>
+  <circle cx="-2" cy="-16" r="1.2" fill="#3a2a1a"/><circle cx="0" cy="-17.5" r="1.2" fill="#3a2a1a"/><circle cx="2" cy="-16" r="1.2" fill="#3a2a1a"/>
+  <ellipse cx="5" cy="-2" rx="6" ry="5" fill="#c0a070" opacity=".45"/>
+  <!-- sad eyes -->
+  <circle cx="-5" cy="-2" r="1.5" fill="#3a2a1a"/><circle cx="5" cy="-2" r="1.5" fill="#3a2a1a"/>
+  <path d="M0,3 C-1,3 -2,1.5 -2,1 C-2,0 -1,-.5 0,.5 C1,-.5 2,0 2,1 C2,1.5 1,3 0,3Z" fill="#3a2a1a"/>
+  <path d="M-3,7 Q0,5 3,7" stroke="#3a2a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <line x1="-10" y1="0" x2="-7" y2="1" stroke="#e85a8a" stroke-width="1" stroke-linecap="round"/>
+  <line x1="-9" y1="3" x2="-6" y2="4" stroke="#e85a8a" stroke-width="1" stroke-linecap="round"/>
+  <line x1="7" y1="0" x2="10" y2="1" stroke="#e85a8a" stroke-width="1" stroke-linecap="round"/>
+  <line x1="6" y1="3" x2="9" y2="4" stroke="#e85a8a" stroke-width="1" stroke-linecap="round"/>
+  <ellipse cx="-7" cy="40" rx="6" ry="5" fill="#f0d0c8" stroke="#3a2a1a" stroke-width="1.5"/>
+  <ellipse cx="7" cy="40" rx="6" ry="5" fill="#f0d0c8" stroke="#3a2a1a" stroke-width="1.5"/>
+  <line x1="8" y1="10" x2="0" y2="-10" stroke="#f0d0c8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="8" y1="10" x2="0" y2="-10" stroke="#3a2a1a" stroke-width="1.5" stroke-linecap="round"/>
+</g>
+<text x="480" y="710" font-family="'Caveat',cursive" font-size="16" fill="#c8a080">5</text>
+</svg>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 7 · RAIN NEVER STOPS — OH NO!
+═══════════════════════════════════════════ -->
+<div class="page" id="p7">
+<svg viewBox="0 0 520 728" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+<rect width="520" height="728" fill="#fdf8ee"/>
+<line x1="0" y1="46" x2="520" y2="46" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="94" x2="520" y2="94" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="142" x2="520" y2="142" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="190" x2="520" y2="190" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="238" x2="520" y2="238" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="56" y1="0" x2="56" y2="728" stroke="#e87040" stroke-width="1.2"/>
+
+<!-- time + "same Day" -->
+<text x="70" y="36" font-family="'Caveat',cursive" font-size="30" font-weight="700" fill="#c85a20">1:31</text>
+<text x="340" y="36" font-family="'Caveat',cursive" font-size="22" fill="#c85a20">same Day</text>
+<!-- text -->
+<text x="70" y="82" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">Somehow rain</text>
+<text x="70" y="130" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">never stops!</text>
+
+<!-- raindrop emoji circles (like Anna drew) -->
+<circle cx="140" cy="175" r="20" fill="none" stroke="#c85a20" stroke-width="2.5"/>
+<line x1="130" y1="168" x2="142" y2="182" stroke="#c85a20" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="138" y1="168" x2="150" y2="182" stroke="#c85a20" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="220" cy="175" r="20" fill="none" stroke="#c85a20" stroke-width="2.5"/>
+<line x1="215" y1="168" x2="215" y2="182" stroke="#c85a20" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="225" y1="168" x2="225" y2="182" stroke="#c85a20" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="300" cy="175" r="20" fill="none" stroke="#c85a20" stroke-width="2.5"/>
+<path d="M290,175 Q300,185 310,175" stroke="#c85a20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+<!-- big gray rain splatter / wet spot effect (like the gray smudge on the original page!) -->
+<ellipse cx="260" cy="390" rx="120" ry="90" fill="#b8c0c8" opacity=".35"/>
+<ellipse cx="240" cy="370" rx="90" ry="70" fill="#a0a8b0" opacity=".3"/>
+<ellipse cx="280" cy="410" rx="70" ry="50" fill="#b0b8c0" opacity=".25"/>
+
+<!-- rain drops all over the page -->
+<line x1="80" y1="280" x2="75" y2="310" stroke="#5aaadd" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+<line x1="150" y1="300" x2="145" y2="340" stroke="#5aaadd" stroke-width="2.5" stroke-linecap="round" opacity=".6"/>
+<line x1="260" y1="270" x2="255" y2="310" stroke="#5aaadd" stroke-width="2.5" stroke-linecap="round" opacity=".6"/>
+<line x1="380" y1="290" x2="375" y2="330" stroke="#5aaadd" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+<line x1="440" y1="310" x2="435" y2="340" stroke="#5aaadd" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+<line x1="120" y1="400" x2="115" y2="430" stroke="#5aaadd" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+<line x1="350" y1="380" x2="345" y2="415" stroke="#5aaadd" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+<line x1="200" y1="450" x2="195" y2="480" stroke="#5aaadd" stroke-width="2" stroke-linecap="round" opacity=".4"/>
+<line x1="400" y1="440" x2="395" y2="470" stroke="#5aaadd" stroke-width="2" stroke-linecap="round" opacity=".4"/>
+
+<!-- "Oh no!" at bottom -->
+<text x="260" y="580" text-anchor="middle" font-family="'Caveat',cursive" font-size="42" font-weight="700" fill="#c85a20">Oh  no!</text>
+<text x="480" y="710" font-family="'Caveat',cursive" font-size="16" fill="#c8a080">6</text>
+</svg>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 8 · MATH DAY — NO MORE RAIN
+═══════════════════════════════════════════ -->
+<div class="page" id="p8">
+<svg viewBox="0 0 520 728" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+<rect width="520" height="728" fill="#fdf8ee"/>
+<line x1="0" y1="68" x2="520" y2="68" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="116" x2="520" y2="116" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="164" x2="520" y2="164" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="212" x2="520" y2="212" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="260" x2="520" y2="260" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="308" x2="520" y2="308" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="356" x2="520" y2="356" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="404" x2="520" y2="404" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="56" y1="0" x2="56" y2="728" stroke="#e87040" stroke-width="1.2"/>
+
+<!-- diary header -->
+<text x="70" y="52" font-family="'Caveat',cursive" font-size="30" font-weight="700" fill="#c85a20">Dear  Diary</text>
+<text x="340" y="52" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">6/26</text>
+<!-- text -->
+<text x="70" y="100" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">good no more</text>
+<text x="70" y="148" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">rain well right now</text>
+<text x="70" y="196" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">I'm doing math</text>
+<text x="70" y="244" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">its kind of</text>
+<text x="70" y="292" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">fun!</text>
+<text x="200" y="292" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">After</text>
+<text x="70" y="340" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">School mom picked</text>
+<text x="70" y="388" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">me up to...</text>
+
+<!-- illustration: Rookie doing math -->
+<rect x="70" y="430" width="380" height="230" rx="6" fill="white" stroke="#e87040" stroke-width="2"/>
+
+<!-- Rookie at desk -->
+<g transform="translate(180,560)">
+  <!-- desk -->
+  <rect x="-50" y="16" width="100" height="8" rx="2" fill="#d8b880" stroke="#c85a20" stroke-width="1.5"/>
+  <line x1="-44" y1="24" x2="-44" y2="60" stroke="#c85a20" stroke-width="3" stroke-linecap="round"/>
+  <line x1="44" y1="24" x2="44" y2="60" stroke="#c85a20" stroke-width="3" stroke-linecap="round"/>
+  <!-- book on desk -->
+  <rect x="-25" y="4" width="35" height="14" rx="2" fill="white" stroke="#c85a20" stroke-width="1.5"/>
+  <line x1="-8" y1="4" x2="-8" y2="18" stroke="#c85a20" stroke-width="1"/>
+  <!-- math symbols on book -->
+  <text x="-18" y="15" font-family="'Caveat',cursive" font-size="8" fill="#c85a20">2+3</text>
+  <text x="-2" y="15" font-family="'Caveat',cursive" font-size="8" fill="#c85a20">4×5</text>
+  <!-- pencil -->
+  <line x1="14" y1="10" x2="28" y2="-4" stroke="#f0d040" stroke-width="3" stroke-linecap="round"/>
+  <line x1="28" y1="-4" x2="30" y2="-6" stroke="#c85a20" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Rookie puppy sitting -->
+  <ellipse cx="0" cy="-6" rx="20" ry="24" fill="white" stroke="#3a2a1a" stroke-width="2"/>
+  <path d="M-16,-16 Q-18,-6 -12,8 L12,8 Q18,-6 16,-16 Z" fill="#d8dc80" stroke="#3a2a1a" stroke-width="1.2"/>
+  <circle cx="0" cy="-34" r="22" fill="white" stroke="#3a2a1a" stroke-width="2"/>
+  <!-- floppy ears -->
+  <ellipse cx="-17" cy="-30" rx="8" ry="12" fill="#c0a070" stroke="#3a2a1a" stroke-width="1.5" transform="rotate(-10,-17,-30)"/>
+  <ellipse cx="17" cy="-30" rx="8" ry="12" fill="#c0a070" stroke="#3a2a1a" stroke-width="1.5" transform="rotate(10,17,-30)"/>
+  <circle cx="17" cy="-42" r="2.5" fill="#f0d040"/><circle cx="15" cy="-42" r="2" fill="#e85a8a"/><circle cx="19" cy="-42" r="2" fill="#e85a8a"/><circle cx="17" cy="-44" r="2" fill="#e85a8a"/>
+  <circle cx="-2" cy="-50" r="1.2" fill="#3a2a1a"/><circle cx="0" cy="-51.5" r="1.2" fill="#3a2a1a"/><circle cx="2" cy="-50" r="1.2" fill="#3a2a1a"/>
+  <ellipse cx="5" cy="-34" rx="7" ry="5" fill="#c0a070" opacity=".45"/>
+  <!-- focused eyes -->
+  <circle cx="-6" cy="-34" r="1.5" fill="#3a2a1a"/><circle cx="6" cy="-34" r="1.5" fill="#3a2a1a"/>
+  <path d="M0,-27 C-1,-27 -2,-28.5 -2,-29.5 C-2,-30 -1,-30.5 0,-29.5 C1,-30.5 2,-30 2,-29.5 C2,-28.5 1,-27 0,-27Z" fill="#3a2a1a"/>
+  <line x1="-3" y1="-22" x2="3" y2="-22" stroke="#3a2a1a" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="-10" y1="-32" x2="-8" y2="-31" stroke="#e85a8a" stroke-width="1" stroke-linecap="round"/>
+  <line x1="-10" y1="-29" x2="-7" y2="-28" stroke="#e85a8a" stroke-width="1" stroke-linecap="round"/>
+  <line x1="8" y1="-32" x2="10" y2="-31" stroke="#e85a8a" stroke-width="1" stroke-linecap="round"/>
+  <line x1="7" y1="-29" x2="10" y2="-28" stroke="#e85a8a" stroke-width="1" stroke-linecap="round"/>
+</g>
+
+<!-- sun in corner (no more rain!) -->
+<circle cx="400" cy="470" r="28" fill="#f0d840" stroke="#c85a20" stroke-width="2"/>
+<line x1="400" y1="436" x2="400" y2="426" stroke="#c85a20" stroke-width="2" stroke-linecap="round"/>
+<line x1="420" y1="450" x2="430" y2="442" stroke="#c85a20" stroke-width="2" stroke-linecap="round"/>
+<line x1="428" y1="470" x2="438" y2="470" stroke="#c85a20" stroke-width="2" stroke-linecap="round"/>
+<line x1="380" y1="450" x2="370" y2="442" stroke="#c85a20" stroke-width="2" stroke-linecap="round"/>
+<line x1="420" y1="490" x2="430" y2="498" stroke="#c85a20" stroke-width="2" stroke-linecap="round"/>
+<line x1="380" y1="490" x2="370" y2="498" stroke="#c85a20" stroke-width="2" stroke-linecap="round"/>
+<!-- happy face on sun -->
+<path d="M393,468 Q396,464 399,468" stroke="#c85a20" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+<path d="M401,468 Q404,464 407,468" stroke="#c85a20" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+<path d="M394,476 Q400,481 406,476" stroke="#c85a20" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+<text x="480" y="710" font-family="'Caveat',cursive" font-size="16" fill="#c8a080">7</text>
+</svg>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 9 · FARM — GUESS WHAT I SAW MISSY!
+═══════════════════════════════════════════ -->
+<div class="page" id="p9">
+<svg viewBox="0 0 520 728" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+<rect width="520" height="728" fill="#fdf8ee"/>
+<line x1="0" y1="46" x2="520" y2="46" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="94" x2="520" y2="94" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="142" x2="520" y2="142" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="190" x2="520" y2="190" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="238" x2="520" y2="238" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="286" x2="520" y2="286" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="334" x2="520" y2="334" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="56" y1="0" x2="56" y2="728" stroke="#e87040" stroke-width="1.2"/>
+
+<text x="70" y="36" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">Dad which is at the</text>
+<text x="70" y="82" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">farm! When we got</text>
+<text x="70" y="128" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">to the farm</text>
+<text x="70" y="174" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">we look around</text>
+<text x="70" y="220" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">for dad and</text>
+<text x="70" y="266" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">guess what I saw</text>
+<!-- Missy label -->
+<rect x="80" y="302" width="120" height="30" rx="3" fill="white" stroke="#c85a20" stroke-width="2.5"/>
+<text x="140" y="323" text-anchor="middle" font-family="'Bagel Fat One',cursive" font-size="20" fill="#c85a20">Missy!</text>
+<text x="370" y="322" font-family="'Caveat',cursive" font-size="28" font-weight="700" fill="#c85a20">Missy!</text>
+
+<!-- Farm illustration with Missy + flowers + fence -->
+<rect x="40" y="360" width="440" height="310" rx="6" fill="white" stroke="#e87040" stroke-width="2"/>
+<!-- sky -->
+<rect x="42" y="362" width="436" height="100" fill="#e0f0f8"/>
+<!-- sun -->
+<circle cx="420" cy="400" r="22" fill="#f0d840" stroke="#c85a20" stroke-width="1.5"/>
+<line x1="420" y1="372" x2="420" y2="364" stroke="#c85a20" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="436" y1="384" x2="442" y2="378" stroke="#c85a20" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="404" y1="384" x2="398" y2="378" stroke="#c85a20" stroke-width="1.5" stroke-linecap="round"/>
+<!-- grass -->
+<rect x="42" y="460" width="436" height="80" fill="#d8f0c0"/>
+<!-- fence -->
+<rect x="60" y="518" width="400" height="6" rx="2" fill="#c8a070" stroke="#a07040" stroke-width="1"/>
+<rect x="60" y="534" width="400" height="6" rx="2" fill="#c8a070" stroke="#a07040" stroke-width="1"/>
+<rect x="80" y="504" width="8" height="44" rx="2" fill="#c8a070" stroke="#a07040" stroke-width="1"/>
+<rect x="140" y="504" width="8" height="44" rx="2" fill="#c8a070" stroke="#a07040" stroke-width="1"/>
+<rect x="200" y="504" width="8" height="44" rx="2" fill="#c8a070" stroke="#a07040" stroke-width="1"/>
+<rect x="260" y="504" width="8" height="44" rx="2" fill="#c8a070" stroke="#a07040" stroke-width="1"/>
+<rect x="320" y="504" width="8" height="44" rx="2" fill="#c8a070" stroke="#a07040" stroke-width="1"/>
+<rect x="380" y="504" width="8" height="44" rx="2" fill="#c8a070" stroke="#a07040" stroke-width="1"/>
+<rect x="440" y="504" width="8" height="44" rx="2" fill="#c8a070" stroke="#a07040" stroke-width="1"/>
+
+<!-- flowers in farm -->
+<g transform="translate(100,490)">
+  <line x1="0" y1="0" x2="0" y2="18" stroke="#4a8040" stroke-width="2"/>
+  <circle cx="0" cy="-2" r="8" fill="#f0d040"/>
+  <circle cx="-6" cy="-2" r="4" fill="#e85a8a" opacity=".8"/>
+  <circle cx="6" cy="-2" r="4" fill="#e85a8a" opacity=".8"/>
+  <circle cx="0" cy="-8" r="4" fill="#e85a8a" opacity=".8"/>
+  <circle cx="0" cy="4" r="4" fill="#e85a8a" opacity=".8"/>
+</g>
+<g transform="translate(350,488)">
+  <line x1="0" y1="0" x2="0" y2="18" stroke="#4a8040" stroke-width="2"/>
+  <circle cx="0" cy="-2" r="7" fill="#f0d040"/>
+  <circle cx="-5" cy="-2" r="3.5" fill="#f0b0c0" opacity=".8"/>
+  <circle cx="5" cy="-2" r="3.5" fill="#f0b0c0" opacity=".8"/>
+  <circle cx="0" cy="-7" r="3.5" fill="#f0b0c0" opacity=".8"/>
+  <circle cx="0" cy="3" r="3.5" fill="#f0b0c0" opacity=".8"/>
+</g>
+<g transform="translate(420,492)">
+  <line x1="0" y1="0" x2="0" y2="16" stroke="#4a8040" stroke-width="2"/>
+  <circle cx="0" cy="-2" r="6" fill="#f0d040"/>
+  <circle cx="-4" cy="-2" r="3" fill="#e85a8a" opacity=".8"/>
+  <circle cx="4" cy="-2" r="3" fill="#e85a8a" opacity=".8"/>
+</g>
+
+<!-- Missy in the farm (calico cat with flower) -->
+<g transform="translate(230,490)">
+  <ellipse cx="0" cy="12" rx="24" ry="28" fill="white" stroke="#c85a20" stroke-width="2"/>
+  <path d="M-12,2 Q-4,-6 4,2 Q-2,10 -12,2Z" fill="#a07048" opacity=".6"/>
+  <path d="M8,16 Q16,8 22,18 Q14,24 8,16Z" fill="#a07048" opacity=".6"/>
+  <circle cx="0" cy="-18" r="24" fill="white" stroke="#c85a20" stroke-width="2"/>
+  <path d="M-16,-28 Q-8,-38 -4,-24 Q-12,-22 -16,-28Z" fill="#a07048" opacity=".7"/>
+  <path d="M12,-32 Q20,-28 14,-20 Q8,-24 12,-32Z" fill="#a07048" opacity=".7"/>
+  <path d="M-14,-34 L-10,-50 L-2,-34" stroke="#c85a20" stroke-width="2" fill="white" stroke-linejoin="round"/>
+  <path d="M14,-34 L10,-50 L2,-34" stroke="#c85a20" stroke-width="2" fill="white" stroke-linejoin="round"/>
+  <path d="M-11,-36 L-9,-44 L-5,-36" fill="#f0b0c0"/>
+  <path d="M11,-36 L9,-44 L5,-36" fill="#f0b0c0"/>
+  <circle cx="-8" cy="-20" r="4" fill="#5a3a1a"/>
+  <circle cx="8" cy="-20" r="4" fill="#5a3a1a"/>
+  <circle cx="-6" cy="-22" r="1.5" fill="white"/>
+  <circle cx="10" cy="-22" r="1.5" fill="white"/>
+  <circle cx="-14" cy="-14" r="5" fill="#f0b0c0" opacity=".5"/>
+  <circle cx="14" cy="-14" r="5" fill="#f0b0c0" opacity=".5"/>
+  <ellipse cx="0" cy="-12" rx="2.5" ry="1.5" fill="#f0b0c0"/>
+  <path d="M-3,-8 Q0,-5 3,-8" stroke="#5a3a1a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <!-- holding a flower -->
+  <line x1="12" y1="-2" x2="20" y2="-14" stroke="#4a8040" stroke-width="2"/>
+  <circle cx="21" cy="-17" r="5" fill="#f0d040"/>
+  <circle cx="17" cy="-17" r="3" fill="#e85a8a"/>
+  <circle cx="25" cy="-17" r="3" fill="#e85a8a"/>
+  <circle cx="21" cy="-22" r="3" fill="#e85a8a"/>
+</g>
+<!-- "Missy" label -->
+<text x="230" y="560" text-anchor="middle" font-family="'Caveat',cursive" font-size="16" font-weight="700" fill="#c85a20">Missy</text>
+
+<text x="480" y="710" font-family="'Caveat',cursive" font-size="16" fill="#c8a080">8</text>
+</svg>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 10 · SLEEPY — WENT HOME AND SLEPT
+═══════════════════════════════════════════ -->
+<div class="page" id="p10">
+<svg viewBox="0 0 520 728" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+<rect width="520" height="728" fill="#fdf8ee"/>
+<line x1="0" y1="46" x2="520" y2="46" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="94" x2="520" y2="94" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="142" x2="520" y2="142" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="190" x2="520" y2="190" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="238" x2="520" y2="238" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="286" x2="520" y2="286" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="334" x2="520" y2="334" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="0" y1="382" x2="520" y2="382" stroke="#f0cca8" stroke-width="1.2"/>
+<line x1="56" y1="0" x2="56" y2="728" stroke="#e87040" stroke-width="1.2"/>
+
+<text x="70" y="36" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">but I'm</text>
+<text x="70" y="82" font-family="'Caveat',cursive" font-size="28" font-weight="700" fill="#c85a20">So  Sleepy</text>
+<text x="70" y="130" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">"yawn" I said</text>
+<text x="70" y="190" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">So when</text>
+<text x="70" y="236" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">we picked</text>
+<text x="70" y="280" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">up dad we</text>
+<text x="70" y="326" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">went home</text>
+<text x="70" y="370" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">and slept</text>
+
+<!-- illustration: Rookie sleeping -->
+<g transform="translate(260,530)">
+  <!-- bed -->
+  <rect x="-80" y="15" width="160" height="50" rx="8" fill="#e8d8c0" stroke="#c85a20" stroke-width="2"/>
+  <!-- pillow -->
+  <ellipse cx="-50" cy="18" rx="30" ry="16" fill="white" stroke="#c85a20" stroke-width="1.5"/>
+  <!-- blanket -->
+  <rect x="-40" y="22" width="110" height="36" rx="5" fill="#f0b0c0" stroke="#c85a20" stroke-width="1.5"/>
+  <!-- sleeping Rookie puppy head on pillow -->
+  <circle cx="-46" cy="2" r="26" fill="white" stroke="#3a2a1a" stroke-width="2.5"/>
+  <!-- floppy ears (drooping while sleeping) -->
+  <ellipse cx="-64" cy="6" rx="10" ry="14" fill="#c0a070" stroke="#3a2a1a" stroke-width="1.5" transform="rotate(-15,-64,6)"/>
+  <ellipse cx="-28" cy="6" rx="10" ry="14" fill="#c0a070" stroke="#3a2a1a" stroke-width="1.5" transform="rotate(15,-28,6)"/>
+  <!-- flower on right ear -->
+  <circle cx="-28" cy="-6" r="2.5" fill="#f0d040"/><circle cx="-31" cy="-6" r="2" fill="#e85a8a"/><circle cx="-25" cy="-6" r="2" fill="#e85a8a"/><circle cx="-28" cy="-8.5" r="2" fill="#e85a8a"/>
+  <!-- dots on forehead -->
+  <circle cx="-49" cy="-18" r="1.5" fill="#3a2a1a"/><circle cx="-46" cy="-20" r="1.5" fill="#3a2a1a"/><circle cx="-43" cy="-18" r="1.5" fill="#3a2a1a"/>
+  <!-- brown eye patch -->
+  <ellipse cx="-40" cy="2" rx="8" ry="6" fill="#c0a070" opacity=".45"/>
+  <!-- closed sleeping eyes -->
+  <line x1="-53" y1="2" x2="-47" y2="2" stroke="#3a2a1a" stroke-width="2" stroke-linecap="round"/>
+  <line x1="-43" y1="2" x2="-37" y2="2" stroke="#3a2a1a" stroke-width="2" stroke-linecap="round"/>
+  <!-- nose -->
+  <path d="M-46,7 C-47,7 -48,6 -48,5.5 C-48,5 -47,4.5 -46,5.5 C-45,4.5 -44,5 -44,5.5 C-44,6 -45,7 -46,7Z" fill="#3a2a1a"/>
+  <!-- sleeping mouth -->
+  <path d="M-49,11 Q-46,14 -43,11" stroke="#3a2a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- blush -->
+  <line x1="-58" y1="4" x2="-55" y2="5" stroke="#e85a8a" stroke-width="1" stroke-linecap="round"/>
+  <line x1="-57" y1="7" x2="-54" y2="8" stroke="#e85a8a" stroke-width="1" stroke-linecap="round"/>
+  <line x1="-37" y1="4" x2="-34" y2="5" stroke="#e85a8a" stroke-width="1" stroke-linecap="round"/>
+  <line x1="-38" y1="7" x2="-35" y2="8" stroke="#e85a8a" stroke-width="1" stroke-linecap="round"/>
+  <!-- Z z z -->
+  <text x="10" y="-20" font-family="'Bagel Fat One',cursive" font-size="28" fill="#c85a20" opacity=".7">Z</text>
+  <text x="36" y="-38" font-family="'Bagel Fat One',cursive" font-size="22" fill="#c85a20" opacity=".5">z</text>
+  <text x="56" y="-50" font-family="'Bagel Fat One',cursive" font-size="16" fill="#c85a20" opacity=".35">z</text>
+</g>
+
+<!-- "well Bye" at bottom -->
+<text x="260" y="640" text-anchor="middle" font-family="'Caveat',cursive" font-size="28" fill="#c85a20">well</text>
+<text x="260" y="680" text-anchor="middle" font-family="'Caveat',cursive" font-size="32" font-weight="700" fill="#c85a20">Bye</text>
+<text x="480" y="710" font-family="'Caveat',cursive" font-size="16" fill="#c8a080">9</text>
+</svg>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 11 · ABOUT THE AUTHOR
+═══════════════════════════════════════════ -->
+<div class="page" id="p11">
+<svg viewBox="0 0 520 728" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+<rect width="520" height="728" fill="#fdf8ee"/>
+
+<!-- title -->
+<text x="260" y="52" text-anchor="middle" font-family="'Caveat',cursive" font-size="30" font-weight="700" fill="#c85a20">about</text>
+<text x="260" y="90" text-anchor="middle" font-family="'Caveat',cursive" font-size="30" font-weight="700" fill="#c85a20">the author</text>
+
+<!-- self portrait in frame (right side) -->
+<rect x="300" y="60" width="160" height="180" rx="4" fill="white" stroke="#c85a20" stroke-width="2.5"/>
+<!-- simple stick girl (Anna's self-portrait style) -->
+<g transform="translate(380,150)">
+  <!-- hair -->
+  <path d="M-14,-15 Q-22,-18 -24,5 Q-25,25 -22,40 L-14,40 L-14,5 Q-14,-6 -14,-15 Z" fill="#c85a20"/>
+  <path d="M14,-15 Q22,-18 24,5 Q25,25 22,40 L14,40 L14,5 Q14,-6 14,-15 Z" fill="#c85a20"/>
+  <path d="M-14,-15 Q0,-25 14,-15 Q8,-20 0,-22 Q-8,-20 -14,-15 Z" fill="#c85a20"/>
+  <!-- face -->
+  <circle cx="0" cy="0" r="18" fill="none" stroke="#c85a20" stroke-width="2.5"/>
+  <!-- eyes -->
+  <circle cx="-6" cy="-2" r="3" fill="#c85a20"/>
+  <circle cx="6" cy="-2" r="3" fill="#c85a20"/>
+  <!-- smile -->
+  <path d="M-5,6 Q0,11 5,6" stroke="#c85a20" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- body -->
+  <line x1="0" y1="18" x2="0" y2="50" stroke="#c85a20" stroke-width="3" stroke-linecap="round"/>
+  <!-- arms -->
+  <line x1="0" y1="28" x2="-20" y2="40" stroke="#c85a20" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="0" y1="28" x2="20" y2="40" stroke="#c85a20" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- legs -->
+  <line x1="0" y1="50" x2="-12" y2="68" stroke="#c85a20" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="0" y1="50" x2="12" y2="68" stroke="#c85a20" stroke-width="2.5" stroke-linecap="round"/>
+</g>
+
+<!-- text -->
+<text x="70" y="148" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">Anna loves</text>
+<text x="70" y="196" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">making</text>
+<text x="70" y="244" font-family="'Caveat',cursive" font-size="28" font-weight="700" fill="#c85a20">books!</text>
+<text x="70" y="284" font-family="'Caveat',cursive" font-size="26" fill="#c85a20">And playing!</text>
+
+<!-- tic-tac-toe game grid -->
+<rect x="60" y="310" width="280" height="280" rx="4" fill="white" stroke="#c85a20" stroke-width="2"/>
+<!-- grid lines -->
+<line x1="152" y1="315" x2="152" y2="585" stroke="#c85a20" stroke-width="2.5"/>
+<line x1="248" y1="315" x2="248" y2="585" stroke="#c85a20" stroke-width="2.5"/>
+<line x1="65" y1="400" x2="335" y2="400" stroke="#c85a20" stroke-width="2.5"/>
+<line x1="65" y1="495" x2="335" y2="495" stroke="#c85a20" stroke-width="2.5"/>
+<!-- # symbols in cells -->
+<text x="106" y="368" text-anchor="middle" font-family="'Bagel Fat One',cursive" font-size="32" fill="#c85a20">#</text>
+<text x="200" y="368" text-anchor="middle" font-family="'Bagel Fat One',cursive" font-size="32" fill="#c85a20">#</text>
+<text x="290" y="368" text-anchor="middle" font-family="'Bagel Fat One',cursive" font-size="32" fill="#c85a20">#</text>
+<text x="106" y="458" text-anchor="middle" font-family="'Bagel Fat One',cursive" font-size="32" fill="#c85a20">#</text>
+<text x="200" y="458" text-anchor="middle" font-family="'Bagel Fat One',cursive" font-size="32" fill="#c85a20">#</text>
+<text x="290" y="458" text-anchor="middle" font-family="'Bagel Fat One',cursive" font-size="32" fill="#c85a20">#</text>
+<text x="106" y="550" text-anchor="middle" font-family="'Bagel Fat One',cursive" font-size="32" fill="#c85a20">#</text>
+<text x="200" y="550" text-anchor="middle" font-family="'Bagel Fat One',cursive" font-size="32" fill="#c85a20">#</text>
+<text x="290" y="550" text-anchor="middle" font-family="'Bagel Fat One',cursive" font-size="32" fill="#c85a20">#</text>
+<!-- one circle/face in the grid -->
+<circle cx="106" cy="438" r="14" fill="none" stroke="#c85a20" stroke-width="2.5"/>
+<circle cx="103" cy="434" r="2" fill="#c85a20"/>
+<circle cx="109" cy="434" r="2" fill="#c85a20"/>
+<path d="M102,443 Q106,448 110,443" stroke="#c85a20" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+<!-- "How many # count" at bottom -->
+<text x="70" y="620" font-family="'Caveat',cursive" font-size="20" fill="#c85a20">How many # count</text>
+</svg>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 12 · THE END
+═══════════════════════════════════════════ -->
+<div class="page" id="p12">
+<svg viewBox="0 0 520 728" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+<rect width="520" height="728" fill="#f8a860"/>
+<rect width="520" height="728" fill="#e87040" opacity=".06"/>
+
+<!-- hearts -->
+<path d="M80,80 C80,80 72,72 72,68 C72,64 76,63 80,66 C84,63 88,64 88,68 C88,72 80,80 80,80Z" fill="#e85a8a" opacity=".7"/>
+<path d="M440,100 C440,100 434,93 434,89 C434,85 437,84 440,87 C443,84 446,85 446,89 C446,93 440,100 440,100Z" fill="#c85a20" opacity=".6"/>
+<path d="M90,600 C90,600 84,593 84,589 C84,585 87,584 90,587 C93,584 96,585 96,589 C96,593 90,600 90,600Z" fill="#f0d040" opacity=".7"/>
+
+<!-- "The End" -->
+<text x="260" y="200" text-anchor="middle" font-family="'Bagel Fat One',cursive" font-size="80" fill="#c85a20">The</text>
+<text x="260" y="300" text-anchor="middle" font-family="'Bagel Fat One',cursive" font-size="80" fill="#c85a20">End</text>
+<path d="M100,310 Q180,322 260,310 Q340,298 420,310" stroke="#c85a20" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+<!-- cute sticker cat in corner -->
+<g transform="translate(430,60) scale(.8)">
+  <circle cx="0" cy="0" r="20" fill="white" stroke="#c85a20" stroke-width="2"/>
+  <path d="M-12,-14 L-8,-26 L-2,-14" fill="#a07048" stroke="#c85a20" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M12,-14 L8,-26 L2,-14" fill="white" stroke="#c85a20" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M10,-15 L7,-23 L4,-15" fill="#f0b0c0"/>
+  <circle cx="-6" cy="-2" r="3" fill="#5a3a1a"/>
+  <circle cx="6" cy="-2" r="3" fill="#5a3a1a"/>
+  <ellipse cx="0" cy="4" rx="2" ry="1.5" fill="#f0b0c0"/>
+  <path d="M-3,7 Q0,10 3,7" stroke="#5a3a1a" stroke-width="1" fill="none" stroke-linecap="round"/>
+</g>
+
+<!-- "Rookie is a cute Dog!" -->
+<text x="260" y="420" text-anchor="middle" font-family="'Caveat',cursive" font-size="30" fill="#c85a20">Rookie is</text>
+<text x="260" y="470" text-anchor="middle" font-family="'Caveat',cursive" font-size="30" fill="#c85a20">a cute</text>
+<text x="260" y="530" text-anchor="middle" font-family="'Bagel Fat One',cursive" font-size="50" fill="#c85a20">Dog!</text>
+
+<!-- small Rookie puppy at bottom -->
+<g transform="translate(260,620)">
+  <!-- tail puff -->
+  <ellipse cx="-30" cy="30" rx="8" ry="7" fill="white" stroke="#3a2a1a" stroke-width="1.5"/>
+  <!-- body -->
+  <ellipse cx="0" cy="22" rx="26" ry="28" fill="white" stroke="#3a2a1a" stroke-width="2"/>
+  <path d="M-22,10 Q-24,22 -18,32 L18,32 Q24,22 22,10 Z" fill="#d8dc80" stroke="#3a2a1a" stroke-width="1.5"/>
+  <path d="M-16,32 L-18,44 L-4,44 L-4,32 Z" fill="#c0a8d0" stroke="#3a2a1a" stroke-width="1"/>
+  <path d="M16,32 L18,44 L4,44 L4,32 Z" fill="#c0a8d0" stroke="#3a2a1a" stroke-width="1"/>
+  <!-- arms -->
+  <ellipse cx="-26" cy="16" rx="8" ry="6" fill="#f0d0c8" stroke="#3a2a1a" stroke-width="1.5"/>
+  <ellipse cx="26" cy="16" rx="8" ry="6" fill="#f0d0c8" stroke="#3a2a1a" stroke-width="1.5"/>
+  <!-- feet -->
+  <ellipse cx="-10" cy="48" rx="8" ry="5" fill="#f0d0c8" stroke="#3a2a1a" stroke-width="1.5"/>
+  <ellipse cx="10" cy="48" rx="8" ry="5" fill="#f0d0c8" stroke="#3a2a1a" stroke-width="1.5"/>
+  <!-- head -->
+  <circle cx="0" cy="-10" r="28" fill="white" stroke="#3a2a1a" stroke-width="2"/>
+  <!-- dots -->
+  <circle cx="-3" cy="-30" r="1.5" fill="#3a2a1a"/><circle cx="0" cy="-32" r="1.5" fill="#3a2a1a"/><circle cx="3" cy="-30" r="1.5" fill="#3a2a1a"/>
+  <!-- floppy ears -->
+  <ellipse cx="-22" cy="-6" rx="10" ry="14" fill="#c0a070" stroke="#3a2a1a" stroke-width="1.5" transform="rotate(-10,-22,-6)"/>
+  <ellipse cx="22" cy="-6" rx="10" ry="14" fill="#c0a070" stroke="#3a2a1a" stroke-width="1.5" transform="rotate(10,22,-6)"/>
+  <!-- flower -->
+  <circle cx="22" cy="-18" r="2.5" fill="#f0d040"/><circle cx="19" cy="-18" r="2" fill="#e85a8a"/><circle cx="25" cy="-18" r="2" fill="#e85a8a"/><circle cx="22" cy="-20.5" r="2" fill="#e85a8a"/>
+  <!-- eye patch -->
+  <ellipse cx="6" cy="-10" rx="8" ry="6" fill="#c0a070" opacity=".45"/>
+  <!-- happy eyes -->
+  <path d="M-9,-11 Q-6,-7 -3,-11" stroke="#3a2a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <path d="M3,-11 Q6,-7 9,-11" stroke="#3a2a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <!-- nose -->
+  <path d="M0,-4 C-1,-4 -2.5,-5.5 -2.5,-6.5 C-2.5,-7 -1,-7.5 0,-6.5 C1,-7.5 2.5,-7 2.5,-6.5 C2.5,-5.5 1,-4 0,-4Z" fill="#3a2a1a"/>
+  <path d="M-4,2 Q0,6 4,2" stroke="#3a2a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- blush -->
+  <line x1="-13" y1="-8" x2="-10" y2="-7" stroke="#e85a8a" stroke-width="1" stroke-linecap="round"/>
+  <line x1="-12" y1="-5" x2="-9" y2="-4" stroke="#e85a8a" stroke-width="1" stroke-linecap="round"/>
+  <line x1="10" y1="-8" x2="13" y2="-7" stroke="#e85a8a" stroke-width="1" stroke-linecap="round"/>
+  <line x1="9" y1="-5" x2="12" y2="-4" stroke="#e85a8a" stroke-width="1" stroke-linecap="round"/>
+</g>
+
+<text x="260" y="700" text-anchor="middle" font-family="'Caveat',cursive" font-size="18" fill="#8a5a20">By: Zhaoyi (Anna) Dai</text>
+</svg>
+</div>
+
+</div><!-- #book -->
+
+<div id="nav">
+  <button onclick="go(-1)">← Prev</button>
+  <span id="ctr">1 / 12</span>
+  <button onclick="go(1)">Next →</button>
+</div>
+
+<script>
+const N=12; let cur=1;
+function go(d){
+  cur=Math.max(1,Math.min(N,cur+d));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('p'+cur).classList.add('active');
+  document.getElementById('ctr').textContent=cur+' / '+N;
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown') go(1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp') go(-1);
+});
+</script>
+</body>
+</html>
